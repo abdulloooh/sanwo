@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const ListGroup = (props) => {
   const {
@@ -21,9 +22,9 @@ const ListGroup = (props) => {
                 ? "list-group-item active p-3 text-center"
                 : "list-group-item p-3 text-center"
             }
-            onClick={() => onItemSelect(item)}
+            // onClick={() => <Link to="/byme" />}
           >
-            {item[valueProperty]}
+            <Link to={item._id}>{item[valueProperty]}</Link>
           </li>
         );
       })}
