@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import TableBody from "./common/tableBody";
+import { Table } from "react-bootstrap";
 /*
 Interface
 ==>debts
@@ -12,19 +13,19 @@ class DebtsTable extends Component {
       label: false,
       content: (item) => <Link to={`/debts/${item._id}`}>{item.name}</Link>,
     },
+    { path: "amount", label: "Amount" },
     { path: "description", label: false },
     { path: "dateIncurred", label: "Incurred" },
     { path: "dateDue", label: "Due" },
-    { path: "amount", label: "Amount" },
   ];
 
   render() {
     const { debts } = this.props;
 
     return (
-      <table className="table">
+      <Table id="debtBody" hover responsive>
         <TableBody data={debts} columns={this.columns} />
-      </table>
+      </Table>
     );
   }
 }

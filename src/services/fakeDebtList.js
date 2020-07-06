@@ -6,14 +6,17 @@ const debts = [
     amount: 380,
     dateIncurred: "2020-09-11",
     dateDue: "2020-10-02",
+    status: "dr",
   },
   {
     _id: "6hdhjsh280",
     name: "Obioma Adetola",
-    description: "Airtime Money",
+    description:
+      "Airtime Money Airtime Money Airtime Money Airtime Money debtBodydebtBodydebtBody",
     amount: 400,
     dateIncurred: "2020-04-11",
     dateDue: "2020-10-05",
+    status: "cr",
   },
   {
     _id: "6hdh900120",
@@ -22,6 +25,7 @@ const debts = [
     amount: 3180,
     dateIncurred: "2019-09-11",
     dateDue: "2020-10-02",
+    status: "dr",
   },
   {
     _id: "6hdh90021z",
@@ -30,6 +34,7 @@ const debts = [
     amount: 180,
     dateIncurred: "2020-09-11",
     dateDue: "2020-09-15",
+    status: "cr",
   },
   {
     _id: "6hdh900170",
@@ -38,6 +43,16 @@ const debts = [
     amount: 24000,
     dateIncurred: "2020-09-11",
     dateDue: "2021-10-02",
+    status: "dr",
+  },
+  {
+    _id: "6hdh900170",
+    name: "Tosin Funaab",
+    description: "Tfare",
+    amount: 2400,
+    dateIncurred: "2020-09-11",
+    dateDue: "2021-10-02",
+    status: "cr",
   },
 ];
 

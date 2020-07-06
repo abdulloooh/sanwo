@@ -16,9 +16,25 @@ class TableBody extends Component {
         {data &&
           data.map((item) => (
             <tr key={item._id}>
-              {columns.map((column) => (
-                <td key={column.path}>{this.renderCell(item, column)}</td>
-              ))}
+              <td>
+                {columns.map((column) => (
+                  <p
+                    className={
+                      column.path === "description" ? "description" : ""
+                    }
+                    key={column.path}
+                  >
+                    {!(column.path === "amount") &&
+                      this.renderCell(item, column)}
+                  </p>
+                ))}
+              </td>
+              <td>
+                {this.renderCell(
+                  item,
+                  columns.find((c) => c.path === "amount")
+                )}
+              </td>
             </tr>
           ))}
       </tbody>

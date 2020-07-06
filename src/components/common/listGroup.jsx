@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-
+import "../../listGroup.css";
 const ListGroup = (props) => {
   const {
     items,
@@ -11,20 +10,20 @@ const ListGroup = (props) => {
     valueProperty,
   } = props;
   return (
-    <ul className="list-group py-5">
+    <ul className="list-group py-2">
       {items.map((item) => {
         return (
           <li
             key={item[keyProperty]}
             style={{ cursor: "pointer" }}
             className={
-              item === selectedItem
+              item[keyProperty] === selectedItem[keyProperty]
                 ? "list-group-item active p-3 text-center"
                 : "list-group-item p-3 text-center"
             }
-            // onClick={() => <Link to="/byme" />}
+            onClick={() => onItemSelect(item)}
           >
-            <Link to={item._id}>{item[valueProperty]}</Link>
+            {item[valueProperty]}
           </li>
         );
       })}

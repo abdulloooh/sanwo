@@ -1,0 +1,10 @@
+.description {
+  max-width: 200px !important;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.description:hover {
+  overflow: show;
+}
