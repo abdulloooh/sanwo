@@ -1,3 +1,9 @@
+/*
+Here:
+dr : the money owed to me
+cr : the money owed by me
+*/
+
 const debts = [
   {
     _id: "6hdh900280",
@@ -28,6 +34,24 @@ const debts = [
     status: "dr",
   },
   {
+    _id: "6hdh900170",
+    name: "Tosin Funaab",
+    description: "Tfare",
+    amount: 2400,
+    dateIncurred: "2020-09-11",
+    dateDue: "2021-10-02",
+    status: "dr",
+  },
+  {
+    _id: "7ydh900280",
+    name: "Tosin Adetola",
+    description: "Data Money",
+    amount: 380,
+    dateIncurred: "2020-09-11",
+    dateDue: "2020-10-02",
+    status: "dr",
+  },
+  {
     _id: "6hdh90021z",
     name: "Grace Adetola",
     description: "Chips bought at canteen",
@@ -37,7 +61,7 @@ const debts = [
     status: "cr",
   },
   {
-    _id: "6hdh900170",
+    _id: "5hdh900170",
     name: "Tosin Yakubu",
     description: "House rent",
     amount: 24000,
