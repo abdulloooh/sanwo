@@ -49,6 +49,7 @@ class Form extends Component {
 
   handleChange = ({ currentTarget: input }) => {
     const { name: path, value } = input;
+    // console.log(value);
     const data = { ...this.state.data };
     data[path] = value;
     this.setState({ data });
@@ -94,7 +95,7 @@ class Form extends Component {
         label={label}
         id={path}
         name={path}
-        value={_.get(data, path)}
+        value={_.get(data, path) || "cr"}
         onChange={this.handleChange}
         options={options}
         error={errors[path]}
@@ -113,6 +114,7 @@ class Form extends Component {
         onDateChange={this.handleDateChange}
         label={label}
         path={path}
+        value={currentDate}
       />
     );
   }

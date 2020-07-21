@@ -98,7 +98,7 @@ export function saveDebt(debt) {
 
   //if it is a new debt
   if (!debtClone._id) {
-    debt._id = Date.now().toString();
+    debtClone._id = Date.now().toString();
     debts.push(debtClone);
   }
 

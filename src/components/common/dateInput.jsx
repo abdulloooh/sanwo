@@ -10,9 +10,10 @@ const DateInput = ({
   label,
   registerWhichDate,
   path,
+  ...rest
 }) => {
   return (
-    <Form.Group>
+    <Form.Group {...rest}>
       <Form.Label>{label}</Form.Label>
       <DatePicker
         onInputClick={() => registerWhichDate(path)}

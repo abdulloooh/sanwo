@@ -11,6 +11,7 @@ function App() {
       <NavbarNavGuest />
       <Switch>
         <Route path="/debts/:id" component={DebtForm}></Route>
+        <Route path="/debts/new" component={DebtForm}></Route>
         <Route path="/">
           <Body />
         </Route>

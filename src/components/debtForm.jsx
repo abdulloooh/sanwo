@@ -26,12 +26,13 @@ class DebtForm extends Form {
 
   componentDidMount = () => {
     let { id } = this.props.match.params;
-    const debt = getDebt(id);
+    const debt = getDebt(id) || {};
     this.setState({ data: debt });
   };
 
   doSubmit = () => {
-    saveDebt(this.state.data);
+    console.log(this.state.data);
+    console.log(saveDebt(this.state.data));
     this.props.history.push("/");
   };
 
