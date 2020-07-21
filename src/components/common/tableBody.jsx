@@ -15,30 +15,37 @@ class TableBody extends Component {
       <tbody>
         {data &&
           data.map((item) => (
-            <tr key={item._id}>
+            <tr key={item._id || item.name}>
               <td>
-                {columns.map((column) => (
+                {columns.map((c) => (
                   <p
                     className={
-                      column.path === "description" ? "description" : ""
+                      c.path === "description" ? "description" : "" //for external styling of description
                     }
-                    key={column.path}
+                    key={c.path}
                   >
-                    {!(column.path === "amount") &&
-                      this.renderCell(item, column)}
+                    {/* label */}
+                    {this.excludeAmountOrBalance(c) && c.label && `${c.label}:`}
+
+                    {/* value */}
+                    {this.excludeAmountOrBalance(c) && this.renderCell(item, c)}
                   </p>
                 ))}
               </td>
               <td>
                 {this.renderCell(
                   item,
-                  columns.find((c) => c.path === "amount")
+                  columns.find((c) => !this.excludeAmountOrBalance(c)) //that is include amount or balance
                 )}
               </td>
             </tr>
           ))}
       </tbody>
     );
+  }
+
+  excludeAmountOrBalance(column) {
+    return !(column.path === "amount" || column.path === "balance");
   }
 }
 

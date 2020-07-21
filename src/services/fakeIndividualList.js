@@ -2,8 +2,6 @@
 debitBalance: Total money I am owing
 creditBalance: Total money I am expecting/have
 
-dr moneys: money owed to me by debtors
-cr moneys: money owed by me
 */
 
 import { getDebts } from "./fakeDebtList";
@@ -11,26 +9,26 @@ import { getDebts } from "./fakeDebtList";
 const debts = getDebts();
 
 export function getIndividualDebts() {
-  var { uniqueNameList, nameList } = getNameList();
+  var { uniqueNameList } = getNameList();
 
-  return classifyIndividualDebts(uniqueNameList, nameList);
+  return classifyIndividualDebts(uniqueNameList);
 }
 
-function classifyIndividualDebts(uniqueNameList, nameList) {
+function classifyIndividualDebts(uniqueNameList) {
   let individual = [];
   uniqueNameList.forEach((u) => {
     let debtsPerNameList = debts.filter((d) => d.name === u);
     let debitBalance = 0;
     let creditBalance = 0;
     debtsPerNameList.forEach((d) => {
-      if (d.status === "dr") creditBalance += d.amount;
-      else if (d.status === "cr") debitBalance += d.amount;
+      if (d.status === "cr") creditBalance += Number(d.amount);
+      else if (d.status === "dr") debitBalance += Number(d.amount);
     });
     let newItem = {}; //create new property with empty object value
     newItem.name = u;
     newItem.tome = creditBalance;
     newItem.byme = debitBalance;
-    newItem.balance = creditBalance - debitBalance;
+    newItem.balance = Number(creditBalance) - Number(debitBalance);
     individual.push(newItem);
   });
 
@@ -45,5 +43,5 @@ function getNameList() {
   let uniqueNameList = nameList.filter(
     (n, index) => nameList.indexOf(n) === index
   );
-  return { uniqueNameList, nameList };
+  return { uniqueNameList };
 }

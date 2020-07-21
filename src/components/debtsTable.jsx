@@ -18,13 +18,28 @@ class DebtsTable extends Component {
     { path: "dateIncurred", label: "Incurred" },
     { path: "dateDue", label: "Due" },
   ];
+  individualColumns = [
+    {
+      path: "name",
+      label: false,
+      content: (item) => <strong>{item.name}</strong>,
+    },
+    { path: "tome", label: "Owed To Me" },
+    { path: "byme", label: "Owed By Me" },
+    { path: "balance", label: "Balance" },
+  ];
 
   render() {
-    const { debts } = this.props;
+    const { debts, category } = this.props;
 
     return (
       <Table id="debtBody" hover responsive>
-        <TableBody data={debts} columns={this.columns} />
+        <TableBody
+          data={debts}
+          columns={
+            category === "individual" ? this.individualColumns : this.columns
+          }
+        />
       </Table>
     );
   }
