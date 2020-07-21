@@ -95,7 +95,7 @@ class Form extends Component {
         label={label}
         id={path}
         name={path}
-        value={_.get(data, path) || "cr"}
+        value={_.get(data, path)}
         onChange={this.handleChange}
         options={options}
         error={errors[path]}

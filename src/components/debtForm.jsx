@@ -26,7 +26,15 @@ class DebtForm extends Form {
 
   componentDidMount = () => {
     let { id } = this.props.match.params;
-    const debt = getDebt(id) || {};
+    const debt =
+      id === "new"
+        ? {
+            dateIncurred: new Date(Date.now()).toDateString(),
+            dateDue: new Date(Date.now()).toDateString(),
+            status: "cr",
+          }
+        : getDebt(id);
+    //set default value for new
     this.setState({ data: debt });
   };
 
