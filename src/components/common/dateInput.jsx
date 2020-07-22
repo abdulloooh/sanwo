@@ -14,7 +14,7 @@ const DateInput = ({
 }) => {
   return (
     <Form.Group {...rest}>
-      <Form.Label>{label}</Form.Label>
+      <Form.Label>{label}: &nbsp;</Form.Label>
       <DatePicker
         onInputClick={() => registerWhichDate(path)}
         selected={new Date(currentDate)}
