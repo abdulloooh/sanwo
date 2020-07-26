@@ -1,5 +1,5 @@
 import React from "react";
-import { Form } from "react-bootstrap";
+import { Form, Row, Col } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -14,13 +14,19 @@ const DateInput = ({
 }) => {
   return (
     <Form.Group {...rest}>
-      <Form.Label>{label}: &nbsp;</Form.Label>
-      <DatePicker
-        onInputClick={() => registerWhichDate(path)}
-        selected={new Date(currentDate)}
-        onChange={onDateChange}
-        dateFormat={dateFormat}
-      />
+      <Row style={{ maxWidth: "60vw" }}>
+        <Col>
+          <Form.Label>{label}: &nbsp;</Form.Label>
+        </Col>
+        <Col>
+          <DatePicker
+            onInputClick={() => registerWhichDate(path)}
+            selected={new Date(currentDate)}
+            onChange={onDateChange}
+            dateFormat={dateFormat}
+          />
+        </Col>
+      </Row>
     </Form.Group>
   );
 };

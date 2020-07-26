@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, NavDropdown, Nav } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
-import Features from "./Fetaures";
+// import Features from "./Fetaures";
 
 const NavbarNav = () => {
   return (

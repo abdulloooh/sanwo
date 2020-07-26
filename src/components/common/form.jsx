@@ -109,7 +109,9 @@ class Form extends Component {
     return (
       <DateInput
         registerWhichDate={this.registerWhichDate}
-        currentDate={currentDate}
+        currentDate={
+          this.registerWhichDate === "dateDue" ? currentDate + 30 : currentDate
+        }
         dateFormat="MMMM d, yyyy"
         onDateChange={this.handleDateChange}
         label={label}

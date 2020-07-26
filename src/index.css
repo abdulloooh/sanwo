@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: "Roboto Slab", serif;
 }
 
 code {
@@ -15,4 +16,12 @@ code {
 .nav-right-wrapper {
   color: white;
   font-size: large;
+}
+
+.bg-primary {
+  background-color: rgb(0, 123, 255) !important;
+}
+
+.navbar-light .navbar-brand {
+  color: white;
 }

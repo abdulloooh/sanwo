@@ -26,11 +26,14 @@ class DebtForm extends Form {
 
   componentDidMount = () => {
     let { id } = this.props.match.params;
+    const future = new Date();
     const debt =
       id === "new"
         ? {
             dateIncurred: new Date(Date.now()).toDateString(),
-            dateDue: new Date(Date.now()).toDateString(),
+            dateDue: new Date(
+              future.setDate(future.getDate() + 30)
+            ).toDateString(),
             status: "cr",
           }
         : getDebt(id);
@@ -39,8 +42,8 @@ class DebtForm extends Form {
   };
 
   doSubmit = () => {
-    console.log(this.state.data);
-    console.log(saveDebt(this.state.data));
+    //verify date
+    saveDebt(this.state.data);
     this.props.history.push("/");
   };
 
@@ -53,7 +56,7 @@ class DebtForm extends Form {
           {this.renderInput("Amount", "amount", "tel")}
 
           <Row>
-            <Col>{this.renderDate("Date Incurred", "dateIncurred")}</Col>
+            <Col lg>{this.renderDate("Date Incurred", "dateIncurred")}</Col>
             <Col>{this.renderDate("Date Due", "dateDue")}</Col>
           </Row>
           {this.renderSelect("Owed by Who?", "status", this.owedByWho)}
