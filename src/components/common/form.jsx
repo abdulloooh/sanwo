@@ -40,16 +40,21 @@ class Form extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const errors = this.validate();
+    //check general error first and refresh error object
+    let errors = this.validate() || {}; //setting to empty obj cos of dateDue
+    //then date due
+    const { dateIncurred, dateDue } = this.state.data;
+    const dateError = this.isDatesValid(dateIncurred, dateDue);
+    if (dateError) errors["dateDue"] = dateError;
+    else errors = null;
+    //for reuability when data is not a factor, remove from everything up here from d last comment
     this.setState({ errors: errors || {} });
     if (errors) return false;
-    // const username = this.username.current.value;
     this.doSubmit();
   };
 
   handleChange = ({ currentTarget: input }) => {
     const { name: path, value } = input;
-    // console.log(value);
     const data = { ...this.state.data };
     data[path] = value;
     this.setState({ data });
@@ -64,8 +69,23 @@ class Form extends Component {
 
   handleDateChange = (date) => {
     const data = { ...this.state.data };
-    data[this.whichDate] = date.toDateString();
+    const errors = { ...this.state.errors };
+    const { whichDate } = this;
+    data[whichDate] = date.toDateString();
+    //try to validate date
+    const error = this.isDatesValid(data.dateIncurred, data.dateDue);
+    if (error) errors["dateDue"] = error;
+    else delete errors["dateDue"];
+
+    this.setState({ errors });
+
     this.setState({ data });
+  };
+
+  isDatesValid = (dateIncurred, dateDue) => {
+    const noError = new Date(dateIncurred) <= new Date(dateDue);
+    if (noError) return null;
+    else return "Due date must be greater than or equal to incurred date";
   };
 
   registerWhichDate = (whichDate) => {
@@ -104,7 +124,7 @@ class Form extends Component {
   }
 
   renderDate(label, path) {
-    const { data } = this.state;
+    const { data, errors } = this.state;
     const currentDate = _.get(data, path);
     return (
       <DateInput
@@ -117,6 +137,7 @@ class Form extends Component {
         label={label}
         path={path}
         value={currentDate}
+        error={errors[path]}
       />
     );
   }

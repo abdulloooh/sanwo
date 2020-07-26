@@ -10,6 +10,7 @@ const DateInput = ({
   label,
   registerWhichDate,
   path,
+  error,
   ...rest
 }) => {
   return (
@@ -27,8 +28,26 @@ const DateInput = ({
           />
         </Col>
       </Row>
+      <Form.Text className="text-muted">{writeError(error)}</Form.Text>
     </Form.Group>
   );
 };
+
+function writeError(error) {
+  return (
+    error &&
+    (error.constructor !== Array ? (
+      <div key={error} className="alert alert-danger">
+        {error}
+      </div>
+    ) : (
+      error.map((err) => (
+        <div key={err} className="alert alert-danger">
+          {err}
+        </div>
+      ))
+    ))
+  );
+}
 
 export default DateInput;

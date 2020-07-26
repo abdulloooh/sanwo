@@ -42,8 +42,8 @@ class DebtForm extends Form {
   };
 
   doSubmit = () => {
-    //verify date
-    saveDebt(this.state.data);
+    const { data } = this.state;
+    saveDebt(data);
     this.props.history.push("/");
   };
 
