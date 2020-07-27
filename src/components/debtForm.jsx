@@ -39,6 +39,14 @@ class DebtForm extends Form {
         : getDebt(id);
     //set default value for new
     this.setState({ data: debt });
+
+    //disable triggering of touch screen (mobile) keyboard on react date picker
+    const datePickers = document.getElementsByClassName(
+      "react-datepicker__input-container"
+    );
+    for (let i = 0; i < datePickers.length; i++) {
+      datePickers[i].childNodes[0].setAttribute("readonly", true);
+    }
   };
 
   doSubmit = () => {
