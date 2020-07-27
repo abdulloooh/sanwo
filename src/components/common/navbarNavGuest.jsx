@@ -1,6 +1,6 @@
 import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FaShareAlt, FaWrench } from "react-icons/fa";
 
 const NavbarNavGuest = () => {
