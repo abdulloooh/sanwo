@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { getDebts } from "../services/fakeDebtList";
 import { getIndividualDebts } from "../services/fakeIndividualList";
 import DebtsTable from "./debtsTable";
-
+import sortAndOrder from "../utils/sorting";
 class DebtsManager extends Component {
   state = {};
 
@@ -24,6 +24,16 @@ class DebtsManager extends Component {
     let debts = getDebts() || [];
     let individual = getIndividualDebts() || [];
     this.setState({ debts, individual, category: "classified" });
+  }
+
+  componentDidUpdate(prevProps) {
+    const { sortBy, orderBy } = this.props;
+    if (prevProps.orderBy !== orderBy || prevProps.sortBy !== sortBy) {
+      let { debts, individual } = this.state;
+      debts = sortAndOrder(debts, sortBy, orderBy, "desc");
+      individual = sortAndOrder(individual, "balance", orderBy, "desc");
+      this.setState({ debts, individual });
+    }
   }
 
   render() {

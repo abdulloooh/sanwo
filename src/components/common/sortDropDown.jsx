@@ -2,10 +2,12 @@ import React from "react";
 import { Dropdown, DropdownButton, Col } from "react-bootstrap";
 /*
 Interface:
-    IN: active item, Object order [
+    IN:  Object order [
         {label:'',value:''}
     ]
     title, isActive, onClick
+
+    This is used as Col inside a Row, you can change as you wish
 */
 const Filter = ({ data, activeItem, onClick }) => {
   const variant = "primary";
