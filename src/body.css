@@ -8,3 +8,14 @@
 .description:hover {
   overflow: show;
 }
+
+.filter {
+  text-align: center;
+  width: 300px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.filter button {
+  box-shadow: none !important;
+}

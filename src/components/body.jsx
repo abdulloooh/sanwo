@@ -3,6 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import ListGroup from "./common/listGroup";
 import DebtsManager from "./debtsManager";
 import "../body.css";
+import Filter from "./filtering";
 const items = [
   { _id: "cr", label: "Owed to Me" },
   { _id: "dr", label: "Owed by Me" },
@@ -11,7 +12,20 @@ const items = [
 class Body extends Component {
   state = {
     selectedGroup: {},
+    activeSort: "due",
+    activeOrder: "asc",
   };
+
+  sort = [
+    { label: "Date Due", value: "due" },
+    { label: "Date Incurred", value: "inc" },
+    { label: "Amount", value: "am" },
+  ];
+
+  order = [
+    { label: "Ascending", value: "asc" },
+    { label: "Descending", value: "desc" },
+  ];
 
   componentDidMount() {
     const item = { ...items[0] };
@@ -23,7 +37,7 @@ class Body extends Component {
   };
 
   render() {
-    const { selectedGroup } = this.state;
+    const { selectedGroup, activeSort, activeOrder } = this.state;
 
     return (
       <Container>
@@ -39,12 +53,33 @@ class Body extends Component {
           </Col>
 
           <Col lg>
+            <div className="filter" style={{ textAlign: "center" }}>
+              <Row style={{ textAlign: "center" }}>
+                <Filter
+                  data={this.sort}
+                  activeItem={activeSort}
+                  onClick={this.handleSort}
+                />
+                <Filter
+                  data={this.order}
+                  activeItem={activeOrder}
+                  onClick={this.handleOrder}
+                />
+              </Row>
+            </div>
             <DebtsManager selectedGroup={selectedGroup} />
           </Col>
         </Row>
       </Container>
     );
   }
+  handleSort = (selected) => {
+    this.setState({ activeSort: selected.value });
+  };
+
+  handleOrder = (selected) => {
+    this.setState({ activeOrder: selected.value });
+  };
 }
 
 export default Body;

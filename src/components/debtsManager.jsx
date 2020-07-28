@@ -10,11 +10,13 @@ class DebtsManager extends Component {
   getDebts = (group) => {
     if (group._id !== "individual") {
       return (
+        //sort with one of dateIncurred, dateDue, Amount. Then asc or desc
         this.state.debts &&
         this.state.debts.filter((d) => d.status === group._id)
       );
     }
     //if not
+    //sort
     return this.state.individual;
   };
 
@@ -35,7 +37,6 @@ class DebtsManager extends Component {
 
     return (
       <>
-        {/* Heading is coming */}
         <DebtsTable
           debts={this.getDebts(selectedGroup)}
           category={
