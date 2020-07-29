@@ -68,6 +68,12 @@ class DebtsManager extends Component {
         ? sortByDate(debts, sortBy, orderBy, "desc")
         : sortAndOrder(debts, sortBy, orderBy, "desc");
     individual = sortAndOrder(individual, "balance", "asc", "desc");
+
+    let remove = individual.filter((i) => i.name === "Total Balance");
+    console.log(remove, individual);
+    individual.splice(individual.indexOf(remove[0]), 1);
+    individual.unshift(remove[0]);
+
     this.setState({ debts, individual });
   };
 
