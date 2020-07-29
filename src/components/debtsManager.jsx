@@ -3,20 +3,31 @@ import { Link } from "react-router-dom";
 import { getDebts } from "../services/fakeDebtList";
 import { getIndividualDebts } from "../services/fakeIndividualList";
 import DebtsTable from "./debtsTable";
-import sortAndOrder from "../utils/sorting";
-class DebtsManager extends Component {
-  state = {};
+import { sortAndOrder, sortByDate } from "../utils/sorting";
+import "../body.css";
+import Filter from "./common/sortDropDown";
+import { Row } from "react-bootstrap";
 
+class DebtsManager extends Component {
+  state = { sortBy: "dateDue", orderBy: "asc" };
+  sort = [
+    { label: "Date Due", value: "dateDue" },
+    { label: "Date Incurred", value: "dateIncurred" },
+    { label: "Amount", value: "amount" },
+  ];
+
+  order = [
+    { label: "Ascending", value: "asc" },
+    { label: "Descending", value: "desc" },
+  ];
   getDebts = (group) => {
     if (group._id !== "individual") {
       return (
-        //sort with one of dateIncurred, dateDue, Amount. Then asc or desc
         this.state.debts &&
         this.state.debts.filter((d) => d.status === group._id)
       );
     }
     //if not
-    //sort
     return this.state.individual;
   };
 
@@ -24,20 +35,41 @@ class DebtsManager extends Component {
     let debts = getDebts() || [];
     let individual = getIndividualDebts() || [];
     this.setState({ debts, individual, category: "classified" });
+    this.sortAndUpdate(
+      this.state.sortBy,
+      this.state.orderBy,
+      debts,
+      individual
+    );
   }
 
-  componentDidUpdate(prevProps) {
-    const { sortBy, orderBy } = this.props;
-    if (prevProps.orderBy !== orderBy || prevProps.sortBy !== sortBy) {
-      let { debts, individual } = this.state;
-      debts = sortAndOrder(debts, sortBy, orderBy, "desc");
-      individual = sortAndOrder(individual, "balance", orderBy, "desc");
-      this.setState({ debts, individual });
+  // componentDidUpdate(prevProps) {
+  //   const { sortBy, orderBy } = this.props;
+  //   let { debts, individual } = this.state;
+  //   if (prevProps.orderBy !== orderBy || prevProps.sortBy !== sortBy) {
+  //     console.log("sd");
+  //     this.sortAndUpdate(debts, individual);
+  //   }
+  // }
+
+  sortAndUpdate = (sortBy, orderBy, unsortedDebts, unsortedIndividual) => {
+    if (unsortedDebts && unsortedIndividual) {
+      var debts = unsortedDebts,
+        individual = unsortedIndividual;
+    } else {
+      var { debts, individual } = this.state;
     }
-  }
+    debts =
+      sortBy === "dateIncurred" || sortBy === "dateDue"
+        ? sortByDate(debts, sortBy, orderBy, "desc")
+        : sortAndOrder(debts, sortBy, orderBy, "desc");
+    individual = sortAndOrder(individual, "balance", orderBy, "desc");
+    this.setState({ debts, individual });
+  };
 
   render() {
     const { selectedGroup } = this.props;
+    const { sortBy, orderBy } = this.state;
     if (this.state.debts && this.state.debts.length === 0)
       return (
         <p>
@@ -47,6 +79,20 @@ class DebtsManager extends Component {
 
     return (
       <>
+        <div className="filter" style={{ textAlign: "center" }}>
+          <Row style={{ textAlign: "center" }}>
+            <Filter
+              data={this.sort}
+              activeItem={sortBy}
+              onClick={this.handleSort}
+            />
+            <Filter
+              data={this.order}
+              activeItem={orderBy}
+              onClick={this.handleOrder}
+            />
+          </Row>
+        </div>
         <DebtsTable
           debts={this.getDebts(selectedGroup)}
           category={
@@ -56,6 +102,20 @@ class DebtsManager extends Component {
       </>
     );
   }
+
+  handleSort = (selected) => {
+    const sortBy = selected.value;
+    let { orderBy } = this.state;
+    this.sortAndUpdate(sortBy, orderBy);
+    this.setState({ sortBy });
+  };
+
+  handleOrder = (selected) => {
+    const orderBy = selected.value;
+    let { sortBy } = this.state;
+    this.sortAndUpdate(sortBy, orderBy);
+    this.setState({ orderBy });
+  };
 }
 
 export default DebtsManager;
