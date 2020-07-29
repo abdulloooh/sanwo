@@ -63,7 +63,7 @@ class DebtsManager extends Component {
       sortBy === "dateIncurred" || sortBy === "dateDue"
         ? sortByDate(debts, sortBy, orderBy, "desc")
         : sortAndOrder(debts, sortBy, orderBy, "desc");
-    individual = sortAndOrder(individual, "balance", orderBy, "desc");
+    individual = sortAndOrder(individual, "balance", "asc", "desc");
     this.setState({ debts, individual });
   };
 
@@ -76,23 +76,24 @@ class DebtsManager extends Component {
           Nothing to see yet, <Link to="/debts/new">Add New</Link> Debt
         </p>
       );
-
     return (
       <>
-        <div className="filter" style={{ textAlign: "center" }}>
-          <Row style={{ textAlign: "center" }}>
-            <Filter
-              data={this.sort}
-              activeItem={sortBy}
-              onClick={this.handleSort}
-            />
-            <Filter
-              data={this.order}
-              activeItem={orderBy}
-              onClick={this.handleOrder}
-            />
-          </Row>
-        </div>
+        {selectedGroup._id !== "individual" && (
+          <div className="filter" style={{ textAlign: "center" }}>
+            <Row style={{ textAlign: "center" }}>
+              <Filter
+                data={this.sort}
+                activeItem={sortBy}
+                onClick={this.handleSort}
+              />
+              <Filter
+                data={this.order}
+                activeItem={orderBy}
+                onClick={this.handleOrder}
+              />
+            </Row>
+          </div>
+        )}
         <DebtsTable
           debts={this.getDebts(selectedGroup)}
           category={

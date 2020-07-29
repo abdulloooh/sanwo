@@ -59,9 +59,13 @@ class DebtForm extends Form {
     return (
       <Container className="mt-5">
         <FormWrapper onSubmit={this.handleSubmit}>
-          {this.renderInput("Name", "name")}
-          {this.renderInput("Description", "description")}
-          {this.renderInput("Amount", "amount", "tel")}
+          {this.renderInput("Name", "name", "Name of Debtor/Creditor")}
+          {this.renderInput(
+            "Description",
+            "description",
+            "optional description"
+          )}
+          {this.renderInput("Amount", "amount", "Amount", "tel")}
 
           <Row>
             <Col lg>{this.renderDate("Date Incurred", "dateIncurred")}</Col>

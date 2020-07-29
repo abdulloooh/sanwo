@@ -56,7 +56,7 @@ class Form extends Component {
   handleChange = ({ currentTarget: input }) => {
     const { name: path, value } = input;
     const data = { ...this.state.data };
-    data[path] = value;
+    data[path] = path === "amount" ? parseInt(value) : value;
     this.setState({ data });
 
     const errors = { ...this.state.errors };
@@ -92,7 +92,7 @@ class Form extends Component {
     this.whichDate = whichDate;
   };
 
-  renderInput(label, path, type = "text") {
+  renderInput(label, path, placeholder, type = "text") {
     const { errors, data } = this.state;
     return (
       <Input
@@ -104,6 +104,7 @@ class Form extends Component {
         onChange={this.handleChange}
         error={errors[path]}
         autoComplete="new-password"
+        placeholder={placeholder}
       />
     );
   }
