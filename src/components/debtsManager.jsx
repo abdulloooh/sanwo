@@ -16,6 +16,8 @@ class DebtsManager extends Component {
     { label: "Amount", value: "amount" },
   ];
 
+  specialVar = "Total Balance";
+
   order = [
     { label: "Ascending", value: "asc" },
     { label: "Descending", value: "desc" },
@@ -35,7 +37,7 @@ class DebtsManager extends Component {
     let debts = getDebts() || [];
     let individual = getIndividualDebts() || [];
     //set color for total
-    let totalValue = individual.filter((i) => i.name === "Total Balance");
+    let totalValue = individual.filter((i) => i.name === `${this.specialVar}`);
     let totalColor = Number(totalValue[0].balance) < 0 ? "red" : "green";
 
     this.setState({ debts, individual, category: "classified", totalColor });
@@ -69,8 +71,7 @@ class DebtsManager extends Component {
         : sortAndOrder(debts, sortBy, orderBy, "desc");
     individual = sortAndOrder(individual, "balance", "asc", "desc");
 
-    let remove = individual.filter((i) => i.name === "Total Balance");
-    console.log(remove, individual);
+    let remove = individual.filter((i) => i.name === `${this.specialVar}`);
     individual.splice(individual.indexOf(remove[0]), 1);
     individual.unshift(remove[0]);
 
@@ -110,7 +111,7 @@ class DebtsManager extends Component {
             selectedGroup._id === "individual" ? "individual" : "classified"
           }
           specialCol={{
-            name: "Total Balance",
+            name: `${this.specialVar}`,
             content: (item) => (
               <span style={{ color: `${totalColor}`, fontWeight: "bold" }}>
                 {item}
