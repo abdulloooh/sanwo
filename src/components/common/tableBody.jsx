@@ -3,13 +3,15 @@ import React, { Component } from "react";
 //data
 //columns
 class TableBody extends Component {
-  renderCell = (item, column) => {
+  renderCell = (item, column, specialCol) => {
     if (column.content) return column.content(item);
-    return item[column.path];
+    return specialCol && item.name === specialCol.name
+      ? specialCol.content(item[column.path])
+      : item[column.path];
   };
 
   render() {
-    const { data, columns } = this.props;
+    const { data, columns, specialCol } = this.props;
     return (
       <tbody>
         {data &&
@@ -34,7 +36,8 @@ class TableBody extends Component {
               <td>
                 {this.renderCell(
                   item,
-                  columns.find((c) => !this.excludeAmountOrBalance(c)) //that is include amount or balance
+                  columns.find((c) => !this.excludeAmountOrBalance(c)), //that is include amount or balance
+                  specialCol
                 )}
               </td>
             </tr>

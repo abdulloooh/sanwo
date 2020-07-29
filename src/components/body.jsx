@@ -7,7 +7,7 @@ import "../body.css";
 const items = [
   { _id: "cr", label: "Owed to Me" },
   { _id: "dr", label: "Owed by Me" },
-  { _id: "individual", label: "Individuals" },
+  { _id: "individual", label: "Summary" },
 ];
 class Body extends Component {
   state = {

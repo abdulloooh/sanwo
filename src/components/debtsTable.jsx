@@ -30,7 +30,7 @@ class DebtsTable extends Component {
   ];
 
   render() {
-    const { debts, category } = this.props;
+    const { debts, category, specialCol } = this.props;
 
     return (
       <Table id="debtBody" hover responsive>
@@ -39,6 +39,7 @@ class DebtsTable extends Component {
           columns={
             category === "individual" ? this.individualColumns : this.columns
           }
+          specialCol={specialCol}
         />
       </Table>
     );
