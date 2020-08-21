@@ -6,15 +6,14 @@ creditBalance: Total money I am expecting/have
 
 import { getDebts } from "./fakeDebtList";
 
-const debts = getDebts();
-
 export function getIndividualDebts() {
-  var { uniqueNameList } = getNameList();
+  let debts = getDebts();
+  var { uniqueNameList } = getNameList(debts);
 
-  return classifyIndividualDebts(uniqueNameList);
+  return classifyIndividualDebts(uniqueNameList, debts);
 }
 
-function classifyIndividualDebts(uniqueNameList) {
+function classifyIndividualDebts(uniqueNameList, debts) {
   let total = { name: "Total Balance" };
   let totalAmount = 0;
   let totalOwedToMe = 0;
@@ -52,7 +51,7 @@ function classifyIndividualDebts(uniqueNameList) {
   return individual;
 }
 
-function getNameList() {
+function getNameList(debts) {
   let nameList = [];
   debts.forEach((d) => {
     d.name && nameList.push(d.name);
