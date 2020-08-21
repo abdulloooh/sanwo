@@ -30,7 +30,10 @@ class TableBody extends Component {
                     key={c.path}
                   >
                     {/* label */}
-                    {this.excludeAmountOrBalance(c) && c.label && `${c.label}:`}
+                    {this.excludeAmountOrBalance(c) &&
+                      !item.common &&
+                      c.label &&
+                      `${c.label}:`}
 
                     {/* value */}
                     {this.excludeAmountOrBalance(c) &&
