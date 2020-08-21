@@ -73,9 +73,11 @@ class DebtsManager extends Component {
         : sortAndOrder(debts, sortBy, orderBy, "desc");
     individual = sortAndOrder(individual, "balance", "asc", "desc");
 
-    // let removeD = debts.filter((i) => i.common === "total");
-    // debts.splice(debts.indexOf(removeD[0]), 1);
-    // debts.unshift(removeD[0]);
+    let removeD = debts.filter((i) => i.common === "total");
+    for (let item of removeD) {
+      debts.splice(debts.indexOf(item), 1);
+      debts.unshift(item);
+    }
 
     let removeI = individual.filter((i) => i.name === `${this.specialVar}`);
     individual.splice(individual.indexOf(removeI[0]), 1);
