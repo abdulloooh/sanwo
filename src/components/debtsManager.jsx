@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { getDebts } from "../services/fakeDebtList";
+import { getDebts as getAllDebts } from "../services/fakeDebtList";
 import { getIndividualDebts } from "../services/fakeIndividualList";
 import DebtsTable from "./debtsTable";
 import { sortAndOrder, sortByDate } from "../utils/sorting";
@@ -9,19 +9,20 @@ import Filter from "./common/sortDropDown";
 import { Row } from "react-bootstrap";
 
 class DebtsManager extends Component {
-  state = { sortBy: "dateDue", orderBy: "asc" };
+  state = { sortBy: "dateDue", orderBy: "asc" }; //default
   sort = [
     { label: "Date Due", value: "dateDue" },
     { label: "Date Incurred", value: "dateIncurred" },
     { label: "Amount", value: "amount" },
   ];
 
-  specialVar = "Total Balance";
-
   order = [
     { label: "Ascending", value: "asc" },
     { label: "Descending", value: "desc" },
   ];
+
+  specialVar = "Total Balance";
+
   getDebts = (group) => {
     if (group._id !== "individual") {
       return (
@@ -34,7 +35,7 @@ class DebtsManager extends Component {
   };
 
   componentDidMount() {
-    let debts = getDebts() || [];
+    let debts = getAllDebts() || [];
     let individual = getIndividualDebts() || [];
     //set color for total
     let totalValue = individual.filter((i) => i.name === `${this.specialVar}`);
@@ -63,17 +64,22 @@ class DebtsManager extends Component {
       var debts = unsortedDebts,
         individual = unsortedIndividual;
     } else {
-      var { debts, individual } = this.state;
+      debts = this.state.debts;
+      individual = this.state.individual;
     }
     debts =
       sortBy === "dateIncurred" || sortBy === "dateDue"
-        ? sortByDate(debts, sortBy, orderBy, "desc")
+        ? sortByDate(debts, sortBy, orderBy, "desc") // "desc" passed here is just label for desc, asc is default
         : sortAndOrder(debts, sortBy, orderBy, "desc");
     individual = sortAndOrder(individual, "balance", "asc", "desc");
 
-    let remove = individual.filter((i) => i.name === `${this.specialVar}`);
-    individual.splice(individual.indexOf(remove[0]), 1);
-    individual.unshift(remove[0]);
+    // let removeD = debts.filter((i) => i.common === "total");
+    // debts.splice(debts.indexOf(removeD[0]), 1);
+    // debts.unshift(removeD[0]);
+
+    let removeI = individual.filter((i) => i.name === `${this.specialVar}`);
+    individual.splice(individual.indexOf(removeI[0]), 1);
+    individual.unshift(removeI[0]);
 
     this.setState({ debts, individual });
   };

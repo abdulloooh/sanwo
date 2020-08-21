@@ -34,11 +34,14 @@ function classifyIndividualDebts(uniqueNameList) {
     newItem.tome = creditBalance;
     newItem.byme = debitBalance;
     newItem.balance = Number(creditBalance) - Number(debitBalance);
-    individual.push(newItem);
+    if (newItem.name !== "Total") individual.push(newItem); //Do not push total credit and debit balance
 
-    totalOwedByMe = Number(totalOwedByMe) + Number(newItem.byme);
-    totalOwedToMe = Number(totalOwedToMe) + Number(newItem.tome);
-    totalAmount = Number(totalAmount) + Number(newItem.balance);
+    if (newItem.name === "Total") {
+      //Calculate total balance only from total credit and debit balance
+      totalOwedByMe = Number(totalOwedByMe) + Number(newItem.byme);
+      totalOwedToMe = Number(totalOwedToMe) + Number(newItem.tome);
+      totalAmount = Number(totalAmount) + Number(newItem.balance);
+    }
   });
 
   total.balance = totalAmount;
