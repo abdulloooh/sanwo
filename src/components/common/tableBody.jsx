@@ -4,9 +4,13 @@ import React, { Component } from "react";
 //columns
 class TableBody extends Component {
   renderCell = (item, column, specialCol) => {
+    if (item.common && specialCol)
+      return specialCol.totalsLabel.content(item[column.path]);
+
     if (column.content) return column.content(item);
-    return specialCol && item.name === specialCol.name
-      ? specialCol.content(item[column.path])
+
+    return specialCol && item.name === specialCol.totalSummaryAmount.name
+      ? specialCol.totalSummaryAmount.content(item[column.path])
       : item[column.path];
   };
 
@@ -29,7 +33,8 @@ class TableBody extends Component {
                     {this.excludeAmountOrBalance(c) && c.label && `${c.label}:`}
 
                     {/* value */}
-                    {this.excludeAmountOrBalance(c) && this.renderCell(item, c)}
+                    {this.excludeAmountOrBalance(c) &&
+                      this.renderCell(item, c, specialCol)}
                   </p>
                 ))}
               </td>

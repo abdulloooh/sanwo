@@ -21,7 +21,11 @@ class DebtsManager extends Component {
     { label: "Descending", value: "desc" },
   ];
 
-  specialVar = "Total Balance";
+  specialVars = {
+    individual: "Total Balance",
+    credit: "Total",
+    debit: "Total",
+  };
 
   getDebts = (group) => {
     if (group._id !== "individual") {
@@ -37,8 +41,10 @@ class DebtsManager extends Component {
   componentDidMount() {
     let debts = getAllDebts() || [];
     let individual = getIndividualDebts() || [];
-    //set color for total
-    let totalValue = individual.filter((i) => i.name === `${this.specialVar}`);
+    //set colorcolor for total
+    let totalValue = individual.filter(
+      (i) => i.name === `${this.specialVars.individual}`
+    );
     let totalColor = Number(totalValue[0].balance) < 0 ? "red" : "green";
 
     this.setState({ debts, individual, category: "classified", totalColor });
@@ -79,7 +85,9 @@ class DebtsManager extends Component {
       debts.unshift(item);
     }
 
-    let removeI = individual.filter((i) => i.name === `${this.specialVar}`);
+    let removeI = individual.filter(
+      (i) => i.name === `${this.specialVars.individual}`
+    );
     individual.splice(individual.indexOf(removeI[0]), 1);
     individual.unshift(removeI[0]);
 
@@ -119,12 +127,21 @@ class DebtsManager extends Component {
             selectedGroup._id === "individual" ? "individual" : "classified"
           }
           specialCol={{
-            name: `${this.specialVar}`,
-            content: (item) => (
-              <span style={{ color: `${totalColor}`, fontWeight: "bold" }}>
-                {item}
-              </span>
-            ),
+            totalSummaryAmount: {
+              name: `${this.specialVars.individual}`,
+              content: (item) => (
+                <span style={{ color: `${totalColor}`, fontWeight: "bold" }}>
+                  {item}
+                </span>
+              ),
+            },
+            totalsLabel: {
+              content: (item) => (
+                <span style={{ color: "#007bff", fontWeight: "bold" }}>
+                  {item}
+                </span>
+              ),
+            },
           }}
         />
       </>

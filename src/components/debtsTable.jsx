@@ -11,7 +11,11 @@ class DebtsTable extends Component {
     {
       path: "name",
       label: false,
-      content: (item) => <Link to={`/debts/${item._id}`}>{item.name}</Link>,
+      content: (item) => (
+        <Link style={{ color: "rgb(0, 123, 150)" }} to={`/debts/${item._id}`}>
+          <u>{item.name}</u>
+        </Link>
+      ),
     },
     { path: "amount", label: "Amount" },
     { path: "description", label: false },

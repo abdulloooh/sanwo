@@ -46,6 +46,7 @@ function classifyIndividualDebts(uniqueNameList, debts) {
   total.balance = totalAmount;
   total.tome = totalOwedToMe;
   total.byme = totalOwedByMe;
+  total.common = "total";
   individual.push(total);
 
   return individual;
