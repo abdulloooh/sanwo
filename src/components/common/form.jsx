@@ -100,7 +100,7 @@ class Form extends Component {
         label={label}
         name={path}
         type={type}
-        value={_.get(data, path)}
+        value={_.get(data, path) || ""}
         onChange={this.handleChange}
         error={errors[path]}
         autoComplete="new-password"
