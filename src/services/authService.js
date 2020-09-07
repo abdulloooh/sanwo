@@ -2,13 +2,13 @@ import JwtDecode from "jwt-decode";
 import http from "./httpService";
 
 const loginApiEndpoint = "/auth";
-const tokenKey = "vidly_token";
+const tokenKey = "_token_manager_debt_db_";
 
 http.setJwt(getJwt());
 
-export async function login(email, password) {
+export async function login(username, password) {
   const { data: jwt } = await http.post(loginApiEndpoint, {
-    email: email,
+    username: username,
     password: password,
   });
   localStorage.setItem(tokenKey, jwt);
@@ -20,7 +20,7 @@ export function logout() {
 
 export function getCurrentUser() {
   try {
-    return JwtDecode(localStorage.getItem(tokenKey));
+    return JwtDecode(getJwt());
   } catch (ex) {
     return null;
   }
