@@ -21,10 +21,13 @@ function App() {
         <Route path="/register" component={RegisterForm}></Route>
         <Route path="/login" component={LoginForm}></Route>
         <Route path="/logout" component={Logout}></Route>
+
         <ProtectedRoute path="/debts/:id" component={DebtForm}></ProtectedRoute>
         <ProtectedRoute path="/debts/new" component={DebtForm}></ProtectedRoute>
-        <Redirect path="/debts" to="/" />
         <ProtectedRoute exact path="/" component={Body}></ProtectedRoute>
+
+        <Redirect path="/debts" to="/" />
+
         <Route path="/not-found" component={NotFound} />
         <Redirect to="not-found" />
       </Switch>
