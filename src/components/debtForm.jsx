@@ -1,6 +1,6 @@
 import React from "react";
 import { Form as FormWrapper, Container, Row, Col } from "react-bootstrap";
-import Joi from "@hapi/joi";
+import Joi from "joi-browser";
 import Form from "./common/form";
 import { getDebt, saveDebt } from "../services/fakeDebtList";
 
@@ -57,7 +57,7 @@ class DebtForm extends Form {
     this.setState({ errors: errors || {} });
     if (errors) return false;
 
-    saveDebt(this.state);
+    saveDebt(this.state.data);
     this.props.history.push("/");
   };
 

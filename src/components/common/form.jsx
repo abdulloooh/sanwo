@@ -60,17 +60,21 @@ class Form extends Component {
     const { whichDate } = this;
     data[whichDate] = date.toDateString();
     //try to validate date
-    const error = this.isDatesValid(data.dateIncurred, data.dateDue);
-    if (error) errors["dateDue"] = error;
-    else delete errors["dateDue"];
-
-    this.setState({ errors });
-
+    const response = this.isDatesValid(data.dateIncurred, data.dateDue);
+    if (!response) {
+      delete errors["dateDue"];
+      this.setState({ errors });
+    } else this.setState({ errors: response });
+    /**
+     * design quack:
+     * no response: only ascertain no error in date, delete date error and set errors to old
+     * if response: response is entire error object, set errors to response
+     */
     this.setState({ data });
   };
 
   isDatesValid = (dateIncurred, dateDue) => {
-    const errors = {};
+    const errors = { ...this.state.errors };
 
     const error = new Date(dateIncurred) > new Date(dateDue);
     if (!error) return null;
