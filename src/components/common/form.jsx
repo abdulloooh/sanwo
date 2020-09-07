@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Joi from "@hapi/joi";
+import Joi from "joi-browser";
 import Input from "./input";
 import Select from "./select";
 import _ from "lodash";
@@ -10,19 +10,11 @@ class Form extends Component {
 
   validate = () => {
     const errors = {};
-    // const options = { abortEarly: false };
-    // const result = Joi.validate(this.state.data, this.schema, options);
-    const { error } = Joi.compile(this.schema).validate(this.state.data);
+    const options = { abortEarly: false };
+    const { error } = Joi.validate(this.state.data, this.schema, options);
+    // const { error } = Joi.compile(this.schema).validate(this.state.data);
 
     if (!error) return null;
-
-    // error.details.map((error) => {
-    //   if (errors[error.path[0]])
-    //     return errors[error.path[0]].push(error.message);
-    //   else return (errors[error.path[0]] = new Array(error.message));
-    // });
-    //because I want to collect all errors, if not I should  only get first and not an array
-
     error.details.map((error) => {
       //needs to ensure we only get the first error from top
       if (!errors[error.path[0]]) errors[error.path[0]] = error.message;
@@ -40,16 +32,11 @@ class Form extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    //check general error first and refresh error object
-    let errors = this.validate() || {}; //setting to empty obj cos of dateDue
-    //then date due
-    const { dateIncurred, dateDue } = this.state.data;
-    const dateError = this.isDatesValid(dateIncurred, dateDue);
-    if (dateError) errors["dateDue"] = dateError;
-    else errors = null;
-    //for reuability when data is not a factor, remove from everything up here from d last comment
+    let errors = this.validate();
+
     this.setState({ errors: errors || {} });
     if (errors) return false;
+
     this.doSubmit();
   };
 
@@ -83,9 +70,15 @@ class Form extends Component {
   };
 
   isDatesValid = (dateIncurred, dateDue) => {
-    const noError = new Date(dateIncurred) <= new Date(dateDue);
-    if (noError) return null;
-    else return "Due date must be greater than or equal to incurred date";
+    const errors = {};
+
+    const error = new Date(dateIncurred) > new Date(dateDue);
+    if (!error) return null;
+
+    errors["dateDue"] =
+      "Due date must be greater than or equal to incurred date";
+
+    return errors;
   };
 
   registerWhichDate = (whichDate) => {

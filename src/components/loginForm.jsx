@@ -1,9 +1,62 @@
-import React, { Component } from "react";
+import React from "react";
+import { Container, Form as FormWrapper } from "react-bootstrap";
+import Joi from "joi-browser";
+import { Link, Redirect } from "react-router-dom";
+import Form from "./common/form";
+import authService from "../services/authService";
+class LoginForm extends Form {
+  state = {
+    data: { username: "", password: "" },
+    errors: {},
+  };
 
-class LoginForm extends Component {
-  state = {};
+  schema = {
+    username: Joi.string().min(3).max(30).required().label("username"),
+    password: Joi.string().min(5).max(255).required().label("Password"),
+  };
+
+  async doSubmit() {
+    //call the server
+    console.log("calling...");
+    try {
+      const { username, password } = this.state.data;
+      await authService.login(username, password);
+
+      const { state } = this.props.location;
+
+      window.location = state ? state.from.pathname : "/";
+    } catch (ex) {
+      if (
+        ex.response &&
+        ex.response.status >= 400 &&
+        ex.response.status < 500
+      ) {
+        const errors = { ...this.state.errors };
+        errors.username = ex.response.data;
+        this.setState({ errors });
+      }
+    }
+  }
+
   render() {
-    return null;
+    if (authService.getCurrentUser()) return <Redirect to="/" />;
+
+    return (
+      <Container className="mt-5">
+        <h1>Login</h1>
+        <FormWrapper onSubmit={this.handleSubmit}>
+          {this.renderInput("Username", "username", "username")}
+
+          {this.renderInput("Password", "password", "password")}
+
+          {this.renderButton("Login")}
+        </FormWrapper>
+        <br />
+        <p>
+          New user?<Link to="/register">Register</Link>
+        </p>
+      </Container>
+    );
   }
 }
 

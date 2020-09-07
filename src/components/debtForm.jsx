@@ -50,8 +50,14 @@ class DebtForm extends Form {
   };
 
   doSubmit = () => {
-    const { data } = this.state;
-    saveDebt(data);
+    //check validity of dates
+    const { dateIncurred, dateDue } = this.state.data;
+    let errors = this.isDatesValid(dateIncurred, dateDue);
+
+    this.setState({ errors: errors || {} });
+    if (errors) return false;
+
+    saveDebt(this.state);
     this.props.history.push("/");
   };
 

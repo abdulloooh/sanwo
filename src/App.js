@@ -21,9 +21,8 @@ function App() {
         <Route path="/login" component={LoginForm}></Route>
         <ProtectedRoute path="/debts/:id" component={DebtForm}></ProtectedRoute>
         <ProtectedRoute path="/debts/new" component={DebtForm}></ProtectedRoute>
-        <Route exact path="/">
-          <Body />
-        </Route>
+        <Redirect path="/debts" to="/" />
+        <ProtectedRoute exact path="/" component={Body}></ProtectedRoute>
         <Route path="/not-found" component={NotFound} />
         <Redirect to="not-found" />
       </Switch>
