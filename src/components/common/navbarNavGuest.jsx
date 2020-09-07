@@ -9,6 +9,9 @@ const NavbarNavGuest = () => {
       <Navbar.Brand as={NavLink} to="/">
         Abdullah
       </Navbar.Brand>
+      <Navbar.Brand as={NavLink} to="/logout">
+        Logout
+      </Navbar.Brand>
 
       <Nav className="mr-auto"></Nav>
 

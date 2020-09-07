@@ -14,7 +14,7 @@ axios.interceptors.response.use(null, (error) => {
   // log the error
   // Display a generic and friendly error message eg unexpected error encountered
   if (!expectedError) {
-    toast.error("Unexpected error encountered");
+    toast.error("Ouch! Unexpected error, try again");
     logger.log(error);
   }
 

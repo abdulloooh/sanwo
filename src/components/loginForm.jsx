@@ -17,19 +17,16 @@ class LoginForm extends Form {
 
   async doSubmit() {
     //call the server
-    console.log("calling...");
     try {
       const { username, password } = this.state.data;
       await authService.login(username, password);
 
       const { state } = this.props.location;
-
       window.location = state ? state.from.pathname : "/";
     } catch (ex) {
       if (
         ex.response &&
-        ex.response.status >= 400 &&
-        ex.response.status < 500
+        (ex.response.status === 400 || ex.response.status === 401)
       ) {
         const errors = { ...this.state.errors };
         errors.username = ex.response.data;
@@ -43,7 +40,6 @@ class LoginForm extends Form {
 
     return (
       <Container className="mt-5">
-        <h1>Login</h1>
         <FormWrapper onSubmit={this.handleSubmit}>
           {this.renderInput("Username", "username", "username")}
 
@@ -53,7 +49,7 @@ class LoginForm extends Form {
         </FormWrapper>
         <br />
         <p>
-          New user?<Link to="/register">Register</Link>
+          New user? <Link to="/register">Register</Link>
         </p>
       </Container>
     );

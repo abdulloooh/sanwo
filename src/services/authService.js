@@ -7,10 +7,11 @@ const tokenKey = "_token_manager_debt_db_";
 http.setJwt(getJwt());
 
 export async function login(username, password) {
-  const { data: jwt } = await http.post(loginApiEndpoint, {
+  const { headers } = await http.post(loginApiEndpoint, {
     username: username,
     password: password,
   });
+  const jwt = headers["x-auth-token"];
   localStorage.setItem(tokenKey, jwt);
 }
 
