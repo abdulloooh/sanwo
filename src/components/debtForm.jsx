@@ -2,7 +2,7 @@ import React from "react";
 import { Form as FormWrapper, Container, Row, Col } from "react-bootstrap";
 import Joi from "joi-browser";
 import Form from "./common/form";
-import { getDebt, saveDebt } from "../services/fakeDebtList";
+import { getDebt, saveDebt, updateDebt } from "../services/debtService";
 
 class DebtForm extends Form {
   state = { data: {}, errors: {} };
@@ -24,19 +24,31 @@ class DebtForm extends Form {
     status: Joi.string().min(2).max(2).required(),
   };
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     let { id } = this.props.match.params;
     const future = new Date();
-    const debt =
-      id === "new"
-        ? {
-            dateIncurred: new Date(Date.now()).toDateString(),
-            dateDue: new Date(
-              future.setDate(future.getDate() + 30)
-            ).toDateString(),
-            status: "cr",
-          }
-        : getDebt(id);
+    let debt = {};
+    if (id === "new") {
+      debt = {
+        dateIncurred: new Date(Date.now()).toDateString(),
+        dateDue: new Date(future.setDate(future.getDate() + 30)).toDateString(),
+        status: "cr",
+      };
+    } else {
+      try {
+        const { data } = await getDebt(id);
+        debt = { ...data };
+      } catch (ex) {
+        if (
+          ex.response &&
+          (ex.response.status === 400 ||
+            ex.response.status === 401 ||
+            ex.response.status === 403)
+        )
+          window.location = "/";
+      }
+    }
+
     //set default value for new
     this.setState({ data: debt });
 
@@ -49,7 +61,7 @@ class DebtForm extends Form {
     }
   };
 
-  doSubmit = () => {
+  doSubmit = async () => {
     //check validity of dates
     const { dateIncurred, dateDue } = this.state.data;
     let errors = this.isDatesValid(dateIncurred, dateDue);
@@ -57,7 +69,20 @@ class DebtForm extends Form {
     this.setState({ errors: errors || {} });
     if (errors) return false;
 
-    saveDebt(this.state.data);
+    if (!this.state.data._id) await saveDebt(this.state.data);
+    else
+      try {
+        await updateDebt(this.state.data);
+      } catch (ex) {
+        if (
+          ex.response &&
+          (ex.response.status === 400 ||
+            ex.response.status === 401 ||
+            ex.response.status === 403)
+        )
+          window.location = "/";
+      }
+
     this.props.history.push("/");
   };
 

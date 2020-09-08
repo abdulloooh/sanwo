@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { getDebts as getAllDebts } from "../services/fakeDebtList";
-import { getIndividualDebts } from "../services/fakeIndividualList";
+import { getDebts as getAllDebts } from "../services/debtService";
+import { getIndividualSummary } from "../services/individualService";
 import DebtsTable from "./debtsTable";
 import { sortAndOrder, sortByDate } from "../utils/sorting";
 import "../body.css";
@@ -38,9 +38,9 @@ class DebtsManager extends Component {
     return this.state.individual;
   };
 
-  componentDidMount() {
-    let debts = getAllDebts() || [];
-    let individual = getIndividualDebts() || [];
+  async componentDidMount() {
+    let { data: debts } = await getAllDebts();
+    let { data: individual } = await getIndividualSummary();
     //set colorcolor for total
     let totalValue = individual.filter(
       (i) => i.name === `${this.specialVars.individual}`
