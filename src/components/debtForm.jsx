@@ -8,6 +8,7 @@ import {
   updateDebt,
   deleteDebt,
 } from "../services/debtService";
+import { toast } from "react-toastify";
 
 class DebtForm extends Form {
   state = { data: {}, errors: {} };
@@ -50,7 +51,7 @@ class DebtForm extends Form {
             ex.response.status === 401 ||
             ex.response.status === 403)
         )
-          window.location = "/";
+          this.handleException();
       }
     }
 
@@ -85,7 +86,7 @@ class DebtForm extends Form {
             ex.response.status === 401 ||
             ex.response.status === 403)
         )
-          window.location = "/";
+          this.handleException();
       }
 
     this.props.history.push("/");
@@ -101,11 +102,20 @@ class DebtForm extends Form {
           ex.response.status === 401 ||
           ex.response.status === 403)
       )
-        window.location = "/";
+        this.handleException();
     }
 
     this.props.history.replace("/");
   };
+
+  handleException() {
+    {
+      toast.error("Invalid request");
+      setTimeout(() => {
+        window.location = "/";
+      }, 500);
+    }
+  }
 
   render() {
     return (
