@@ -92,7 +92,7 @@ Distributed under the GPL-3.0 License. See `LICENSE` for more information.
 - Twitter: [@abdulloooh](https://twitter.com/abdulloooh)
 - Email: abdullahakinwumi@gmail.com
 
-Project Link:
+## Project Link:
 
 - Frontend: [https://github.com/abdulloooh/debtmanager](https://github.com/abdulloooh/debtmanager)
 - Backend: [https://github.com/abdulloooh/debtmanager-backend](https://github.com/abdulloooh/debtmanager-backend)
