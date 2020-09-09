@@ -90,6 +90,9 @@ Distributed under the GPL-3.0 License. See `LICENSE` for more information.
 ## Contact
 
 - Twitter: [@abdulloooh](https://twitter.com/abdulloooh)
-- Enail: abdullahakinwumi@gmail.com
+- Email: abdullahakinwumi@gmail.com
 
-Project Link: [https://github.com/abdulloooh/debtmanager](https://github.com/abdulloooh/debtmanager)
+Project Link:
+
+- Frontend: [https://github.com/abdulloooh/debtmanager](https://github.com/abdulloooh/debtmanager)
+- Backend: [https://github.com/abdulloooh/debtmanager-backend](https://github.com/abdulloooh/debtmanager-backend)
