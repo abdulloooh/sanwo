@@ -151,5 +151,18 @@ class Form extends Component {
       </button>
     );
   }
+
+  renderClickButton(label) {
+    return (
+      <button
+        style={{ marginTop: "10px" }}
+        type="button"
+        className="btn btn-primary"
+        onClick={this.deleteDebt}
+      >
+        {label}
+      </button>
+    );
+  }
 }
 export default Form;

@@ -40,3 +40,10 @@
     transform: rotate(360deg);
   }
 }
+
+button {
+  width: 125px;
+  border-radius: 0.25rem;
+  border: 1px solid transparent;
+  margintop: 10px;
+}

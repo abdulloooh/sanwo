@@ -2,7 +2,12 @@ import React from "react";
 import { Form as FormWrapper, Container, Row, Col } from "react-bootstrap";
 import Joi from "joi-browser";
 import Form from "./common/form";
-import { getDebt, saveDebt, updateDebt } from "../services/debtService";
+import {
+  getDebt,
+  saveDebt,
+  updateDebt,
+  deleteDebt,
+} from "../services/debtService";
 
 class DebtForm extends Form {
   state = { data: {}, errors: {} };
@@ -86,6 +91,22 @@ class DebtForm extends Form {
     this.props.history.push("/");
   };
 
+  deleteDebt = async () => {
+    try {
+      await deleteDebt(this.state.data._id);
+    } catch (ex) {
+      if (
+        ex.response &&
+        (ex.response.status === 400 ||
+          ex.response.status === 401 ||
+          ex.response.status === 403)
+      )
+        window.location = "/";
+    }
+
+    this.props.history.replace("/");
+  };
+
   render() {
     return (
       <Container className="mt-5">
@@ -97,7 +118,6 @@ class DebtForm extends Form {
             "optional description"
           )}
           {this.renderInput("Amount", "amount", "Amount", "tel")}
-
           <Row>
             <Col lg>{this.renderDate("Date Incurred", "dateIncurred")}</Col>
             <Col>{this.renderDate("Date Due", "dateDue")}</Col>
@@ -105,6 +125,9 @@ class DebtForm extends Form {
           {this.renderSelect("Owed by Who?", "status", this.owedByWho)}
           {this.renderButton("Submit")}
         </FormWrapper>
+        {this.props.match.params &&
+          this.props.match.params.id !== "new" &&
+          this.renderClickButton("Delete record")}
       </Container>
     );
   }
