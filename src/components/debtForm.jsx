@@ -1,5 +1,6 @@
 import React from "react";
 import { Form as FormWrapper, Container, Row, Col } from "react-bootstrap";
+import { trackPromise } from "react-promise-tracker";
 import Joi from "joi-browser";
 import Form from "./common/form";
 import {
@@ -42,7 +43,7 @@ class DebtForm extends Form {
       };
     } else {
       try {
-        const { data } = await getDebt(id);
+        const { data } = await trackPromise(getDebt(id));
         debt = { ...data };
       } catch (ex) {
         if (
@@ -75,10 +76,10 @@ class DebtForm extends Form {
     this.setState({ errors: errors || {} });
     if (errors) return false;
 
-    if (!this.state.data._id) await saveDebt(this.state.data);
+    if (!this.state.data._id) await trackPromise(saveDebt(this.state.data));
     else
       try {
-        await updateDebt(this.state.data);
+        await trackPromise(updateDebt(this.state.data));
       } catch (ex) {
         if (
           ex.response &&
@@ -94,7 +95,7 @@ class DebtForm extends Form {
 
   deleteConcern = async () => {
     try {
-      await deleteDebt(this.state.data._id);
+      await trackPromise(deleteDebt(this.state.data._id));
     } catch (ex) {
       if (
         ex.response &&

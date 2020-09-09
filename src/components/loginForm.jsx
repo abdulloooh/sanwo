@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Form as FormWrapper } from "react-bootstrap";
 import Joi from "joi-browser";
 import { Link, Redirect } from "react-router-dom";
+import { trackPromise } from "react-promise-tracker";
 import Form from "./common/form";
 import authService from "../services/authService";
 class LoginForm extends Form {
@@ -19,7 +20,7 @@ class LoginForm extends Form {
     //call the server
     try {
       const { username, password } = this.state.data;
-      await authService.login(username, password);
+      await trackPromise(authService.login(username, password));
 
       const { state } = this.props.location;
       window.location = state ? state.from.pathname : "/";

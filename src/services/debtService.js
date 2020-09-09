@@ -23,5 +23,5 @@ export function updateDebt(debt) {
 }
 
 export function deleteDebt(id) {
-  http.delete(debtUrl(id));
+  return http.delete(debtUrl(id));
 }

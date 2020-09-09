@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { trackPromise } from "react-promise-tracker";
 import { getDebts as getAllDebts } from "../services/debtService";
 import { getIndividualSummary } from "../services/individualService";
 import DebtsTable from "./debtsTable";
@@ -39,8 +40,8 @@ class DebtsManager extends Component {
   };
 
   async componentDidMount() {
-    let { data: debts } = await getAllDebts();
-    let { data: individual } = await getIndividualSummary();
+    let { data: debts } = await trackPromise(getAllDebts());
+    let { data: individual } = await trackPromise(getIndividualSummary());
     //set colorcolor for total
     let totalValue = individual.filter(
       (i) => i.name === `${this.specialVars.individual}`

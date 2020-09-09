@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Form as FormWrapper } from "react-bootstrap";
 import Joi from "joi-browser";
+import { trackPromise } from "react-promise-tracker";
 import Form from "./common/form";
 import authService from "../services/authService";
 import { toast } from "react-toastify";
@@ -19,7 +20,7 @@ class Settings extends Form {
     //call the server
     try {
       const { username, password } = this.state.data;
-      await authService.updateUser(username, password);
+      await trackPromise(authService.updateUser(username, password));
 
       toast.success("Success");
 
@@ -47,7 +48,7 @@ class Settings extends Form {
       )
     ) {
       try {
-        await authService.deleteUser();
+        await trackPromise(authService.deleteUser());
       } catch (ex) {
         if (
           ex.response &&

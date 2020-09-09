@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Form as FormWrapper } from "react-bootstrap";
 import Joi from "joi-browser";
+import { trackPromise } from "react-promise-tracker";
 import { Link, Redirect } from "react-router-dom";
 import authService from "../services/authService";
 import { register } from "../services/userService";
@@ -21,7 +22,7 @@ class RegisterForm extends Form {
   doSubmit = async () => {
     //call the server
     try {
-      const response = await register(this.state.data);
+      const response = await trackPromise(register(this.state.data));
 
       auth.loginWithJWT(response.headers["x-auth-token"]);
       window.location = "/";
