@@ -89,6 +89,7 @@ Distributed under the GPL-3.0 License. See `LICENSE` for more information.
 
 ## Contact
 
-Your Name - [@abdulloooh](https://twitter.com/abdulloooh) - abdullahakinwumi@gmail.com
+- Twitter: [@abdulloooh](https://twitter.com/abdulloooh)
+- Enail: abdullahakinwumi@gmail.com
 
 Project Link: [https://github.com/abdulloooh/debtmanager](https://github.com/abdulloooh/debtmanager)
