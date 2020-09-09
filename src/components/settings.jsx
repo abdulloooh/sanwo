@@ -65,8 +65,9 @@ class Settings extends Form {
   render() {
     return (
       <Container className="mt-5">
-        You can change either username/password but both fields must be filled
-        with either new or old detail
+        You can change either username/password or both but both fields must be
+        filled with either new or old detail. Whatever you submit will be the
+        your username and password
         <FormWrapper onSubmit={this.handleSubmit}>
           {this.renderInput("", "username", "old/new username")}
           {this.renderInput("", "password", "old/new password")}

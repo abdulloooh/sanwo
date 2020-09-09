@@ -1,68 +1,94 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://https://github.com/abdulloooh/debtmanager">
+    <img src="/public/logo192.png" alt="Logo" width="80" height="80">
+  </a>
 
-## Available Scripts
+  <h3 align="center">Debt Manager</h3>
 
-In the project directory, you can run:
+  <p align="center">
+    An awesome Debt Managing System to keep track of your debit and credit balance!
+  </p>
+</p>
 
-### `npm start`
+<!-- TABLE OF CONTENTS -->
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Table of Contents
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- [Built With](#built-with)
+- [Getting Started](#getting-started)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-### `npm test`
+### Built With
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
-### `npm run build`
+- [React](https://reactjs.org/)
+- [React Bootstrap](https://react-bootstrap.github.io/)
+- [nodeJS](https://nodejs.org/en/)
+- [mongoDB](https://www.mongodb.com/)
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<!-- GETTING STARTED -->
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Getting Started
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Fork the Project
+2. Clone the repo
 
-### `npm run eject`
+```sh
+git clone https://github.com/abdulloooh/debtmanager.git
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+3. Install NPM packages
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```sh
+npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+4. Set jwtPrivateToken from terminal e.g for Linux
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```sh
+export jwtPrivateToken=debtmanager
+```
 
-## Learn More
+5. Run
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```sh
+npm run dev
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<!-- ROADMAP -->
 
-### Code Splitting
+## Roadmap
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+See the [open issues](https://github.com/abdulloooh/debtmanager/issues) for a list of proposed features (and known issues).
 
-### Analyzing the Bundle Size
+<!-- CONTRIBUTING -->
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## Contributing
 
-### Making a Progressive Web App
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-### Advanced Configuration
+<!-- LICENSE -->
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+## License
 
-### Deployment
+Distributed under the GPL-3.0 License. See `LICENSE` for more information.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+<!-- CONTACT -->
 
-### `npm run build` fails to minify
+## Contact
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Your Name - [@abdulloooh](https://twitter.com/abdulloooh) - abdullahakinwumi@gmail.com
+
+Project Link: [https://github.com/abdulloooh/debtmanager](https://github.com/abdulloooh/debtmanager)
