@@ -11,7 +11,7 @@ class LoginForm extends Form {
   };
 
   schema = {
-    username: Joi.string().min(3).max(30).required().label("username"),
+    username: Joi.string().min(3).max(25).required().label("username"),
     password: Joi.string().min(5).max(255).required().label("Password"),
   };
 

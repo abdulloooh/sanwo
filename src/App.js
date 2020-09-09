@@ -9,14 +9,18 @@ import Logout from "./components/logoutForm";
 import RegisterForm from "./components/registerForm";
 import ProtectedRoute from "./components/common/protectedRoute";
 import NotFound from "./components/notFound";
+import authService from "./services/authService";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 function App() {
+  const username = authService.getCurrentUser()
+    ? authService.getCurrentUser().username
+    : "Debt Manager";
   return (
     <>
       <ToastContainer />
-      <NavbarNavGuest />
+      <NavbarNavGuest username={username} />
       <Switch>
         <Route path="/register" component={RegisterForm}></Route>
         <Route path="/login" component={LoginForm}></Route>

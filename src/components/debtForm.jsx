@@ -109,12 +109,10 @@ class DebtForm extends Form {
   };
 
   handleException() {
-    {
-      toast.error("Invalid request");
-      setTimeout(() => {
-        window.location = "/";
-      }, 500);
-    }
+    toast.error("Invalid request");
+    setTimeout(() => {
+      window.location = "/";
+    }, 500);
   }
 
   render() {
