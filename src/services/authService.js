@@ -15,6 +15,20 @@ export async function login(username, password) {
   localStorage.setItem(tokenKey, jwt);
 }
 
+export async function updateUser(username, password) {
+  const { headers } = await http.put("/users", {
+    username: username,
+    password: password,
+  });
+  const jwt = headers["x-auth-token"];
+  localStorage.setItem(tokenKey, jwt);
+}
+
+export async function deleteUser() {
+  await http.delete("/users");
+  localStorage.removeItem(tokenKey);
+}
+
 export function logout() {
   localStorage.removeItem(tokenKey);
 }
@@ -41,4 +55,6 @@ export default {
   logout,
   getCurrentUser,
   getJwt,
+  updateUser,
+  deleteUser,
 };

@@ -18,7 +18,11 @@ const NavbarNavGuest = ({ username }) => {
 
       <div className="nav-right-wrapper">
         {/* <FaShareAlt /> */}
-        {username !== "Debt Manager" && <FaWrench className="ml-4" />}
+        {username !== "Debt Manager" && (
+          <Navbar.Brand as={NavLink} to="/settings">
+            <FaWrench className="ml-4" />
+          </Navbar.Brand>
+        )}
       </div>
       {username !== "Debt Manager" && (
         <Navbar.Brand as={NavLink} to="/logout">

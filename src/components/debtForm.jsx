@@ -92,7 +92,7 @@ class DebtForm extends Form {
     this.props.history.push("/");
   };
 
-  deleteDebt = async () => {
+  deleteConcern = async () => {
     try {
       await deleteDebt(this.state.data._id);
     } catch (ex) {

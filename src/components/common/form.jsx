@@ -158,7 +158,7 @@ class Form extends Component {
         style={{ marginTop: "10px" }}
         type="button"
         className="btn btn-primary"
-        onClick={this.deleteDebt}
+        onClick={this.deleteConcern}
       >
         {label}
       </button>

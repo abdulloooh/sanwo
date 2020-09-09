@@ -7,6 +7,7 @@ import DebtForm from "./components/debtForm";
 import LoginForm from "./components/loginForm";
 import Logout from "./components/logoutForm";
 import RegisterForm from "./components/registerForm";
+import Settings from "./components/settings";
 import ProtectedRoute from "./components/common/protectedRoute";
 import NotFound from "./components/notFound";
 import authService from "./services/authService";
@@ -28,6 +29,7 @@ function App() {
 
         <ProtectedRoute path="/debts/:id" component={DebtForm}></ProtectedRoute>
         <ProtectedRoute path="/debts/new" component={DebtForm}></ProtectedRoute>
+        <ProtectedRoute path="/settings" component={Settings}></ProtectedRoute>
         <ProtectedRoute exact path="/" component={Body}></ProtectedRoute>
 
         <Redirect path="/debts" to="/" />
