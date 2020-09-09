@@ -47,16 +47,10 @@ git clone https://github.com/abdulloooh/debtmanager.git
 npm install
 ```
 
-4. Set jwtPrivateToken from terminal e.g for Linux
+4. Run
 
 ```sh
-export jwtPrivateToken=debtmanager
-```
-
-5. Run
-
-```sh
-npm run dev
+npm start
 ```
 
 <!-- ROADMAP -->
