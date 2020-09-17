@@ -52,7 +52,7 @@ class DebtForm extends Form {
             ex.response.status === 401 ||
             ex.response.status === 403)
         )
-          this.handleException();
+          this.handleException(ex);
       }
     }
 
@@ -76,20 +76,18 @@ class DebtForm extends Form {
     this.setState({ errors: errors || {} });
     if (errors) return false;
 
-    if (!this.state.data._id) await trackPromise(saveDebt(this.state.data));
-    else
-      try {
-        await trackPromise(updateDebt(this.state.data));
-      } catch (ex) {
-        if (
-          ex.response &&
-          (ex.response.status === 400 ||
-            ex.response.status === 401 ||
-            ex.response.status === 403)
-        )
-          this.handleException();
-      }
-
+    try {
+      if (!this.state.data._id) await trackPromise(saveDebt(this.state.data));
+      else await trackPromise(updateDebt(this.state.data));
+    } catch (ex) {
+      if (
+        ex.response &&
+        (ex.response.status === 400 ||
+          ex.response.status === 401 ||
+          ex.response.status === 403)
+      )
+        this.handleException(ex);
+    }
     this.props.history.push("/");
   };
 
@@ -103,17 +101,23 @@ class DebtForm extends Form {
           ex.response.status === 401 ||
           ex.response.status === 403)
       )
-        this.handleException();
+        this.handleException(ex);
     }
-
     this.props.history.replace("/");
   };
 
-  handleException() {
-    toast.error("Invalid request");
-    setTimeout(() => {
-      window.location = "/";
-    }, 500);
+  handleException(err) {
+    if (err.response.data === "Please log in again") {
+      toast.error(err.response.data);
+      localStorage.removeItem("_token_manager_debt_db_");
+      window.location = "/login";
+      return;
+    }
+
+    toast.error(err.response.data);
+    // setTimeout(() => {
+    window.location = "/";
+    // }, 500);
   }
 
   render() {

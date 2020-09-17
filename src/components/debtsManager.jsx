@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { trackPromise } from "react-promise-tracker";
 import { getDebts as getAllDebts } from "../services/debtService";
 import { getIndividualSummary } from "../services/individualService";
@@ -40,21 +41,40 @@ class DebtsManager extends Component {
   };
 
   async componentDidMount() {
-    let { data: debts } = await trackPromise(getAllDebts());
-    let { data: individual } = await trackPromise(getIndividualSummary());
-    //set colorcolor for total
-    let totalValue = individual.filter(
-      (i) => i.name === `${this.specialVars.individual}`
-    );
-    let totalColor = Number(totalValue[0].balance) < 0 ? "red" : "green";
+    try {
+      let { data: debts } = await trackPromise(getAllDebts());
+      let { data: individual } = await trackPromise(getIndividualSummary());
+      //set colorcolor for total
+      let totalValue = individual.filter(
+        (i) => i.name === `${this.specialVars.individual}`
+      );
+      let totalColor = Number(totalValue[0].balance) < 0 ? "red" : "green";
 
-    this.setState({ debts, individual, category: "classified", totalColor });
-    this.sortAndUpdate(
-      this.state.sortBy,
-      this.state.orderBy,
-      debts,
-      individual
-    );
+      this.setState({ debts, individual, category: "classified", totalColor });
+      this.sortAndUpdate(
+        this.state.sortBy,
+        this.state.orderBy,
+        debts,
+        individual
+      );
+    } catch (ex) {
+      if (
+        ex.response &&
+        (ex.response.status === 400 ||
+          ex.response.status === 401 ||
+          ex.response.status === 403)
+      ) {
+        let expiredTokenMessage = "";
+        if (ex.response.data === "Please log in again") {
+          expiredTokenMessage = "Please log in again";
+          localStorage.removeItem("_token_manager_debt_db_");
+        }
+        toast.error(expiredTokenMessage || "Invalid request");
+        // setTimeout(() => {
+        window.location = expiredTokenMessage ? "/login" : "/";
+        // }, 500);
+      }
+    }
   }
 
   // componentDidUpdate(prevProps) {

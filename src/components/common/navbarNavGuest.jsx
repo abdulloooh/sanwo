@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import { FaShareAlt, FaWrench } from "react-icons/fa";
+import { /*FaShareAlt,*/ FaWrench } from "react-icons/fa";
 
 const NavbarNavGuest = ({ username }) => {
   return (
