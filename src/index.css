@@ -24,4 +24,11 @@ code {
 
 .navbar-light .navbar-brand {
   color: white;
+  font-size: unset;
+}
+
+@media (max-width: 400px) {
+  .navbar-brand {
+    margin-right: 0.5em;
+  }
 }

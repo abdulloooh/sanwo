@@ -11,7 +11,7 @@ export async function login(username, password) {
     username: username,
     password: password,
   });
-  const jwt = headers["x-auth-token"];
+  const jwt = headers["x_auth_token"];
   localStorage.setItem(tokenKey, jwt);
 }
 
@@ -20,7 +20,7 @@ export async function updateUser(username, password) {
     username: username,
     password: password,
   });
-  const jwt = headers["x-auth-token"];
+  const jwt = headers["x_auth_token"];
   localStorage.setItem(tokenKey, jwt);
 }
 

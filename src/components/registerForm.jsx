@@ -24,7 +24,7 @@ class RegisterForm extends Form {
     try {
       const response = await trackPromise(register(this.state.data));
 
-      auth.loginWithJWT(response.headers["x-auth-token"]);
+      auth.loginWithJWT(response.headers["x_auth_token"]);
       window.location = "/";
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
