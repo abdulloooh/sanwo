@@ -67,7 +67,7 @@ class DebtsManager extends Component {
         let expiredTokenMessage = "";
         if (ex.response.data === "Please log in again") {
           expiredTokenMessage = "Please log in again";
-          localStorage.removeItem("_token_manager_debt_db_");
+          localStorage.removeItem("username");
         }
         toast.error(expiredTokenMessage || "Invalid request");
         // setTimeout(() => {

@@ -7,12 +7,12 @@ const loginApiEndpoint = "/auth";
 // http.setJwt(getJwt());
 
 export async function login(username, password) {
-  const { data: userNAme } = await http.post(loginApiEndpoint, {
+  const { data } = await http.post(loginApiEndpoint, {
     username: username,
     password: password,
   });
-  // const jwt = headers["x-auth-token"];
-  saveCurrentUser(userNAme);
+  // const jwt = headers["x_auth_token"];
+  saveCurrentUser(data.username);
 }
 
 export async function updateUser(username, password) {
@@ -20,19 +20,19 @@ export async function updateUser(username, password) {
     username: username,
     password: password,
   });
-  // const jwt = headers["x-auth-token"];
+  // const jwt = headers["x_auth_token"];
   // localStorage.setItem(tokenKey, jwt);
 }
 
 export async function deleteUser() {
   await http.delete("/users");
   // localStorage.removeItem(tokenKey);
-  localStorage.setItem("isLoggedIn", false);
+  // localStorage.setItem("isLoggedIn", false);
 }
 
 export function logout() {
   // localStorage.removeItem(tokenKey);
-  localStorage.setItem("isLoggedIn", false);
+  // localStorage.setItem("isLoggedIn", false);
 }
 
 // export function getCurrentUser() {

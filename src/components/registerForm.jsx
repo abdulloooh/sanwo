@@ -21,10 +21,10 @@ class RegisterForm extends Form {
   doSubmit = async () => {
     //call the server
     try {
-      const { data: username } = await trackPromise(register(this.state.data));
+      const { data } = await trackPromise(register(this.state.data));
 
-      // authService.loginWithJWT(response.headers["x-auth-token"]);
-      authService.saveCurrentUser(username);
+      // authService.loginWithJWT(response.headers["x_auth_token"]);
+      authService.saveCurrentUser(data.username);
       window.location = "/";
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {

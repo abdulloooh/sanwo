@@ -14,7 +14,9 @@ axios.interceptors.response.use(null, (error) => {
   // log the error
   // Display a generic and friendly error message eg unexpected error encountered
   if (!expectedError) {
-    toast.error("Ouch! Unexpected error, try again");
+    toast.error("Ouch! Unexpected error, please log in again");
+    localStorage.removeItem("username");
+    window.location = "/login";
     logger.log(error);
   }
 
@@ -22,7 +24,7 @@ axios.interceptors.response.use(null, (error) => {
 });
 
 // function setJwt(jwt) {
-//   axios.defaults.headers.common["x-auth-token"] = jwt;
+//   axios.defaults.headers.common["x_auth_token"] = jwt;
 // }
 
 export default {
