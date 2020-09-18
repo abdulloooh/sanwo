@@ -5,7 +5,6 @@ import { trackPromise } from "react-promise-tracker";
 import { Link, Redirect } from "react-router-dom";
 import authService from "../services/authService";
 import { register } from "../services/userService";
-import auth from "../services/authService";
 import Form from "./common/form";
 
 class RegisterForm extends Form {
@@ -22,9 +21,10 @@ class RegisterForm extends Form {
   doSubmit = async () => {
     //call the server
     try {
-      const response = await trackPromise(register(this.state.data));
+      const { data: username } = await trackPromise(register(this.state.data));
 
-      auth.loginWithJWT(response.headers["x-auth-token"]);
+      // authService.loginWithJWT(response.headers["x-auth-token"]);
+      authService.saveCurrentUser(username);
       window.location = "/";
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
