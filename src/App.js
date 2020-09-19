@@ -15,9 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 function App() {
-  const username = authService.getCurrentUser()
-    ? authService.getCurrentUser().username
-    : "Debt Manager";
+  const username = authService.getCurrentUser() || "Debt Manager";
   return (
     <>
       <ToastContainer />

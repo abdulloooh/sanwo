@@ -64,14 +64,10 @@ class DebtsManager extends Component {
           ex.response.status === 401 ||
           ex.response.status === 403)
       ) {
-        let expiredTokenMessage = "";
-        if (ex.response.data === "Please log in again") {
-          expiredTokenMessage = "Please log in again";
-          localStorage.removeItem("_token_manager_debt_db_");
-        }
-        toast.error(expiredTokenMessage || "Invalid request");
+        localStorage.removeItem("username");
+        toast.error(ex.response.data || "Invalid request");
         // setTimeout(() => {
-        window.location = expiredTokenMessage ? "/login" : "/";
+        window.location = "/login";
         // }, 500);
       }
     }

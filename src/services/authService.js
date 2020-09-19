@@ -1,60 +1,74 @@
-import JwtDecode from "jwt-decode";
+// import JwtDecode from "jwt-decode";
 import http from "./httpService";
 
 const loginApiEndpoint = "/auth";
-const tokenKey = "_token_manager_debt_db_";
+// const tokenKey = "_token_manager_debt_db_";
 
-http.setJwt(getJwt());
+// http.setJwt(getJwt()); //was for setting header
 
 export async function login(username, password) {
-  const { headers } = await http.post(loginApiEndpoint, {
+  const { data } = await http.post(loginApiEndpoint, {
     username: username,
     password: password,
   });
-  const jwt = headers["x_auth_token"];
-  localStorage.setItem(tokenKey, jwt);
+  // const jwt = headers["x_auth_token"];
+  // localStorage.setItem(tokenKey, jwt);
+  saveCurrentUser(data.username);
 }
 
 export async function updateUser(username, password) {
-  const { headers } = await http.put("/users", {
+  const { data } = await http.put("/users", {
     username: username,
     password: password,
   });
-  const jwt = headers["x_auth_token"];
-  localStorage.setItem(tokenKey, jwt);
+  // const jwt = headers["x_auth_token"];
+  // localStorage.setItem(tokenKey, jwt);
+  saveCurrentUser(data.username);
 }
 
 export async function deleteUser() {
   await http.delete("/users");
-  localStorage.removeItem(tokenKey);
+  localStorage.removeItem("username");
+  // localStorage.removeItem(tokenKey);
 }
 
-export function logout() {
-  localStorage.removeItem(tokenKey);
+export async function logout() {
+  await http.post("/logout");
+  // localStorage.removeItem(tokenKey);
+  localStorage.removeItem("username");
+}
+
+// export function getCurrentUser() {
+//   try {
+//     return JwtDecode(getJwt());
+//   } catch (ex) {
+//     return null;
+//   }
+// }
+
+// export function getJwt() {
+//   return localStorage.getItem(tokenKey);
+// }
+
+// export function loginWithJWT(jwt) {
+//   localStorage.setItem(tokenKey, jwt);
+// }
+
+export function saveCurrentUser(username) {
+  localStorage.setItem("username", username);
 }
 
 export function getCurrentUser() {
-  try {
-    return JwtDecode(getJwt());
-  } catch (ex) {
-    return null;
-  }
-}
-
-export function getJwt() {
-  return localStorage.getItem(tokenKey);
-}
-
-export function loginWithJWT(jwt) {
-  localStorage.setItem(tokenKey, jwt);
+  return localStorage.getItem("username");
 }
 
 export default {
   login,
-  loginWithJWT,
+  // loginWithJWT,
   logout,
   getCurrentUser,
-  getJwt,
+  saveCurrentUser,
+  // getJwt,
   updateUser,
   deleteUser,
 };
