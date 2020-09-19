@@ -58,7 +58,7 @@ class Settings extends Form {
         )
           this.handleException();
       }
-      this.props.history.replace("/login");
+      window.location = "/login";
     } else this.props.history.push("/");
   };
 

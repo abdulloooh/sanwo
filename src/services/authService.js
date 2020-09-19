@@ -4,7 +4,7 @@ import http from "./httpService";
 const loginApiEndpoint = "/auth";
 // const tokenKey = "_token_manager_debt_db_";
 
-// http.setJwt(getJwt());
+// http.setJwt(getJwt()); //was for setting header
 
 export async function login(username, password) {
   const { data } = await http.post(loginApiEndpoint, {
@@ -16,23 +16,25 @@ export async function login(username, password) {
 }
 
 export async function updateUser(username, password) {
-  /*const { headers } =*/ await http.put("/users", {
+  const { data } = await http.put("/users", {
     username: username,
     password: password,
   });
   // const jwt = headers["x_auth_token"];
   // localStorage.setItem(tokenKey, jwt);
+  saveCurrentUser(data.username);
 }
 
 export async function deleteUser() {
   await http.delete("/users");
+  localStorage.removeItem("username");
   // localStorage.removeItem(tokenKey);
-  // localStorage.setItem("isLoggedIn", false);
 }
 
-export function logout() {
+export async function logout() {
+  await http.post("/logout");
   // localStorage.removeItem(tokenKey);
-  // localStorage.setItem("isLoggedIn", false);
+  localStorage.removeItem("username");
 }
 
 // export function getCurrentUser() {

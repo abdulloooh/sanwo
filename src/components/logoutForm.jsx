@@ -1,10 +1,11 @@
 import { Component } from "react";
 import { logout } from "../services/authService";
+import { trackPromise } from "react-promise-tracker";
 
 class Logout extends Component {
-  componentDidMount() {
-    logout();
-    window.location = "/";
+  async componentDidMount() {
+    await trackPromise(logout());
+    window.location = "/login";
   }
 
   render() {
