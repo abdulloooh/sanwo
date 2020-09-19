@@ -2,7 +2,12 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import logger from "./logService";
 
+// axios.create({
+//   withCredentials: true,
+// });
+
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+axios.defaults.withCredentials = true;
 
 axios.interceptors.response.use(null, (error) => {
   const expectedError =
@@ -16,8 +21,10 @@ axios.interceptors.response.use(null, (error) => {
   if (!expectedError) {
     toast.error("Ouch! Unexpected error, please log in again");
     localStorage.removeItem("username");
-    window.location = "/login";
+    console.log(error);
+    return false;
     logger.log(error);
+    window.location = "/login";
   }
 
   return Promise.reject(error);
