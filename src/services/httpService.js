@@ -21,6 +21,8 @@ axios.interceptors.response.use(null, (error) => {
   if (!expectedError) {
     toast.error("Ouch! Unexpected error, please log in again");
     localStorage.removeItem("username");
+    console.log(error);
+    return false;
     logger.log(error);
     window.location = "/login";
   }
