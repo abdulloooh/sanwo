@@ -5,6 +5,7 @@ import NavbarNavGuest from "./components/common/navbarNavGuest";
 import Body from "./components/body";
 import DebtForm from "./components/debtForm";
 import LoginForm from "./components/loginForm";
+import forgetPasswordForm from "./components/forgetPasswordForm";
 import Logout from "./components/logoutForm";
 import RegisterForm from "./components/registerForm";
 import Settings from "./components/settings";
@@ -23,6 +24,7 @@ function App() {
       <Switch>
         <Route path="/register" component={RegisterForm}></Route>
         <Route path="/login" component={LoginForm}></Route>
+        <Route path="/forgetpassword" component={forgetPasswordForm}></Route>
         <Route path="/logout" component={Logout}></Route>
 
         <ProtectedRoute path="/debts/:id" component={DebtForm}></ProtectedRoute>
