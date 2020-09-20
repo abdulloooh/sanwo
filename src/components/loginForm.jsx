@@ -21,7 +21,7 @@ class LoginForm extends Form {
     try {
       const { username, password } = this.state.data;
       await trackPromise(authService.login(username, password));
-      return false;
+
       const { state } = this.props.location;
       window.location = state ? state.from.pathname : "/";
     } catch (ex) {
