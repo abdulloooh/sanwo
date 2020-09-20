@@ -44,7 +44,7 @@ class LoginForm extends Form {
         <FormWrapper onSubmit={this.handleSubmit}>
           {this.renderInput("Username", "username", "username")}
 
-          {this.renderInput("Password", "password", "password")}
+          {this.renderInput("Password", "password", "password", "password")}
 
           {this.renderButton("Login")}
         </FormWrapper>

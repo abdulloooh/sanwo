@@ -7,20 +7,24 @@ import authService from "../services/authService";
 import { toast } from "react-toastify";
 class Settings extends Form {
   state = {
-    data: { username: "", password: "" },
+    data: { username: "", email: "", password: "" },
     errors: {},
   };
 
   schema = {
     username: Joi.string().min(3).max(25).required().label("username"),
+    email: Joi.string()
+      .email({ minDomainSegments: 2 })
+      .required()
+      .label("email"),
     password: Joi.string().min(5).max(255).required().label("Password"),
   };
 
   async doSubmit() {
     //call the server
     try {
-      const { username, password } = this.state.data;
-      await trackPromise(authService.updateUser(username, password));
+      const { username, email, password } = this.state.data;
+      await trackPromise(authService.updateUser(username, email, password));
 
       toast.success("Success");
 
@@ -33,6 +37,8 @@ class Settings extends Form {
         errors.username = ex.response.data;
         this.setState({ errors });
       } else {
+        // console.log(ex.response);
+        // return false;
         toast.error("Invalid request");
         // setTimeout(() => {
         window.location = "/";
@@ -65,12 +71,13 @@ class Settings extends Form {
   render() {
     return (
       <Container className="mt-5">
-        You can change either username/password or both but both fields must be
-        filled with either new or old detail. Whatever you submit will be the
-        your username and password
+        You can change any of username, email and password but all fields must
+        be filled with either new or old detail. Whatever you submit will be
+        your new username, email and password
         <FormWrapper onSubmit={this.handleSubmit}>
           {this.renderInput("", "username", "old/new username")}
-          {this.renderInput("", "password", "old/new password")}
+          {this.renderInput("", "email", "old/new email", "email")}
+          {this.renderInput("", "password", "old/new password", "password")}
           {this.renderButton("Update")}
         </FormWrapper>
         {this.renderClickButton("Delete Acccount")}

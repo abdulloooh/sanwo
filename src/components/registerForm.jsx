@@ -9,13 +9,22 @@ import Form from "./common/form";
 
 class RegisterForm extends Form {
   state = {
-    data: { username: "", password: "" },
+    data: { username: "", email: "", password: "" },
     errors: {},
   };
 
   schema = {
-    username: Joi.string().min(3).max(30).required().label("username"),
-    password: Joi.string().min(5).max(255).required().label("Password"),
+    username: Joi.string().min(3).max(30).label("username").required(),
+    email: Joi.string()
+      .email({ minDomainSegments: 2 })
+      .required()
+      .label("email"),
+    password: Joi.string()
+      .min(5)
+      .max(255)
+      .required()
+      .label("Password")
+      .required(),
   };
 
   doSubmit = async () => {
@@ -42,7 +51,8 @@ class RegisterForm extends Form {
       <Container className="mt-5">
         <FormWrapper action="" onSubmit={this.handleSubmit}>
           {this.renderInput("Username", "username", "username")}
-          {this.renderInput("Password", "password", "password")}
+          {this.renderInput("Email", "email", "your email...", "email")}
+          {this.renderInput("Password", "password", "password", "password")}
           {this.renderButton("Register")}
         </FormWrapper>
         <br />
