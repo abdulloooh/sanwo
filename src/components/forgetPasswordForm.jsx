@@ -5,10 +5,12 @@ import { Link, Redirect } from "react-router-dom";
 import { trackPromise } from "react-promise-tracker";
 import Form from "./common/form";
 import authService from "../services/authService";
-class LoginForm extends Form {
+import { forgetPassword } from "../services/userService";
+class ForgetPassword extends Form {
   state = {
     data: { username: "", email: "" },
     errors: {},
+    mailSent: "",
   };
 
   schema = {
@@ -22,16 +24,14 @@ class LoginForm extends Form {
   async doSubmit() {
     //call the server
     try {
-      const { username, email } = this.state.data;
-      //   await trackPromise(authService.login(email, password));
-
-      const { state } = this.props.location;
-      window.location = state ? state.from.pathname : "/";
+      await trackPromise(forgetPassword(this.state.data));
+      this.setState({
+        mailSent:
+          "If your details are right, A link has been sent to your registered email, kindly follow the link to reset your password",
+        data: {},
+      });
     } catch (ex) {
-      if (
-        ex.response &&
-        (ex.response.status === 400 || ex.response.status === 401)
-      ) {
+      if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };
         errors.username = ex.response.data;
         this.setState({ errors });
@@ -48,6 +48,11 @@ class LoginForm extends Form {
           <u>Password Reset Request</u>
         </h5>
         <br />
+
+        {this.state.mailSent && (
+          <div className="alert alert-danger">{this.state.mailSent}</div>
+        )}
+
         <FormWrapper onSubmit={this.handleSubmit}>
           {this.renderInput("Username", "username", "username")}
 
@@ -57,11 +62,11 @@ class LoginForm extends Form {
         </FormWrapper>
         <br />
         <p>
-          Remember password now? <Link to="/login">Login</Link>
+          <Link to="/login">Login?</Link>
         </p>
       </Container>
     );
   }
 }
 
-export default LoginForm;
+export default ForgetPassword;

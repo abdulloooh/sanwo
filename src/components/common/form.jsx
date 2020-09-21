@@ -25,6 +25,7 @@ class Form extends Component {
   };
 
   validateProperty = (path, value) => {
+    if (path === "confirmPassword") return null;
     const { error } = this.schema[path].validate(value);
     // const result = Joi.validate(value, this.schema[path]).error;
     return error ? error.details[0].message : null;

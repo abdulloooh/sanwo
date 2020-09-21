@@ -6,6 +6,7 @@ import Body from "./components/body";
 import DebtForm from "./components/debtForm";
 import LoginForm from "./components/loginForm";
 import forgetPasswordForm from "./components/forgetPasswordForm";
+import passwordReset from "./components/passwordReset";
 import Logout from "./components/logoutForm";
 import RegisterForm from "./components/registerForm";
 import Settings from "./components/settings";
@@ -25,6 +26,7 @@ function App() {
         <Route path="/register" component={RegisterForm}></Route>
         <Route path="/login" component={LoginForm}></Route>
         <Route path="/forgetpassword" component={forgetPasswordForm}></Route>
+        <Route path="/password-reset" component={passwordReset}></Route>
         <Route path="/logout" component={Logout}></Route>
 
         <ProtectedRoute path="/debts/:id" component={DebtForm}></ProtectedRoute>
