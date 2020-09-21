@@ -23,7 +23,9 @@ axios.interceptors.response.use(null, (error) => {
     localStorage.removeItem("username");
 
     logger.log(error);
-    window.location = "/login";
+    setTimeout(() => {
+      window.location = "/login";
+    }, 300);
   }
 
   return Promise.reject(error);

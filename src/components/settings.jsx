@@ -28,9 +28,9 @@ class Settings extends Form {
 
       toast.success("Success");
 
-      // setTimeout(() => {
-      window.location = "/";
-      // }, 500);
+      setTimeout(() => {
+        window.location = "/";
+      }, 300);
     } catch (ex) {
       if (ex.response && ex.response.status === 406) {
         const errors = { ...this.state.errors };
@@ -40,9 +40,9 @@ class Settings extends Form {
         // console.log(ex.response);
         // return false;
         toast.error("Invalid request");
-        // setTimeout(() => {
-        window.location = "/";
-        // }, 500);
+        setTimeout(() => {
+          window.location = "/";
+        }, 300);
       }
     }
   }

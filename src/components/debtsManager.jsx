@@ -66,9 +66,9 @@ class DebtsManager extends Component {
       ) {
         localStorage.removeItem("username");
         toast.error(ex.response.data || "Invalid request");
-        // setTimeout(() => {
-        window.location = "/login";
-        // }, 500);
+        setTimeout(() => {
+          window.location = "/login";
+        }, 300);
       }
     }
   }

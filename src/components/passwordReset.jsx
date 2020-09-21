@@ -46,7 +46,9 @@ class PasswordReset extends Form {
       );
 
       toast("Password successfully updated");
-      window.location = "/login";
+      setTimeout(() => {
+        window.location = "/login";
+      }, 300);
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };
@@ -54,7 +56,9 @@ class PasswordReset extends Form {
         this.setState({ errors });
       } else if (ex.response && ex.response.status === 401) {
         toast.error(ex.response.data);
-        window.location = "/login";
+        setTimeout(() => {
+          window.location = "/login";
+        }, 300);
       }
     }
   }
