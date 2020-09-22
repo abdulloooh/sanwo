@@ -24,6 +24,8 @@
 - [License](#license)
 - [Contact](#contact)
 
+<!-- ABOUT SANWO -->
+
 ### About Sanwo
 
 Sanwo is a debt management system for recording of debts owed to you and by you.
