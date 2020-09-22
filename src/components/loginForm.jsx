@@ -54,6 +54,37 @@ class LoginForm extends Form {
         <p>
           New user? <Link to="/register">Register</Link> <br />
         </p>
+        <p style={{ position: "fixed", bottom: "0" }}>
+          <hr />
+          <small>
+            Built with{" "}
+            <span role="img" aria-label="heart emoji">
+              💟
+            </span>{" "}
+            by{" "}
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://twitter.com/abdulloooh"
+            >
+              Abdullah |
+            </a>{" "}
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://github.com/abdulloooh/sanwo/"
+            >
+              Contribute |{" "}
+            </a>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://twitter.com/abdulloooh"
+            >
+              Feedback?{" "}
+            </a>
+          </small>
+        </p>
       </Container>
     );
   }
