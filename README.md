@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/04f54427-60de-4b6e-8ca6-c0cb6dc72fea/deploy-status)](https://app.netlify.com/sites/objective-payne-026f30/deploys)
+
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
