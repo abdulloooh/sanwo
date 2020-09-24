@@ -8,17 +8,15 @@ import { getUser } from "../services/userService";
 import { toast } from "react-toastify";
 class Settings extends Form {
   state = {
-    data: { username: "", email: "" },
+    data: { username: "", email: "", old_password: "", new_password: "" },
     errors: {},
   };
 
   schema = {
-    username: Joi.string().min(3).max(25).required().label("username"),
-    email: Joi.string()
-      .email({ minDomainSegments: 2 })
-      .required()
-      .label("email"),
-    // password: Joi.string().min(5).max(255).required().label("Password"),
+    username: Joi.string().min(3).max(25).label("username"),
+    email: Joi.string().email({ minDomainSegments: 2 }).label("email"),
+    old_password: Joi.string().min(5).max(255).label("Old Password"),
+    new_password: Joi.string().min(5).max(255).label("New Password"),
   };
 
   async componentDidMount() {
@@ -100,6 +98,42 @@ class Settings extends Form {
     }, 300);
   }
 
+  changePassword = async (e) => {
+    e.preventDefault();
+    let errors = this.validate();
+
+    if (!this.state.data.old_password || !this.state.data.new_password) {
+      errors = {};
+      errors.new_password = "Passwords should not be empty";
+    }
+
+    this.setState({ errors: errors || {} });
+    if (errors) return false;
+
+    try {
+      const { old_password, new_password } = this.state.data;
+      await trackPromise(
+        authService.updatePassword(old_password, new_password)
+      );
+
+      toast("Password update successful");
+      window.location = "/";
+    } catch (ex) {
+      if (ex.response && ex.response.status === 406) {
+        const errors = { ...this.state.errors };
+        errors.old_password = ex.response.data;
+        this.setState({ errors });
+      } else {
+        // console.log(ex.response);
+        // return false;
+        toast.error("Invalid request");
+        setTimeout(() => {
+          window.location = "/";
+        }, 300);
+      }
+    }
+  };
+
   render() {
     return (
       <Container className="mt-5">
@@ -111,6 +145,14 @@ class Settings extends Form {
           {this.renderButton("Update")}
         </FormWrapper>
         {this.renderClickButton("Delete Acccount")}
+        <br /> <br />
+        Change Password
+        <FormWrapper onSubmit={this.changePassword}>
+          {this.renderInput("", "old_password", "old password", "password")}
+          {this.renderInput("", "new_password", "new password", "password")}
+          {/* {this.renderInput("", "password", "old/new password", "password")} */}
+          {this.renderButton("Update Password")}
+        </FormWrapper>
       </Container>
     );
   }

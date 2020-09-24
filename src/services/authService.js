@@ -23,6 +23,15 @@ export async function updateUser(username, email) {
   saveCurrentUser(data.username);
 }
 
+export async function updatePassword(old_password, new_password) {
+  await http.put("/auth/password", {
+    old_password,
+    new_password,
+  });
+  // const jwt = headers["x_auth_token"];
+  // localStorage.setItem(tokenKey, jwt);
+}
+
 export async function deleteUser() {
   await http.delete("/users");
   localStorage.removeItem("username");
@@ -68,4 +77,5 @@ export default {
   // getJwt,
   updateUser,
   deleteUser,
+  updatePassword,
 };

@@ -13,7 +13,6 @@ class Form extends Component {
     const options = { abortEarly: false };
     const { error } = Joi.validate(this.state.data, this.schema, options);
     // const { error } = Joi.compile(this.schema).validate(this.state.data);
-
     if (!error) return null;
     error.details.map((error) => {
       //needs to ensure we only get the first error from top

@@ -60,7 +60,6 @@ class RegisterForm extends Form {
           Already a user? <Link to="/login">Login</Link>
         </p>
         <p style={{ position: "fixed", bottom: "0" }}>
-          <hr />
           <small>
             Built with{" "}
             <span role="img" aria-label="heart emoji">

@@ -55,7 +55,6 @@ class LoginForm extends Form {
           New user? <Link to="/register">Register</Link> <br />
         </p>
         <p style={{ position: "fixed", bottom: "0" }}>
-          <hr />
           <small>
             Built with{" "}
             <span role="img" aria-label="heart emoji">
