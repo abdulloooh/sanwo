@@ -89,7 +89,7 @@ class Form extends Component {
     this.whichDate = whichDate;
   };
 
-  renderInput(label, path, placeholder, type = "text") {
+  renderInput(label, path, placeholder, type = "text", newPassword) {
     const { errors, data } = this.state;
     return (
       <Input
@@ -100,7 +100,7 @@ class Form extends Component {
         value={_.get(data, path) || ""}
         onChange={this.handleChange}
         error={errors[path]}
-        autoComplete="new-password"
+        autoComplete={newPassword}
         placeholder={placeholder}
       />
     );

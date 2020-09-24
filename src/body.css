@@ -19,3 +19,19 @@
 .filter button {
   box-shadow: none !important;
 }
+
+.loginFooter {
+  margin-top: 13em;
+}
+.registerFooter {
+  margin-top: 10em;
+}
+
+@media (min-width: 500px) {
+  .loginFooter,
+  .registerFooter {
+    margin-top: unset;
+    position: fixed;
+    bottom: 0;
+  }
+}

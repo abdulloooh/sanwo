@@ -52,14 +52,20 @@ class RegisterForm extends Form {
         <FormWrapper action="" onSubmit={this.handleSubmit}>
           {this.renderInput("Username", "username", "username")}
           {this.renderInput("Email", "email", "your email...", "email")}
-          {this.renderInput("Password", "password", "password", "password")}
+          {this.renderInput(
+            "Password",
+            "password",
+            "password",
+            "password",
+            "new-password"
+          )}
           {this.renderButton("Register")}
         </FormWrapper>
         <br />
         <p>
           Already a user? <Link to="/login">Login</Link>
         </p>
-        <p style={{ position: "fixed", bottom: "0" }}>
+        <p className="registerFooter">
           <small>
             Built with{" "}
             <span role="img" aria-label="heart emoji">

@@ -44,7 +44,13 @@ class LoginForm extends Form {
         <FormWrapper onSubmit={this.handleSubmit}>
           {this.renderInput("Username", "username", "username")}
 
-          {this.renderInput("Password", "password", "password", "password")}
+          {this.renderInput(
+            "Password",
+            "password",
+            "password",
+            "password",
+            "on"
+          )}
           <p>
             <Link to="/forgetpassword">Forget Password?</Link>
           </p>
@@ -54,7 +60,7 @@ class LoginForm extends Form {
         <p>
           New user? <Link to="/register">Register</Link> <br />
         </p>
-        <p style={{ position: "fixed", bottom: "0" }}>
+        <p className="loginFooter">
           <small>
             Built with{" "}
             <span role="img" aria-label="heart emoji">
