@@ -109,7 +109,7 @@ class DebtForm extends Form {
   handleException(err) {
     if (err.response.data === "Please log in again") {
       toast.error(err.response.data);
-      localStorage.removeItem("_token_manager_debt_db_");
+      localStorage.removeItem("username");
       setTimeout(() => {
         window.location = "/login";
       }, 300);

@@ -1,6 +1,7 @@
 import http from "./httpService";
 
 const registerApiEndpoint = "/users";
+const oneUserEndpoint = "/users/one";
 const forgetPasswordEndpoint = "/users/forgetpassword";
 const resetPasswordEndpoint = "/users/passwordreset";
 
@@ -10,6 +11,10 @@ export function register(user) {
     email: user.email,
     password: user.password,
   });
+}
+
+export function getUser() {
+  return http.get(oneUserEndpoint);
 }
 
 export function forgetPassword(user) {
