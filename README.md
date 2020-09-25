@@ -18,7 +18,7 @@
 
 ## Table of Contents
 
-- [About Sanwo](#about)
+- [About Sanwo](#about-sanwo)
 - [Built With](#built-with)
 - [Getting Started](#getting-started)
 - [Roadmap](#roadmap)
