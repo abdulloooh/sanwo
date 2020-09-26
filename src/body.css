@@ -23,9 +23,9 @@
 .loginFooter {
   margin-top: 13em;
 }
-.registerFooter {
-  margin-top: 10em;
-}
+/* .registerFooter {
+  margin-top: 8em;
+} */
 
 @media (min-width: 500px) {
   .loginFooter,

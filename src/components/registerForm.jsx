@@ -48,7 +48,7 @@ class RegisterForm extends Form {
     if (authService.getCurrentUser()) return <Redirect to="/" />;
 
     return (
-      <Container className="mt-5">
+      <Container className="mt-4">
         <div>
           Sanwo is a debt management system for recording of debts owed to you
           and by you, calculates your debit/credit balance, prepares your record
@@ -71,7 +71,7 @@ class RegisterForm extends Form {
         <p>
           Already a user? <Link to="/login">Login</Link>
         </p>
-        <p className="registerFooter">
+        {/* <p className="registerFooter">
           <small>
             Built with{" "}
             <span role="img" aria-label="heart emoji">
@@ -100,7 +100,7 @@ class RegisterForm extends Form {
               Feedback?{" "}
             </a>
           </small>
-        </p>
+        </p> */}
       </Container>
     );
   }
