@@ -17,6 +17,9 @@ class Settings extends Form {
     email: Joi.string().email({ minDomainSegments: 2 }).label("email"),
     old_password: Joi.string().min(5).max(255).label("Old Password"),
     new_password: Joi.string().min(5).max(255).label("New Password"),
+    nextOfKin: Joi.string()
+      .email({ minDomainSegments: 2 })
+      .label("Next Of Kin"),
   };
 
   async componentDidMount() {
@@ -37,8 +40,8 @@ class Settings extends Form {
   async doSubmit() {
     //call the server
     try {
-      const { username, email } = this.state.data;
-      await trackPromise(authService.updateUser(username, email));
+      const { username, email, nextOfKin } = this.state.data;
+      await trackPromise(authService.updateUser(username, email, nextOfKin));
 
       toast.success("Success");
 
@@ -137,20 +140,27 @@ class Settings extends Form {
   render() {
     return (
       <Container className="mt-5">
-        Feel free to change your username or email here
+        <h5>Feel free to change your username or email here</h5>
+        <hr />
         <FormWrapper onSubmit={this.handleSubmit}>
-          {this.renderInput("", "username", "old/new username")}
-          {this.renderInput("", "email", "old/new email", "email")}
-          {/* {this.renderInput("", "password", "old/new password", "password")} */}
+          {this.renderInput("Username", "username", "enter new username...")}
+          {this.renderInput("Email", "email", "enter new email...", "email")}
+          {this.renderInput(
+            "Next of Kin",
+            "nextOfKin",
+            "enter next of kin email here...",
+            "email"
+          )}
           {this.renderButton("Update")}
         </FormWrapper>
         {this.renderClickButton("Delete Acccount")}
         <br /> <br />
-        Change Password
+        <hr />
+        <h5>Change Password</h5>
+        <hr />
         <FormWrapper onSubmit={this.changePassword}>
           {this.renderInput("", "old_password", "old password", "password")}
           {this.renderInput("", "new_password", "new password", "password")}
-          {/* {this.renderInput("", "password", "old/new password", "password")} */}
           {this.renderButton("Update Password")}
         </FormWrapper>
       </Container>

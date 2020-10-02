@@ -16,8 +16,8 @@ export async function login(username, password) {
   saveCurrentUser(data.username);
 }
 
-export async function updateUser(username, email) {
-  const { data } = await http.put("/users", { username, email });
+export async function updateUser(username, email, nextOfKin) {
+  const { data } = await http.put("/users", { username, email, nextOfKin });
   // const jwt = headers["x_auth_token"];
   // localStorage.setItem(tokenKey, jwt);
   saveCurrentUser(data.username);
