@@ -44,7 +44,7 @@ class DebtsManager extends Component {
     try {
       let { data: debts } = await trackPromise(getAllDebts());
       let { data: individual } = await trackPromise(getIndividualSummary());
-      //set colorcolor for total
+      //set color for total
       let totalValue = individual.filter(
         (i) => i.name === `${this.specialVars.individual}`
       );
@@ -122,10 +122,12 @@ class DebtsManager extends Component {
       );
     return (
       <>
-        <br />
-        <p>
-          Add your next of kin details <a href="/nextofkin">here</a>
-        </p>
+        {localStorage.getItem("nextOfKin") === "false" && (
+          <p>
+            <br />
+            Add your next of kin details <a href="/nextofkin">here</a>
+          </p>
+        )}
         {selectedGroup._id !== "individual" && (
           <div className="filter" style={{ textAlign: "center" }}>
             <Row style={{ textAlign: "center" }}>

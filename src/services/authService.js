@@ -13,7 +13,7 @@ export async function login(username, password) {
   });
   // const jwt = headers["x_auth_token"];
   // localStorage.setItem(tokenKey, jwt);
-  saveCurrentUser(data.username);
+  saveCurrentUser(data.username, data.nextOfKin);
 }
 
 export async function updateUser(username, email, nextOfKin) {
@@ -60,8 +60,9 @@ export async function logout() {
 //   localStorage.setItem(tokenKey, jwt);
 // }
 
-export function saveCurrentUser(username) {
+export function saveCurrentUser(username, nextOfKin) {
   localStorage.setItem("username", username);
+  localStorage.setItem("nextOfKin", nextOfKin);
 }
 
 export function getCurrentUser() {
