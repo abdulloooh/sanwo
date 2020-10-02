@@ -7,7 +7,7 @@
     <img src="/public/logo192.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Debt Manager</h3>
+  <h3 align="center">Sanwo</h3>
 
   <p align="center">
     An awesome Debt Managing System to keep track of your debit and credit balance!

@@ -23,6 +23,7 @@ class NextOfKinForm extends Form {
       await trackPromise(updateNextOfKin(nextOfKin));
 
       toast.success("Success");
+      localStorage.setItem("nextOfKin", true);
 
       setTimeout(() => {
         window.location = "/";

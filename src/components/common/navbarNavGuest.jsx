@@ -9,12 +9,12 @@ const NavbarNavGuest = ({ username }) => {
       <Navbar.Brand as={NavLink} to="/">
         {username}
       </Navbar.Brand>
-      {username !== "Debt Manager" && (
+      {username !== "Sanwo" && (
         <Navbar.Brand as={NavLink} to="/debts/new">
           <small>NEW</small>
         </Navbar.Brand>
       )}
-      {username !== "Debt Manager" && (
+      {username !== "Sanwo" && (
         <Navbar.Brand as={NavLink} to="/settings">
           <FaWrench className="ml-2" />
         </Navbar.Brand>
@@ -24,7 +24,7 @@ const NavbarNavGuest = ({ username }) => {
       <div className="nav-right-wrapper">
         {/* <FaShareAlt /> */}
 
-        {username !== "Debt Manager" && (
+        {username !== "Sanwo" && (
           <Navbar.Brand as={NavLink} to="/logout">
             <small>Logout</small>
           </Navbar.Brand>
