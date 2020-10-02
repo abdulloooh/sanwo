@@ -125,7 +125,7 @@ class DebtForm extends Form {
   render() {
     return (
       <Container className="mt-5">
-        <FormWrapper onSubmit={this.handleSubmit}>
+        <FormWrapper onSubmit={this.handleSubmit} style={{ display: "inline" }}>
           {this.renderInput("Name", "name", "Name of Debtor/Creditor")}
           {this.renderInput(
             "Description",
@@ -137,12 +137,16 @@ class DebtForm extends Form {
             <Col lg>{this.renderDate("Date Incurred", "dateIncurred")}</Col>
             <Col>{this.renderDate("Date Due", "dateDue")}</Col>
           </Row>
+
           {this.renderSelect("Owed by Who?", "status", this.owedByWho)}
+
           {this.renderButton("Submit")}
         </FormWrapper>
-        {this.props.match.params &&
-          this.props.match.params.id !== "new" &&
-          this.renderClickButton("Delete record")}
+        <div className="deleteButton">
+          {this.props.match.params &&
+            this.props.match.params.id !== "new" &&
+            this.renderClickButton("Delete record")}
+        </div>
       </Container>
     );
   }

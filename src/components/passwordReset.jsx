@@ -77,13 +77,13 @@ class PasswordReset extends Form {
           {this.renderInput(
             "New Password",
             "password",
-            "password...",
+            "enter password",
             "password"
           )}
           {this.renderInput(
             "Confirm Password",
             "confirmPassword",
-            "password...",
+            "enter password",
             "password"
           )}
           {this.renderButton("Submit")}

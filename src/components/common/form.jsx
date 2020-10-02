@@ -155,7 +155,6 @@ class Form extends Component {
   renderClickButton(label) {
     return (
       <button
-        style={{ marginTop: "10px" }}
         type="button"
         className="btn btn-primary"
         onClick={this.deleteConcern}

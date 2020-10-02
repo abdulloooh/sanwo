@@ -54,9 +54,9 @@ class ForgetPassword extends Form {
         )}
 
         <FormWrapper onSubmit={this.handleSubmit}>
-          {this.renderInput("Username", "username", "username")}
+          {this.renderInput("Username", "username", "enter username")}
 
-          {this.renderInput("Email", "email", "email", "email")}
+          {this.renderInput("Email", "email", "enter email", "email")}
 
           {this.renderButton("Submit")}
         </FormWrapper>

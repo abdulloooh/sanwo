@@ -42,7 +42,7 @@
 }
 
 button {
-  width: 125px;
+  /* width: 125px; */
   border-radius: 0.25rem;
   border: 1px solid transparent;
   margin-top: 10px;

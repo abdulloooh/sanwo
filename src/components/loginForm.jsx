@@ -42,21 +42,21 @@ class LoginForm extends Form {
     return (
       <Container className="mt-5">
         <FormWrapper onSubmit={this.handleSubmit}>
-          {this.renderInput("Username", "username", "username")}
+          {this.renderInput("Username", "username", "enter username")}
 
           {this.renderInput(
             "Password",
             "password",
-            "password",
+            "enter password",
             "password",
             "on"
           )}
           <p>
-            <Link to="/forgetpassword">Forget Password?</Link>
+            <Link to="/forgetpassword">Forgot Password?</Link>
           </p>
           {this.renderButton("Login")}
         </FormWrapper>
-        <br />
+        <hr />
         <p>
           New user? <Link to="/register">Register</Link> <br />
         </p>

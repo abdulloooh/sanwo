@@ -153,7 +153,9 @@ class Settings extends Form {
           )}
           {this.renderButton("Update")}
         </FormWrapper>
-        {this.renderClickButton("Delete Acccount")}
+        <div className="deleteButton">
+          {this.renderClickButton("Delete Acccount")}
+        </div>
         <br /> <br />
         <hr />
         <h5>Change Password</h5>
