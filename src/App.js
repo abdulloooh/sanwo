@@ -9,6 +9,7 @@ import forgetPasswordForm from "./components/forgetPasswordForm";
 import passwordReset from "./components/passwordReset";
 import Logout from "./components/logoutForm";
 import RegisterForm from "./components/registerForm";
+import NextOfKinForm from "./components/nextOfKinForm";
 import Settings from "./components/settings";
 import ProtectedRoute from "./components/common/protectedRoute";
 import NotFound from "./components/notFound";
@@ -31,6 +32,7 @@ function App() {
 
         <ProtectedRoute path="/debts/:id" component={DebtForm}></ProtectedRoute>
         <ProtectedRoute path="/debts/new" component={DebtForm}></ProtectedRoute>
+        <ProtectedRoute path="/nextofkin" component={NextOfKinForm} />
         <ProtectedRoute path="/settings" component={Settings}></ProtectedRoute>
         <ProtectedRoute exact path="/" component={Body}></ProtectedRoute>
 

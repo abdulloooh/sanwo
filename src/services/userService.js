@@ -4,6 +4,7 @@ const registerApiEndpoint = "/users";
 const oneUserEndpoint = "/users/one";
 const forgetPasswordEndpoint = "/users/forgetpassword";
 const resetPasswordEndpoint = "/users/passwordreset";
+const nextOfKinEndPoint = "/users/nextofkin";
 
 export function register(user) {
   return http.post(registerApiEndpoint, {
@@ -23,4 +24,8 @@ export function forgetPassword(user) {
 
 export function resetPassword(password, resetPasswordToken) {
   return http.post(resetPasswordEndpoint, { password, resetPasswordToken });
+}
+
+export function updateNextOfKin(nextOfKin) {
+  return http.post(nextOfKinEndPoint, { nextOfKin });
 }

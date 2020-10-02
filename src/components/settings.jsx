@@ -76,7 +76,7 @@ class Settings extends Form {
             ex.response.status === 401 ||
             ex.response.status === 403)
         )
-          this.handleException();
+          this.handleException(ex);
       }
       window.location = "/login";
     } else this.props.history.push("/");

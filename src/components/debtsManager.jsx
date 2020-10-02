@@ -122,6 +122,10 @@ class DebtsManager extends Component {
       );
     return (
       <>
+        <br />
+        <p>
+          Add your next of kin details <a href="/nextofkin">here</a>
+        </p>
         {selectedGroup._id !== "individual" && (
           <div className="filter" style={{ textAlign: "center" }}>
             <Row style={{ textAlign: "center" }}>
