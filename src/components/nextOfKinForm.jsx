@@ -59,7 +59,7 @@ class NextOfKinForm extends Form {
           <h5>Why are we asking for your next of kin details?</h5>
           <p style={{ color: "rgb(0, 123, 255", textAlign: "justify" }}>
             <hr />
-            If your account is inactive for 2 months straight{" "}
+            If your account is inactive for 60 days straight{" "}
             <span role="img" aria-label="emoji">
               😢
             </span>{" "}
