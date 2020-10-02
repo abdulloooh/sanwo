@@ -59,11 +59,25 @@ class NextOfKinForm extends Form {
           <h5>Why are we asking for your next of kin details?</h5>
           <p style={{ color: "rgb(0, 123, 255", textAlign: "justify" }}>
             <hr />
-            If it is observed that you have not operated your account at least
-            once in the previous two months, Sanwo will send an email of your{" "}
-            <strong>debt account</strong> to your next of kin email so he can
-            take necessary steps to settle your debts or retrieve money owed to
-            you. No email will be sent if your debt account is clean.
+            If your account is inactive for 2 months straight{" "}
+            <span role="img" aria-label="emoji">
+              😢
+            </span>{" "}
+            , Sanwo will send an email of your <strong>debt account</strong> to
+            your next of kin email so he can take necessary steps to settle your
+            debts{" "}
+            <span role="img" aria-label="emoji">
+              💰
+            </span>{" "}
+            or retrieve money{" "}
+            <span role="img" aria-label="emoji">
+              🤑
+            </span>{" "}
+            owed to you. No email will be sent if your debt account is clean{" "}
+            <span role="img" aria-label="emoji">
+              🙂
+            </span>{" "}
+            .
             <hr />
           </p>
         </div>

@@ -50,9 +50,28 @@ class RegisterForm extends Form {
     return (
       <Container className="mt-4">
         <div style={{ color: "rgb(0, 123, 255)" }}>
-          Sanwo is a debt management system for recording of debts owed to you
-          and by you, calculates your debit/credit balance, prepares your record
-          summary and alert you via your email daily for any new due debts
+          Sanwo is a debt management system{" "}
+          <span role="img" aria-label="emoji">
+            🏦
+          </span>{" "}
+          for recording of debts owed to you{" "}
+          <span role="img" aria-label="emoji">
+            🤑
+          </span>{" "}
+          and by you{" "}
+          <span role="img" aria-label="emoji">
+            💰
+          </span>{" "}
+          , calculates your debit and credit balance, prepares your record
+          summary{" "}
+          <span role="img" aria-label="emoji">
+            👨‍💻
+          </span>{" "}
+          and alert{" "}
+          <span role="img" aria-label="emoji">
+            🔈
+          </span>{" "}
+          you via your email daily for any new due debts (if any)
         </div>{" "}
         <hr />
         <FormWrapper action="" onSubmit={this.handleSubmit}>
