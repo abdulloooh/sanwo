@@ -74,11 +74,10 @@ class NextOfKinForm extends Form {
             <span role="img" aria-label="emoji">
               🤑
             </span>{" "}
-            owed to you. No email will be sent if your debt account is clean{" "}. Best recommendation is your next of kin's email.
-            <span role="img" aria-label="emoji">
+            owed to you. No email will be sent if your debt account is clean<span role="img" aria-label="emoji">
               🙂
             </span>{" "}
-            .
+            . Best recommendation is your next of kin's email.
             <hr />
           </p>
         </div>
