@@ -57,7 +57,7 @@ class NextOfKinForm extends Form {
     return (
       <Container className="mt-5">
         <div>
-          <h5>Why are we asking for your next of kin details?</h5>
+          <h5>Why are we asking for backup details?</h5>
           <p style={{ color: "rgb(0, 123, 255", textAlign: "justify" }}>
             <hr />
             If your account is inactive for 60 days straight{" "}
@@ -65,8 +65,8 @@ class NextOfKinForm extends Form {
               😢
             </span>{" "}
             , Sanwo will send an email of your <strong>debt account</strong> to
-            your next of kin email so he can take necessary steps to settle your
-            debts{" "}
+            your backup email so he can take necessary steps to settle your
+            debts, best recommendation is your next of kin's email{" "}
             <span role="img" aria-label="emoji">
               💰
             </span>{" "}
