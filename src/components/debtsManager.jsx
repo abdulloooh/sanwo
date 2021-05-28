@@ -125,7 +125,7 @@ class DebtsManager extends Component {
         {localStorage.getItem("nextOfKin") === "false" && (
           <p>
             <br />
-            Add your next of kin details <a href="/nextofkin">here</a>
+            Add a backup contact <a href="/nextofkin">here</a>
           </p>
         )}
         {selectedGroup._id !== "individual" && (
