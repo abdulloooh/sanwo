@@ -66,7 +66,7 @@ class NextOfKinForm extends Form {
             </span>{" "}
             , Sanwo will send an email of your <strong>debt account</strong> to
             your backup email so he can take necessary steps to settle your
-            debts, best recommendation is your next of kin's email{" "}
+            debts{" "}
             <span role="img" aria-label="emoji">
               💰
             </span>{" "}
@@ -74,7 +74,7 @@ class NextOfKinForm extends Form {
             <span role="img" aria-label="emoji">
               🤑
             </span>{" "}
-            owed to you. No email will be sent if your debt account is clean{" "}
+            owed to you. No email will be sent if your debt account is clean{" "}. Best recommendation is your next of kin's email.
             <span role="img" aria-label="emoji">
               🙂
             </span>{" "}
