@@ -3,10 +3,10 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-}
 
-.description:hover {
-  overflow: show;
+  &:hover {
+    overflow: show;
+  }
 }
 
 .filter {
@@ -14,10 +14,10 @@
   width: 300px;
   margin-bottom: 10px;
   margin-top: 10px;
-}
 
-.filter button {
-  box-shadow: none !important;
+  button {
+    box-shadow: none !important;
+  }  
 }
 
 .loginFooter {

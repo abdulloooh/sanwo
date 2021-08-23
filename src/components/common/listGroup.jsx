@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "../../listGroup.scss";
+import "../../styles/listGroup.scss";
 
 const ListGroup = (props) => {
   const {
