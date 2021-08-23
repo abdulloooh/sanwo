@@ -18,4 +18,4 @@ const Heading = () => {
   );
 };
 
-export default Navbar;
+export default Heading;

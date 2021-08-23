@@ -15,7 +15,7 @@ import ProtectedRoute from "./components/common/protectedRoute";
 import NotFound from "./components/notFound";
 import authService from "./services/authService";
 import "react-toastify/dist/ReactToastify.css";
-import "./App.css";
+import "./App.scss";
 
 function App() {
   const username = authService.getCurrentUser() || "Sanwo";
