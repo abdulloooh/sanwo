@@ -1,11 +1,15 @@
 import React from "react";
-import { Container, Form as FormWrapper } from "react-bootstrap";
 import Joi from "joi-browser";
 import { trackPromise } from "react-promise-tracker";
 import { Link, Redirect } from "react-router-dom";
+
 import authService from "../services/authService";
 import { register } from "../services/userService";
+import Container from "./common/Container";
 import Form from "./common/form";
+import Footer from './common/Footer'
+
+import styles from "./../styles/Container.module.scss";
 
 class RegisterForm extends Form {
   state = {
@@ -48,33 +52,41 @@ class RegisterForm extends Form {
     if (authService.getCurrentUser()) return <Redirect to="/" />;
 
     return (
-      <Container className="mt-4">
-        <div style={{ color: "rgb(0, 123, 255)" }}>
-          Sanwo is a debt management system{" "}
+      <Container>
+        {/* <div style={{ color: "rgb(0, 123, 255)" }}>
+          Sanwo is a debt management system
           <span role="img" aria-label="emoji">
             🏦
-          </span>{" "}
-          for recording of debts owed to you{" "}
+          </span>
+          for recording of debts owed to you
           <span role="img" aria-label="emoji">
             🤑
-          </span>{" "}
-          and by you{" "}
+          </span>
+          and by you
           <span role="img" aria-label="emoji">
             💰
-          </span>{" "}
+          </span>
           , calculates your debit and credit balance, prepares your record
-          summary{" "}
+          summary
           <span role="img" aria-label="emoji">
             👨‍💻
-          </span>{" "}
-          and alert{" "}
+          </span>
+          and alert
           <span role="img" aria-label="emoji">
             🔈
-          </span>{" "}
+          </span>
           you via your email daily for any new due debts (if any)
-        </div>{" "}
-        <hr />
-        <FormWrapper action="" onSubmit={this.handleSubmit}>
+        </div>
+        <hr /> */}
+        <form onSubmit={this.handleSubmit} className={styles.Form}>
+          <h2>
+            <Link to="/login">SANWO</Link>
+          </h2>
+          <div>
+            <small>Manage Your debts with SANWO</small>
+            <h4>Register to get started with SANWO!</h4>
+          </div>
+
           {this.renderInput("Username", "username", "enter username")}
           {this.renderInput("Email", "email", "your email", "email")}
           {this.renderInput(
@@ -85,41 +97,13 @@ class RegisterForm extends Form {
             "new-password"
           )}
           {this.renderButton("Register")}
-        </FormWrapper>
-        <hr />
-        <p>
-          Already a user? <Link to="/login">Login</Link>
-        </p>
-        {/* <p className="registerFooter">
-          <small>
-            Built with{" "}
-            <span role="img" aria-label="heart emoji">
-              💟
-            </span>{" "}
-            by{" "}
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://twitter.com/abdulloooh"
-            >
-              Abdullah |
-            </a>{" "}
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://github.com/abdulloooh/sanwo/"
-            >
-              Contribute |{" "}
-            </a>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://twitter.com/abdulloooh"
-            >
-              Feedback?{" "}
-            </a>
-          </small>
-        </p> */}
+
+          <hr />
+          <p>
+            Already a user? <Link to="/login">Login</Link>
+          </p>
+          <Footer />
+        </form>
       </Container>
     );
   }

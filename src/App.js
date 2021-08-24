@@ -22,7 +22,10 @@ function App() {
   return (
     <>
       <ToastContainer />
-      <NavbarNavGuest username={username} />
+      <NavbarNavGuest
+        username={username}
+        neglect={["/login", "/forgetpassword", "/register", "/password-reset"]}
+      />
       <Switch>
         <Route path="/register" component={RegisterForm}></Route>
         <Route path="/login" component={LoginForm}></Route>
