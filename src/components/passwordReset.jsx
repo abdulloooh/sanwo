@@ -1,12 +1,17 @@
 import React from "react";
-import { Container, Form as FormWrapper } from "react-bootstrap";
 import Joi from "joi-browser";
 import { toast } from "react-toastify";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { trackPromise } from "react-promise-tracker";
+
+import Container from "./common/Container";
 import Form from "./common/form";
+import Footer from './common/Footer'
 import authService from "../services/authService";
 import { resetPassword } from "../services/userService";
+
+import styles from "./../styles/Container.module.scss";
+
 class PasswordReset extends Form {
   state = {
     data: { password: "", confirmPassword: "" },
@@ -67,13 +72,16 @@ class PasswordReset extends Form {
     if (authService.getCurrentUser()) return <Redirect to="/" />;
 
     return (
-      <Container className="mt-5">
-        <h5>
-          <u>Password Reset</u>
-        </h5>
-        <br />
+      <Container>
+        <form onSubmit={this.handleSubmit} className={styles.Form}>
+          <h2>
+            <Link to="/login">SANWO</Link>
+          </h2>
+          <div>
+            <small>Manage Your debts with SANWO</small>
+            <h4>Create a new password for your SANWO account!</h4>
+          </div>
 
-        <FormWrapper onSubmit={this.handleSubmit}>
           {this.renderInput(
             "New Password",
             "password",
@@ -87,8 +95,8 @@ class PasswordReset extends Form {
             "password"
           )}
           {this.renderButton("Submit")}
-        </FormWrapper>
-        <br />
+          <Footer />
+        </form>
       </Container>
     );
   }

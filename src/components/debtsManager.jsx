@@ -6,7 +6,7 @@ import { getDebts as getAllDebts } from "../services/debtService";
 import { getIndividualSummary } from "../services/individualService";
 import DebtsTable from "./debtsTable";
 import { sortAndOrder, sortByDate } from "../utils/sorting";
-import "../body.css";
+import "../styles/body.scss";
 import Filter from "./common/sortDropDown";
 import { Row } from "react-bootstrap";
 

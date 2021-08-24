@@ -15,14 +15,17 @@ import ProtectedRoute from "./components/common/protectedRoute";
 import NotFound from "./components/notFound";
 import authService from "./services/authService";
 import "react-toastify/dist/ReactToastify.css";
-import "./App.css";
+import "./styles/App.scss";
 
 function App() {
   const username = authService.getCurrentUser() || "Sanwo";
   return (
     <>
       <ToastContainer />
-      <NavbarNavGuest username={username} />
+      <NavbarNavGuest
+        username={username}
+        neglect={["/login", "/forgetpassword", "/register", "/password-reset"]}
+      />
       <Switch>
         <Route path="/register" component={RegisterForm}></Route>
         <Route path="/login" component={LoginForm}></Route>
