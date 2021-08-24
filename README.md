@@ -1,4 +1,6 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/04f54427-60de-4b6e-8ca6-c0cb6dc72fea/deploy-status)](https://app.netlify.com/sites/objective-payne-026f30/deploys)
+PROD: [![Netlify Status](https://api.netlify.com/api/v1/badges/04f54427-60de-4b6e-8ca6-c0cb6dc72fea/deploy-status)](https://app.netlify.com/sites/objective-payne-026f30/deploys)
+
+STAGE: [![Netlify Status](https://api.netlify.com/api/v1/badges/032d647c-bf4e-4332-8407-abcf3a3ad067/deploy-status)](https://app.netlify.com/sites/sanwo/deploys)
 
 <!-- PROJECT LOGO -->
 <br />
