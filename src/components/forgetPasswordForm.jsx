@@ -1,16 +1,11 @@
 import React from "react";
+import { Container, Form as FormWrapper } from "react-bootstrap";
 import Joi from "joi-browser";
 import { Link, Redirect } from "react-router-dom";
 import { trackPromise } from "react-promise-tracker";
-
+import Form from "./common/form";
 import authService from "../services/authService";
 import { forgetPassword } from "../services/userService";
-import Container from "./common/Container";
-import Form from "./common/form";
-import Footer from './common/Footer'
-
-import styles from "./../styles/Container.module.scss";
-
 class ForgetPassword extends Form {
   state = {
     data: { username: "", email: "" },
@@ -48,30 +43,27 @@ class ForgetPassword extends Form {
     if (authService.getCurrentUser()) return <Redirect to="/" />;
 
     return (
-      <Container>
+      <Container className="mt-5">
+        <h5>
+          <u>Password Reset Request</u>
+        </h5>
+        <br />
+
         {this.state.mailSent && (
           <div className="alert alert-danger">{this.state.mailSent}</div>
         )}
 
-        <form onSubmit={this.handleSubmit} className={styles.Form}>
-          <h2>
-            <Link to="/login">SANWO</Link>
-          </h2>
-          <div>
-            <small>Manage Your debts with SANWO</small>
-            <h4>Recover your SANWO account!</h4>
-          </div>
-
+        <FormWrapper onSubmit={this.handleSubmit}>
           {this.renderInput("Username", "username", "enter username")}
 
           {this.renderInput("Email", "email", "enter email", "email")}
 
           {this.renderButton("Submit")}
-
-          <hr />
-
-          <Footer />
-        </form>
+        </FormWrapper>
+        <br />
+        <p>
+          <Link to="/login">Login?</Link>
+        </p>
       </Container>
     );
   }

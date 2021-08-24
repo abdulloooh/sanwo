@@ -5,7 +5,7 @@ import LoadingIndicator from "./components/common/loadingIndicator";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./styles/index.scss";
+import "./index.css";
 
 ReactDOM.render(
   <React.StrictMode>

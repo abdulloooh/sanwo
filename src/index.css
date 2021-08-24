@@ -1,11 +1,16 @@
-*{
-  font-family: 'Rubik', sans-serif;
-}
-
 body {
   margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: "Roboto Slab", serif;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
 .nav-right-wrapper {
@@ -34,5 +39,9 @@ body {
 }
 
 .deleteButton button {
-  background-color: #ef233c;
+  background-color: darkred;
+}
+
+form {
+  display: inline;
 }

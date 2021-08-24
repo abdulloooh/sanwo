@@ -1,12 +1,10 @@
 import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { /*FaShareAlt,*/ FaWrench } from "react-icons/fa";
 
-const NavbarNavGuest = ({ username, neglect = [], history }) => {
-  const isNeglectedPathStatus = neglect.includes(history.location.pathname);
-
-  return !isNeglectedPathStatus ? (
+const NavbarNavGuest = ({ username }) => {
+  return (
     <Navbar collapseOnSelect expand="sm" bg="primary" variant="light">
       <Navbar.Brand as={NavLink} to="/">
         {username}
@@ -33,7 +31,7 @@ const NavbarNavGuest = ({ username, neglect = [], history }) => {
         )}
       </div>
     </Navbar>
-  ) : null;
+  );
 };
 
-export default withRouter(NavbarNavGuest);
+export default NavbarNavGuest;

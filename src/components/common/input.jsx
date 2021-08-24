@@ -1,13 +1,12 @@
 import React from "react";
-import styles from "./../../styles/formStyle.module.scss";
-
+import { Form } from "react-bootstrap";
 const Input = ({ label, error, ...rest }) => {
   return (
-    <div className={styles.inputBlock}>
-      <label>{label}</label>
-      <input {...rest} />
-      <small className={styles.textMuted}>{writeError(error)}</small>
-    </div>
+    <Form.Group>
+      <Form.Label>{label}</Form.Label>
+      <Form.Control {...rest} />
+      <Form.Text className="text-muted">{writeError(error)}</Form.Text>
+    </Form.Group>
   );
 };
 

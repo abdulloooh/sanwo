@@ -1,15 +1,10 @@
 import React from "react";
+import { Container, Form as FormWrapper } from "react-bootstrap";
 import Joi from "joi-browser";
 import { Link, Redirect } from "react-router-dom";
 import { trackPromise } from "react-promise-tracker";
-
-import Container from "./common/Container";
 import Form from "./common/form";
-import Footer from './common/Footer'
 import authService from "../services/authService";
-
-import styles from "./../styles/Container.module.scss";
-
 class LoginForm extends Form {
   state = {
     data: { username: "", password: "" },
@@ -45,16 +40,8 @@ class LoginForm extends Form {
     if (authService.getCurrentUser()) return <Redirect to="/" />;
 
     return (
-      <Container>
-        <form className={styles.Form} onSubmit={this.handleSubmit}>
-          <h2>
-            <Link to="/login">SANWO</Link>
-          </h2>
-          <div>
-            <small>Manage Your debts with SANWO</small>
-            <h4>Login to your SANWO account!</h4>
-          </div>
-
+      <Container className="mt-5">
+        <FormWrapper onSubmit={this.handleSubmit}>
           {this.renderInput("Username", "username", "enter username")}
 
           {this.renderInput(
@@ -68,13 +55,41 @@ class LoginForm extends Form {
             <Link to="/forgetpassword">Forgot Password?</Link>
           </p>
           {this.renderButton("Login")}
-
-          <hr />
-          <p>
-            New user? <Link to="/register">Register</Link> <br />
-          </p>
-          <Footer />
-        </form>
+        </FormWrapper>
+        <hr />
+        <p>
+          New user? <Link to="/register">Register</Link> <br />
+        </p>
+        <p className="loginFooter">
+          <small>
+            Built with{" "}
+            <span role="img" aria-label="heart emoji">
+              💟
+            </span>{" "}
+            by{" "}
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://twitter.com/abdulloooh"
+            >
+              Abdullah |
+            </a>{" "}
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://github.com/abdulloooh/sanwo/"
+            >
+              Contribute |{" "}
+            </a>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://twitter.com/abdulloooh"
+            >
+              Feedback?{" "}
+            </a>
+          </small>
+        </p>
       </Container>
     );
   }

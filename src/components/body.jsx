@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import ListGroup from "./common/listGroup";
 import DebtsManager from "./debtsManager";
-import "../styles/body.scss";
+import "../body.css";
 
 const items = [
   { _id: "cr", label: "Owed to Me" },
