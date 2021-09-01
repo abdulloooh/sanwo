@@ -1,5 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&display=swap');
 *{
-  font-family: 'Rubik', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 body {
@@ -15,6 +16,7 @@ body {
 
 .bg-primary {
   background-color: rgb(0, 123, 255) !important;
+  font-weight: 500;
 }
 
 .navbar-light .navbar-brand {
