@@ -6,15 +6,18 @@ const Container = () => {
       <small>
         Built with
         <span role="img" aria-label="heart emoji">
+        {" "}
           💟
         </span>
-        by
+        by 
+        {" "}
         <a
           target="_blank"
           rel="noopener noreferrer"
           href="https://twitter.com/abdulloooh"
         >
           Abdullah |
+          {" "}
         </a>
         <a
           target="_blank"
@@ -22,6 +25,7 @@ const Container = () => {
           href="https://github.com/abdulloooh/sanwo/"
         >
           Contribute |
+          {" "}
         </a>
         <a
           target="_blank"
