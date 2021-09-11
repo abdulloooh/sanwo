@@ -1,68 +1,55 @@
-// import JwtDecode from "jwt-decode";
 import http from "./httpService";
 
 const loginApiEndpoint = "/auth";
-// const tokenKey = "_token_manager_debt_db_";
+const tokenKey = "tukrn";
 
-// http.setJwt(getJwt()); //was for setting header
+http.setJwt(getJwt()); //was for setting header
 
-export async function login(username, password) {
-  const { data } = await http.post(loginApiEndpoint, {
-    username: username,
-    password: password,
+export async function login(user_name, password) {
+  const {
+    data: { username, nextOfKin, token },
+  } = await http.post(loginApiEndpoint, {
+    password,
+    username: user_name,
   });
-  // const jwt = headers["x_auth_token"];
-  // localStorage.setItem(tokenKey, jwt);
-  saveCurrentUser(data.username, data.nextOfKin);
+  saveCurrentUser({ username, nextOfKin, token });
 }
 
-export async function updateUser(username, email, nextOfKin) {
-  const { data } = await http.put("/users", { username, email, nextOfKin });
-  // const jwt = headers["x_auth_token"];
-  // localStorage.setItem(tokenKey, jwt);
-  saveCurrentUser(data.username);
+export async function updateUser(user_name, email, nextOfKin) {
+  const {
+    data: { username, token },
+  } = await http.put("/users", { username: user_name, email, nextOfKin });
+  saveCurrentUser({ username, token });
 }
 
 export async function updatePassword(old_password, new_password) {
-  await http.put("/auth/password", {
+  const { data } = await http.put("/auth/password", {
     old_password,
     new_password,
   });
-  // const jwt = headers["x_auth_token"];
-  // localStorage.setItem(tokenKey, jwt);
+  saveCurrentUser({ token: data.token });
 }
 
 export async function deleteUser() {
   await http.delete("/users");
   localStorage.removeItem("username");
-  // localStorage.removeItem(tokenKey);
+  localStorage.removeItem(tokenKey);
 }
 
 export async function logout() {
-  await http.post("/logout");
-  // localStorage.removeItem(tokenKey);
+  // await http.post("/logout");
+  localStorage.removeItem(tokenKey);
   localStorage.removeItem("username");
 }
 
-// export function getCurrentUser() {
-//   try {
-//     return JwtDecode(getJwt());
-//   } catch (ex) {
-//     return null;
-//   }
-// }
+export function getJwt() {
+  return localStorage.getItem(tokenKey);
+}
 
-// export function getJwt() {
-//   return localStorage.getItem(tokenKey);
-// }
-
-// export function loginWithJWT(jwt) {
-//   localStorage.setItem(tokenKey, jwt);
-// }
-
-export function saveCurrentUser(username, nextOfKin) {
-  localStorage.setItem("username", username);
-  localStorage.setItem("nextOfKin", nextOfKin);
+export function saveCurrentUser({ username, nextOfKin, token }) {
+  if (token) localStorage.setItem(tokenKey, token);
+  if (username) localStorage.setItem("username", username);
+  if (nextOfKin) localStorage.setItem("nextOfKin", nextOfKin);
 }
 
 export function getCurrentUser() {
@@ -71,11 +58,10 @@ export function getCurrentUser() {
 
 export default {
   login,
-  // loginWithJWT,
   logout,
   getCurrentUser,
   saveCurrentUser,
-  // getJwt,
+  getJwt,
   updateUser,
   deleteUser,
   updatePassword,
