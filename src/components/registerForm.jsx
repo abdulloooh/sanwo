@@ -7,7 +7,7 @@ import authService from "../services/authService";
 import { register } from "../services/userService";
 import Container from "./common/Container";
 import Form from "./common/form";
-import Footer from './common/Footer'
+import Footer from "./common/Footer";
 
 import styles from "./../styles/Container.module.scss";
 
@@ -19,25 +19,18 @@ class RegisterForm extends Form {
 
   schema = {
     username: Joi.string().min(3).max(30).label("username").required(),
-    email: Joi.string()
-      .email({ minDomainSegments: 2 })
-      .required()
-      .label("email"),
-    password: Joi.string()
-      .min(5)
-      .max(255)
-      .required()
-      .label("Password")
-      .required(),
+    email: Joi.string().email({ minDomainSegments: 2 }).required().label("email"),
+    password: Joi.string().min(5).max(255).required().label("Password").required(),
   };
 
   doSubmit = async () => {
     //call the server
     try {
-      const { data } = await trackPromise(register(this.state.data));
+      const {
+        data: { username, token },
+      } = await trackPromise(register(this.state.data));
 
-      // authService.loginWithJWT(response.headers["x_auth_token"]);
-      authService.saveCurrentUser(data.username);
+      authService.saveCurrentUser({ username, token });
       window.location = "/";
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
@@ -89,13 +82,7 @@ class RegisterForm extends Form {
 
           {this.renderInput("Username", "username", "enter username")}
           {this.renderInput("Email", "email", "your email", "email")}
-          {this.renderInput(
-            "Password",
-            "password",
-            "your password",
-            "password",
-            "new-password"
-          )}
+          {this.renderInput("Password", "password", "your password", "password", "new-password")}
           {this.renderButton("Register")}
 
           <hr />

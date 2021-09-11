@@ -11,9 +11,7 @@ axios.defaults.withCredentials = true;
 
 axios.interceptors.response.use(null, (error) => {
   const expectedError =
-    error.response &&
-    error.response.status >= 400 &&
-    error.response.status < 500;
+    error.response && error.response.status >= 400 && error.response.status < 500;
 
   // Unexpected (Network down, server down, db down, bug in code)
   // log the error
@@ -21,6 +19,7 @@ axios.interceptors.response.use(null, (error) => {
   if (!expectedError) {
     toast.error("Ouch! Unexpected error, please log in again");
     localStorage.removeItem("username");
+    localStorage.removeItem("tukrn"); // token key, check `authService.js`
 
     logger.log(error);
     setTimeout(() => {
@@ -31,9 +30,9 @@ axios.interceptors.response.use(null, (error) => {
   return Promise.reject(error);
 });
 
-// function setJwt(jwt) {
-//   axios.defaults.headers.common["x_auth_token"] = jwt;
-// }
+function setJwt(jwt) {
+  axios.defaults.headers.common["authorization"] = `Bearer ${jwt}`;
+}
 
 export default {
   get: axios.get,
@@ -41,5 +40,5 @@ export default {
   put: axios.put,
   delete: axios.delete,
   patch: axios.patch,
-  // setJwt,
+  setJwt,
 };

@@ -17,9 +17,7 @@ class Settings extends Form {
     email: Joi.string().email({ minDomainSegments: 2 }).label("email"),
     old_password: Joi.string().min(5).max(255).label("Old Password"),
     new_password: Joi.string().min(5).max(255).label("New Password"),
-    nextOfKin: Joi.string()
-      .email({ minDomainSegments: 2 })
-      .label("Next Of Kin"),
+    nextOfKin: Joi.string().email({ minDomainSegments: 2 }).label("Next Of Kin"),
   };
 
   async componentDidMount() {
@@ -29,9 +27,7 @@ class Settings extends Form {
     } catch (ex) {
       if (
         ex.response &&
-        (ex.response.status === 400 ||
-          ex.response.status === 401 ||
-          ex.response.status === 403)
+        (ex.response.status === 400 || ex.response.status === 401 || ex.response.status === 403)
       )
         this.handleException(ex);
     }
@@ -66,18 +62,14 @@ class Settings extends Form {
 
   deleteConcern = async () => {
     if (
-      window.confirm(
-        "Are you sure you want to delete your account with its associated records"
-      )
+      window.confirm("Are you sure you want to delete your account with its associated records")
     ) {
       try {
         await trackPromise(authService.deleteUser());
       } catch (ex) {
         if (
           ex.response &&
-          (ex.response.status === 400 ||
-            ex.response.status === 401 ||
-            ex.response.status === 403)
+          (ex.response.status === 400 || ex.response.status === 401 || ex.response.status === 403)
         )
           this.handleException(ex);
       }
@@ -115,9 +107,7 @@ class Settings extends Form {
 
     try {
       const { old_password, new_password } = this.state.data;
-      await trackPromise(
-        authService.updatePassword(old_password, new_password)
-      );
+      await trackPromise(authService.updatePassword(old_password, new_password));
 
       toast("Password update successful");
       window.location = "/";
@@ -145,17 +135,10 @@ class Settings extends Form {
         <FormWrapper onSubmit={this.handleSubmit}>
           {this.renderInput("Username", "username", "enter new username...")}
           {this.renderInput("Email", "email", "enter new email...", "email")}
-          {this.renderInput(
-            "Next of Kin",
-            "nextOfKin",
-            "enter next of kin email here...",
-            "email"
-          )}
+          {this.renderInput("Next of Kin", "nextOfKin", "enter next of kin email here...", "email")}
           {this.renderButton("Update")}
         </FormWrapper>
-        <div className="deleteButton">
-          {this.renderClickButton("Delete Acccount")}
-        </div>
+        <div className="deleteButton">{this.renderClickButton("Delete Acccount")}</div>
         <br /> <br />
         <hr />
         <h5>Change Password</h5>

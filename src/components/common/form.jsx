@@ -60,16 +60,11 @@ class Form extends Component {
     const { whichDate } = this;
     data[whichDate] = date.toDateString();
     //try to validate date
-    const response = this.isDatesValid(data.dateIncurred, data.dateDue);
-    if (!response) {
+    const error = this.isDatesValid(data.dateIncurred, data.dateDue);
+    if (!error) {
       delete errors["dateDue"];
       this.setState({ errors });
-    } else this.setState({ errors: response });
-    /**
-     * design quack:
-     * no response: only ascertain no error in date, delete date error and set errors to old
-     * if response: response is entire error object, set errors to response
-     */
+    } else this.setState({ errors: error });
     this.setState({ data });
   };
 
@@ -79,8 +74,7 @@ class Form extends Component {
     const error = new Date(dateIncurred) > new Date(dateDue);
     if (!error) return null;
 
-    errors["dateDue"] =
-      "Due date must be greater than or equal to incurred date";
+    errors["dateDue"] = "Due date must be greater than or equal to incurred date";
 
     return errors;
   };
@@ -127,9 +121,7 @@ class Form extends Component {
     return (
       <DateInput
         registerWhichDate={this.registerWhichDate}
-        currentDate={
-          this.registerWhichDate === "dateDue" ? currentDate + 30 : currentDate
-        }
+        currentDate={this.registerWhichDate === "dateDue" ? currentDate + 30 : currentDate}
         dateFormat="MMMM d, yyyy"
         onDateChange={this.handleDateChange}
         label={label}
@@ -142,11 +134,7 @@ class Form extends Component {
 
   renderButton(label) {
     return (
-      <button
-        disabled={this.validate()}
-        type="submit"
-        className="btn btn-primary"
-      >
+      <button disabled={this.validate()} type="submit" className="btn btn-primary">
         {label}
       </button>
     );
@@ -154,11 +142,7 @@ class Form extends Component {
 
   renderClickButton(label) {
     return (
-      <button
-        type="button"
-        className="btn btn-primary"
-        onClick={this.deleteConcern}
-      >
+      <button type="button" className="btn btn-primary" onClick={this.deleteConcern}>
         {label}
       </button>
     );
