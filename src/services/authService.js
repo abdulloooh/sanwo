@@ -15,10 +15,10 @@ export async function login(user_name, password) {
   saveCurrentUser({ username, nextOfKin, token });
 }
 
-export async function updateUser(username, email, nextOfKin) {
+export async function updateUser(user_name, email, nextOfKin) {
   const {
     data: { username, token },
-  } = await http.put("/users", { username, email, nextOfKin });
+  } = await http.put("/users", { username: user_name, email, nextOfKin });
   saveCurrentUser({ username, token });
 }
 

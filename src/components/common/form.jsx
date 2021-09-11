@@ -65,6 +65,7 @@ class Form extends Component {
       delete errors["dateDue"];
       this.setState({ errors });
     } else this.setState({ errors: error });
+
     this.setState({ data });
   };
 
