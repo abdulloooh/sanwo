@@ -5,7 +5,7 @@ import { trackPromise } from "react-promise-tracker";
 
 import Container from "./common/Container";
 import Form from "./common/form";
-import Footer from './common/Footer'
+import Footer from "./common/Footer";
 import authService from "../services/authService";
 
 import styles from "./../styles/Container.module.scss";
@@ -30,10 +30,7 @@ class LoginForm extends Form {
       const { state } = this.props.location;
       window.location = state ? state.from.pathname : "/";
     } catch (ex) {
-      if (
-        ex.response &&
-        (ex.response.status === 400 || ex.response.status === 401)
-      ) {
+      if (ex.response && (ex.response.status === 400 || ex.response.status === 401)) {
         const errors = { ...this.state.errors };
         errors.username = ex.response.data;
         this.setState({ errors });
@@ -57,13 +54,7 @@ class LoginForm extends Form {
 
           {this.renderInput("Username", "username", "enter username")}
 
-          {this.renderInput(
-            "Password",
-            "password",
-            "enter password",
-            "password",
-            "on"
-          )}
+          {this.renderInput("Password", "password", "enter password", "password", "on")}
           <p>
             <Link to="/forgetpassword">Forgot Password?</Link>
           </p>

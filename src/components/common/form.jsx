@@ -30,14 +30,14 @@ class Form extends Component {
     return error ? error.details[0].message : null;
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
     let errors = this.validate();
 
     this.setState({ errors: errors || {} });
     if (errors) return false;
 
-    this.doSubmit();
+    await this.doSubmit();
   };
 
   handleChange = ({ currentTarget: input }) => {

@@ -31,10 +31,7 @@ class DebtsManager extends Component {
 
   getDebts = (group) => {
     if (group._id !== "individual") {
-      return (
-        this.state.debts &&
-        this.state.debts.filter((d) => d.status === group._id)
-      );
+      return this.state.debts && this.state.debts.filter((d) => d.status === group._id);
     }
     //if not
     return this.state.individual;
@@ -45,24 +42,15 @@ class DebtsManager extends Component {
       let { data: debts } = await trackPromise(getAllDebts());
       let { data: individual } = await trackPromise(getIndividualSummary());
       //set color for total
-      let totalValue = individual.filter(
-        (i) => i.name === `${this.specialVars.individual}`
-      );
+      let totalValue = individual.filter((i) => i.name === `${this.specialVars.individual}`);
       let totalColor = Number(totalValue[0].balance) < 0 ? "red" : "green";
 
       this.setState({ debts, individual, category: "classified", totalColor });
-      this.sortAndUpdate(
-        this.state.sortBy,
-        this.state.orderBy,
-        debts,
-        individual
-      );
+      this.sortAndUpdate(this.state.sortBy, this.state.orderBy, debts, individual);
     } catch (ex) {
       if (
         ex.response &&
-        (ex.response.status === 400 ||
-          ex.response.status === 401 ||
-          ex.response.status === 403)
+        (ex.response.status === 400 || ex.response.status === 401 || ex.response.status === 403)
       ) {
         localStorage.removeItem("username");
         toast.error(ex.response.data || "Invalid request");
@@ -102,9 +90,7 @@ class DebtsManager extends Component {
       debts.unshift(item);
     }
 
-    let removeI = individual.filter(
-      (i) => i.name === `${this.specialVars.individual}`
-    );
+    let removeI = individual.filter((i) => i.name === `${this.specialVars.individual}`);
     individual.splice(individual.indexOf(removeI[0]), 1);
     individual.unshift(removeI[0]);
 
@@ -122,47 +108,36 @@ class DebtsManager extends Component {
       );
     return (
       <>
-        {localStorage.getItem("nextOfKin") === "false" && (
-          <p>
-            <br />
-            Add a backup contact <a href="/nextofkin">here</a>
-          </p>
+        {localStorage.getItem("nextOfKins") !== "true" && (
+          <div>
+            <hr />
+            <h6>
+              Add next of kin and backup emails here <a href="/nextofkin">here</a>
+            </h6>
+            <hr />
+          </div>
         )}
         {selectedGroup._id !== "individual" && (
           <div className="filter" style={{ textAlign: "center" }}>
             <Row style={{ textAlign: "center" }}>
-              <Filter
-                data={this.sort}
-                activeItem={sortBy}
-                onClick={this.handleSort}
-              />
-              <Filter
-                data={this.order}
-                activeItem={orderBy}
-                onClick={this.handleOrder}
-              />
+              <Filter data={this.sort} activeItem={sortBy} onClick={this.handleSort} />
+              <Filter data={this.order} activeItem={orderBy} onClick={this.handleOrder} />
             </Row>
           </div>
         )}
         <DebtsTable
           debts={this.getDebts(selectedGroup)}
-          category={
-            selectedGroup._id === "individual" ? "individual" : "classified"
-          }
+          category={selectedGroup._id === "individual" ? "individual" : "classified"}
           specialCol={{
             totalSummaryAmount: {
               name: `${this.specialVars.individual}`,
               content: (item) => (
-                <span style={{ color: `${totalColor}`, fontWeight: "bold" }}>
-                  {item}
-                </span>
+                <span style={{ color: `${totalColor}`, fontWeight: "bold" }}>{item}</span>
               ),
             },
             totalsLabel: {
               content: (item) => (
-                <span style={{ color: "#007bff", fontWeight: "bold" }}>
-                  {item}
-                </span>
+                <span style={{ color: "#007bff", fontWeight: "bold" }}>{item}</span>
               ),
             },
           }}

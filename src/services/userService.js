@@ -26,6 +26,6 @@ export function resetPassword(password, resetPasswordToken) {
   return http.post(resetPasswordEndpoint, { password, resetPasswordToken });
 }
 
-export function updateNextOfKin(nextOfKin) {
-  return http.post(nextOfKinEndPoint, { nextOfKin });
+export function updateNextOfKin(data) {
+  return http.post(nextOfKinEndPoint, data);
 }
