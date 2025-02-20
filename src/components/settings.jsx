@@ -8,7 +8,15 @@ import { getUser } from "../services/userService";
 import { toast } from "react-toastify";
 class Settings extends Form {
   state = {
-    data: { username: "", email: "", old_password: "", new_password: "" },
+    data: {
+      username: "",
+      email: "",
+      old_password: "",
+      new_password: "",
+      nextOfKin: "",
+      backup1: "",
+      backup2: "",
+    },
     errors: {},
   };
 
@@ -18,6 +26,8 @@ class Settings extends Form {
     old_password: Joi.string().min(5).max(255).label("Old Password"),
     new_password: Joi.string().min(5).max(255).label("New Password"),
     nextOfKin: Joi.string().email({ minDomainSegments: 2 }).label("Next Of Kin"),
+    backup1: Joi.string().email({ minDomainSegments: 2 }).label("Backup 1"),
+    backup2: Joi.string().email({ minDomainSegments: 2 }).label("Backup 2"),
   };
 
   async componentDidMount() {
@@ -33,11 +43,21 @@ class Settings extends Form {
     }
   }
 
-  async doSubmit() {
-    //call the server
+  doSubmit = async (e) => {
+    e.preventDefault();
+    let errors = this.validate();
+
+    const { username, email, nextOfKin, backup1, backup2 } = this.state.data;
+    if (!username || !email || !nextOfKin || !backup1 || !backup2) {
+      errors = {};
+      errors.backup2 = "Please fill in all fields";
+    }
+
+    this.setState({ errors: errors || {} });
+    if (errors) return false;
+
     try {
-      const { username, email, nextOfKin } = this.state.data;
-      await trackPromise(authService.updateUser(username, email, nextOfKin));
+      await trackPromise(authService.updateUser({ username, email, nextOfKin, backup1, backup2 }));
 
       toast.success("Success");
 
@@ -58,7 +78,7 @@ class Settings extends Form {
         }, 300);
       }
     }
-  }
+  };
 
   deleteConcern = async () => {
     if (
@@ -130,18 +150,20 @@ class Settings extends Form {
   render() {
     return (
       <Container className="mt-5">
-        <h5>Feel free to change your username or email here</h5>
+        <h4>Profile</h4>
         <hr />
-        <FormWrapper onSubmit={this.handleSubmit}>
+        <FormWrapper onSubmit={this.doSubmit}>
           {this.renderInput("Username", "username", "enter new username...")}
           {this.renderInput("Email", "email", "enter new email...", "email")}
           {this.renderInput("Next of Kin", "nextOfKin", "enter next of kin email here...", "email")}
+          {this.renderInput("Backup 1", "backup1", "enter backup 1 email here...", "email")}
+          {this.renderInput("Backup 2", "backup2", "enter backup 2 email here...", "email")}
           {this.renderButton("Update")}
         </FormWrapper>
         <div className="deleteButton">{this.renderClickButton("Delete Acccount")}</div>
         <br /> <br />
         <hr />
-        <h5>Change Password</h5>
+        <h4>Change Password</h4>
         <hr />
         <FormWrapper onSubmit={this.changePassword}>
           {this.renderInput("", "old_password", "old password", "password")}

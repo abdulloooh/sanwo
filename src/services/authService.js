@@ -1,3 +1,4 @@
+import _ from "lodash";
 import http from "./httpService";
 
 const loginApiEndpoint = "/auth";
@@ -6,20 +7,16 @@ const tokenKey = "tukrn";
 http.setJwt(getJwt()); //was for setting header
 
 export async function login(user_name, password) {
-  const {
-    data: { username, nextOfKin, token },
-  } = await http.post(loginApiEndpoint, {
-    password,
-    username: user_name,
-  });
-  saveCurrentUser({ username, nextOfKin, token });
+  const { data } = await http.post(loginApiEndpoint, { password, username: user_name });
+  if (!data.nextOfKins) data.nextOfKins = "false";
+  saveCurrentUser(_.pick(data, ["username", "token", "nextOfKins"]));
+  return;
 }
 
-export async function updateUser(user_name, email, nextOfKin) {
-  const {
-    data: { username, token },
-  } = await http.put("/users", { username: user_name, email, nextOfKin });
-  saveCurrentUser({ username, token });
+export async function updateUser(payload) {
+  const { data } = await http.put("/users", payload);
+  if (!data.nextOfKins) data.nextOfKins = "false";
+  saveCurrentUser(_.pick(data, ["username", "token", "nextOfKins"]));
 }
 
 export async function updatePassword(old_password, new_password) {
@@ -46,10 +43,12 @@ export function getJwt() {
   return localStorage.getItem(tokenKey);
 }
 
-export function saveCurrentUser({ username, nextOfKin, token }) {
-  if (token) localStorage.setItem(tokenKey, token);
+export function saveCurrentUser({ username, token, nextOfKins }) {
   if (username) localStorage.setItem("username", username);
-  if (nextOfKin) localStorage.setItem("nextOfKin", nextOfKin);
+  if (token) localStorage.setItem(tokenKey, token);
+
+  if (nextOfKins) localStorage.setItem("nextOfKins", nextOfKins);
+  else if (nextOfKins === "false") localStorage.removeItem("nextOfKins");
 }
 
 export function getCurrentUser() {

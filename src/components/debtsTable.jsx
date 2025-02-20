@@ -12,7 +12,7 @@ class DebtsTable extends Component {
       path: "name",
       label: false,
       content: (item) => (
-        <Link style={{ color: "rgb(0, 123, 150)" }} to={`/debts/${item._id}`}>
+        <Link style={{ color: `${item.dateDue && Date.now() > Date.parse(item.dateDue)? "red": "rgb(0, 123, 150)"}` }} to={`/debts/${item._id}`}>
           <u>{item.name}</u>
         </Link>
       ),
