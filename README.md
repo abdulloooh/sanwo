@@ -5,7 +5,7 @@ STAGE: [![Netlify Status](https://api.netlify.com/api/v1/badges/032d647c-bf4e-43
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://https://github.com/abdulloooh/debtmanager">
+  <a href="https://github.com/abdulloooh/sanwo">
     <img src="/public/logo192.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -52,7 +52,7 @@ for any new due debts (if any).
 2. Clone the repo
 
 ```sh
-git clone https://github.com/abdulloooh/debtmanager.git
+git clone git@github.com:abdulloooh/sanwo.git
 ```
 
 3. Install NPM packages
@@ -71,7 +71,7 @@ npm start
 
 ## Roadmap
 
-See the [open issues](https://github.com/abdulloooh/debtmanager/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/abdulloooh/sanwo/issues) for a list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
 
@@ -100,5 +100,5 @@ Distributed under the GPL-3.0 License. See `LICENSE` for more information.
 
 ## Project Link:
 
-- Frontend: [https://github.com/abdulloooh/debtmanager](https://github.com/abdulloooh/debtmanager)
-- Backend: [https://github.com/abdulloooh/debtmanager-backend](https://github.com/abdulloooh/debtmanager-backend)
+- Frontend: [https://github.com/abdulloooh/sanwo](https://github.com/abdulloooh/sanwo)
+- Backend: [https://github.com/abdulloooh/sanwoAPI](https://github.com/abdulloooh/sanwoAPI)
