@@ -155,6 +155,15 @@ class Settings extends Form {
         <FormWrapper onSubmit={this.doSubmit}>
           {this.renderInput("Username", "username", "enter new username...")}
           {this.renderInput("Email", "email", "enter new email...", "email")}
+          <div>
+            <br />
+            <h5>Next of Kin / Backup Details</h5>
+            <hr />
+            <p style={{ color: "rgb(0, 123, 255", textAlign: "justify" }}>
+             If your account is inactive for 60 days, <strong>Sanwo</strong> will send an email of your <i>debt account</i> to your Next of Kin and Backup emails so
+            they can take necessary steps to settle your debts or retrieve money owed to you. <strong>No email will be sent if your debt account is clean.</strong>
+            </p>
+          </div>
           {this.renderInput("Next of Kin", "nextOfKin", "enter next of kin email here...", "email")}
           {this.renderInput("Backup 1", "backup1", "enter backup 1 email here...", "email")}
           {this.renderInput("Backup 2", "backup2", "enter backup 2 email here...", "email")}

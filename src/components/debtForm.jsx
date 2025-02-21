@@ -23,8 +23,8 @@ class DebtForm extends Form {
 
   schema = {
     _id: Joi.string().alphanum(),
-    name: Joi.string().min(3).max(30).required().label("Name"),
-    description: Joi.string().min(3).max(100).label("Description"),
+    name: Joi.string().min(1).max(128).required().label("Name"),
+    description: Joi.string().min(3).max(1024).label("Description"),
     amount: Joi.number().integer().required().label("Amount"),
     dateIncurred: Joi.date().min(2000).label("Date Incurred"),
     dateDue: Joi.date().min(2020).label("Date Due"),
@@ -69,8 +69,8 @@ class DebtForm extends Form {
   };
 
   doSubmit = async () => {
-    //check validity of dates
-    const { dateIncurred, dateDue } = this.state.data;
+    // Check validity of dates
+    const { dateIncurred, dateDue, status } = this.state.data;
     let errors = this.isDatesValid(dateIncurred, dateDue);
 
     this.setState({ errors: errors || {} });
@@ -88,7 +88,8 @@ class DebtForm extends Form {
       )
         this.handleException(ex);
     }
-    this.props.history.push("/");
+
+    this.props.history.push(`/?tab=${status}`);
   };
 
   deleteConcern = async () => {

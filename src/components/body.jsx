@@ -15,7 +15,11 @@ class Body extends Component {
   };
 
   componentDidMount() {
-    const item = { ...items[0] };
+    const queryParams = new URLSearchParams(this.props.location.search);
+    const tab = queryParams.get("tab");
+
+    const item = items.find((i) => i._id === tab) || items[0];
+
     this.setState({ selectedGroup: item });
   }
 
