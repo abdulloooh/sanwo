@@ -13,7 +13,9 @@ function log(err) {
   Raven.captureException(err);
 }
 
-export default {
+const logService = {
   init,
   log,
 };
+
+export default logService;

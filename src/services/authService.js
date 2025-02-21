@@ -55,7 +55,7 @@ export function getCurrentUser() {
   return localStorage.getItem("username");
 }
 
-export default {
+const authService = {
   login,
   logout,
   getCurrentUser,
@@ -65,3 +65,5 @@ export default {
   deleteUser,
   updatePassword,
 };
+
+export default authService;
