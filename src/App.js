@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { ThemeProvider } from "./contexts/ThemeContext";
 import NavbarNavGuest from "./components/common/navbarNavGuest";
 import Body from "./components/body";
 import DebtForm from "./components/debtForm";
@@ -20,7 +21,7 @@ import "./styles/App.scss";
 function App() {
   const username = authService.getCurrentUser() || "Sanwo";
   return (
-    <>
+    <ThemeProvider>
       <ToastContainer />
       <NavbarNavGuest
         username={username}
@@ -44,7 +45,7 @@ function App() {
         <Route path="/not-found" component={NotFound} />
         <Redirect to="not-found" />
       </Switch>
-    </>
+    </ThemeProvider>
   );
 }
 
