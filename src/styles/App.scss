@@ -1,5 +1,6 @@
 #debtBody p {
   margin: 0;
+  color: var(--text-primary);
 }
 
 button {
@@ -7,6 +8,11 @@ button {
   border-radius: 0.25rem;
   border: 1px solid transparent;
   margin-top: 10px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
 }
 
 .navbar button {

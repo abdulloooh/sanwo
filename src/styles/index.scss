@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&display=swap');
+@import './dark-theme.scss';
+
 *{
   font-family: 'Montserrat', sans-serif;
 }
@@ -7,11 +9,21 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .nav-right-wrapper {
   color: white;
   font-size: large;
+}
+
+.navbar-toggle-container {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+  margin-right: 8px;
 }
 
 .bg-primary {
