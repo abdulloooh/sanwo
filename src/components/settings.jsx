@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Form as FormWrapper } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Joi from "joi-browser";
 import { trackPromise } from "react-promise-tracker";
 import Form from "./common/form";
@@ -208,6 +209,14 @@ class Settings extends Form {
                 {this.renderButton("Update Password")}
               </div>
             </FormWrapper>
+          </div>
+
+          <div className="settings-section">
+            <div className="simple-logout">
+              <Link to="/logout" className="btn btn-outline-secondary">
+                Sign Out
+              </Link>
+            </div>
           </div>
 
           <div className="settings-section danger-section">

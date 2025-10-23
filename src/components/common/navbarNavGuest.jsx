@@ -42,14 +42,6 @@ const NavbarNavGuest = ({ username, neglect = [], history }) => {
         </div>
       )}
       <Nav className="mr-auto"></Nav>
-
-      <div className="nav-right-wrapper">
-        {username !== "Sanwo" && (
-          <Navbar.Brand as={NavLink} to="/logout">
-            <small>Logout</small>
-          </Navbar.Brand>
-        )}
-      </div>
     </Navbar>
   ) : null;
 };
