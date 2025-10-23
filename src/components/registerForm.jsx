@@ -78,9 +78,9 @@ class RegisterForm extends Form {
             <small>Manage Your debts with SANWO</small>
           </div>
 
-          {this.renderInput("Username", "username", "enter username")}
-          {this.renderInput("Email", "email", "your email", "email")}
-          {this.renderInput("Password", "password", "your password", "password", "new-password")}
+          {this.renderInput("Username", "username", "")}
+          {this.renderInput("Email", "email", "", "email")}
+          {this.renderInput("Password", "password", "", "password", "new-password")}
           {this.renderButton("Register")}
 
           <hr />

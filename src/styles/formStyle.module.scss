@@ -57,4 +57,33 @@
     color: var(--text-muted);
     line-height: 1.5;
   }
+
+  // Mobile responsiveness
+  @media screen and (max-width: 768px) {
+    input {
+      font-size: 1rem;
+      padding-top: 0.8rem;
+      padding-bottom: 0.8rem;
+    }
+
+    label {
+      font-size: 1rem;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    input {
+      font-size: 1rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      padding-left: 1.2rem;
+      padding-right: 1.2rem;
+      min-height: 48px; // Better touch target
+    }
+
+    label {
+      font-size: 1rem;
+      margin-bottom: 0.6rem;
+    }
+  }
 }

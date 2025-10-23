@@ -160,39 +160,16 @@ $primary: rgb(0, 123, 255);
   }
 
   @media screen and (max-width: 768px) {
+    .Container {
+      padding: 1rem;
+      min-height: 100vh;
+    }
+
     .formConatainer {
-      max-width: 90%;
-      padding: 3rem 2.5rem;
-      margin: 1rem;
-    }
-
-    h2 {
-      font-size: 3.5rem;
-      margin-bottom: 2rem;
-    }
-
-    div h4 {
-      font-size: 1.5rem;
-    }
-
-    div small {
-      font-size: 1.2rem;
-    }
-
-    p {
-      font-size: 1.1rem;
-    }
-
-    p a {
-      font-size: 1.2rem;
-    }
-  }
-
-  @media screen and (max-width: 480px) {
-    .formConatainer {
-      max-width: 95%;
+      max-width: 100%;
       padding: 2.5rem 2rem;
-      margin: 0.5rem;
+      margin: 0;
+      border-radius: 16px;
     }
 
     h2 {
@@ -201,11 +178,11 @@ $primary: rgb(0, 123, 255);
     }
 
     div h4 {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
     }
 
     div small {
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
 
     p {
@@ -214,6 +191,55 @@ $primary: rgb(0, 123, 255);
 
     p a {
       font-size: 1.1rem;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .Container {
+      padding: 0;
+      min-height: 100vh;
+      background: var(--bg-primary);
+    }
+
+    .formConatainer {
+      max-width: 100%;
+      padding: 2rem 1.5rem;
+      margin: 0;
+      border-radius: 0;
+      background: var(--bg-primary);
+      box-shadow: none;
+      border: none;
+      backdrop-filter: none;
+
+      &::before {
+        display: none;
+      }
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+
+    div h4 {
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+    }
+
+    div small {
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    p {
+      font-size: 0.95rem;
+      margin: 1.2rem 0;
+    }
+
+    p a {
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
     }
   }
 }

@@ -17,6 +17,21 @@ button {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
   }
+
+  // Mobile responsiveness
+  @media screen and (max-width: 768px) {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+
+  @media screen and (max-width: 480px) {
+    padding: 12px 20px;
+    font-size: 1rem;
+    margin-top: 12px;
+    min-height: 48px; // Better touch target
+    width: 100%;
+    max-width: 300px;
+  }
 }
 
 .navbar button {

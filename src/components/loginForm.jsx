@@ -47,9 +47,9 @@ class LoginForm extends Form {
             <Link to="/login">SANWO</Link>
           </h2>
 
-          {this.renderInput("Username", "username", "enter username")}
+          {this.renderInput("Username", "username", "")}
 
-          {this.renderInput("Password", "password", "enter password", "password", "on")}
+          {this.renderInput("Password", "password", "", "password", "on")}
           <p>
             <Link to="/forgetpassword">Forgot Password?</Link>
           </p>
