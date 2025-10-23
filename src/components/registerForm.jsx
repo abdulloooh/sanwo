@@ -7,7 +7,6 @@ import authService from "../services/authService";
 import { register } from "../services/userService";
 import Container from "./common/Container";
 import Form from "./common/form";
-import Footer from "./common/Footer";
 
 import styles from "./../styles/Container.module.scss";
 
@@ -77,19 +76,17 @@ class RegisterForm extends Form {
           </h2>
           <div>
             <small>Manage Your debts with SANWO</small>
-            <h4>Register to get started with SANWO!</h4>
           </div>
 
-          {this.renderInput("Username", "username", "enter username")}
-          {this.renderInput("Email", "email", "your email", "email")}
-          {this.renderInput("Password", "password", "your password", "password", "new-password")}
+          {this.renderInput("Username", "username", "")}
+          {this.renderInput("Email", "email", "", "email")}
+          {this.renderInput("Password", "password", "", "password", "new-password")}
           {this.renderButton("Register")}
 
           <hr />
           <p>
             Already a user? <Link to="/login">Login</Link>
           </p>
-          <Footer />
         </form>
       </Container>
     );

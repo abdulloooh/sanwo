@@ -1,12 +1,11 @@
 .inputBlock {
-  margin-bottom: 1.2em;
+  margin-bottom: 1.8em;
 
   label {
-    font-weight: 500;
+    font-weight: 600;
     color: var(--text-primary);
-  }
-  label,
-  input {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
     display: block;
   }
 
@@ -20,22 +19,21 @@
   }
 
   input {
-    width: 100%;
     display: block;
-    padding-left: 1em;
-    padding-right: 1em;
-    border-radius: 7px;
-    padding-top: 0.65rem;
-    padding-bottom: 0.65rem;
-    font-size: .9em;
-    margin: 0.3em auto;
-    margin-bottom: 10px;
+    width: 100%;
+    padding-left: 1.2em;
+    padding-right: 1.2em;
+    border-radius: 10px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 1.1rem;
+    margin: 0.5em auto;
+    margin-bottom: 15px;
     outline: none;
-    border: 1px solid var(--border-color);
+    border: 2px solid var(--border-color);
     background-color: var(--bg-tertiary);
     color: var(--text-primary);
     box-sizing: border-box;
-    border-radius: 8px;
     box-shadow: 0 0 0 1px var(--border-light) inset, 0 0 0 2px transparent;
     transition: all 0.3s ease;
 
@@ -58,5 +56,34 @@
     font-size: 80%;
     color: var(--text-muted);
     line-height: 1.5;
+  }
+
+  // Mobile responsiveness
+  @media screen and (max-width: 768px) {
+    input {
+      font-size: 1rem;
+      padding-top: 0.8rem;
+      padding-bottom: 0.8rem;
+    }
+
+    label {
+      font-size: 1rem;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    input {
+      font-size: 1rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      padding-left: 1.2rem;
+      padding-right: 1.2rem;
+      min-height: 48px; // Better touch target
+    }
+
+    label {
+      font-size: 1rem;
+      margin-bottom: 0.6rem;
+    }
   }
 }

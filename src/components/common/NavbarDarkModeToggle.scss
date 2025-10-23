@@ -1,28 +1,51 @@
 .navbar-dark-mode-toggle {
-  background: none;
-  border: none;
-  padding: 0;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
   cursor: pointer;
   position: relative;
   outline: none;
   transition: all 0.3s ease;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: auto !important;
+  max-width: none !important;
 
   &:hover {
     transform: scale(1.05);
+    box-shadow: none !important;
   }
 
   &:active {
     transform: scale(0.95);
+    box-shadow: none !important;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: none !important;
+  }
+
+  // Override any inherited button styles
+  &::before,
+  &::after {
+    display: none !important;
   }
 
   .navbar-toggle-track {
     width: 40px;
     height: 20px;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.15);
     border-radius: 10px;
     position: relative;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: none;
   }
 
   .navbar-toggle-thumb {
@@ -35,14 +58,14 @@
     left: 2px;
     transform: translateY(-50%);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
     display: flex;
     align-items: center;
     justify-content: center;
 
     .navbar-icon-container {
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -60,41 +83,42 @@
       }
 
       .navbar-moon-icon {
-        color: #6366f1;
-        transform: translate(-50%, -50%) scale(0.9);
-        filter: drop-shadow(0 0 2px rgba(99, 102, 241, 0.3));
+        color: #3b82f6;
+        transform: translate(-50%, -50%) scale(1);
+        filter: drop-shadow(0 0 3px rgba(59, 130, 246, 0.6));
       }
 
       .navbar-sun-icon {
         color: #f59e0b;
-        transform: translate(-50%, -50%) scale(0.9);
-        filter: drop-shadow(0 0 2px rgba(245, 158, 11, 0.3));
+        transform: translate(-50%, -50%) scale(1);
+        filter: drop-shadow(0 0 3px rgba(245, 158, 11, 0.6));
       }
     }
   }
 
   // Dark mode state
   &[data-theme="dark"] .navbar-toggle-track {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: none;
   }
 
   &[data-theme="dark"] .navbar-toggle-thumb {
     transform: translateX(22px) translateY(-50%);
-    background: #f8f9fa;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 
     .navbar-icon-container {
       .navbar-moon-icon {
-        color: #a78bfa;
-        transform: translate(-50%, -50%) scale(0.9);
-        filter: drop-shadow(0 0 3px rgba(167, 139, 250, 0.4));
+        color: #3b82f6;
+        transform: translate(-50%, -50%) scale(1);
+        filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.8));
       }
 
       .navbar-sun-icon {
-        color: #fbbf24;
-        transform: translate(-50%, -50%) scale(0.9);
-        filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.4));
+        color: #f59e0b;
+        transform: translate(-50%, -50%) scale(1);
+        filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.8));
       }
     }
   }
@@ -117,8 +141,8 @@
       height: 14px;
 
       .navbar-icon-container {
-        width: 8px;
-        height: 8px;
+        width: 10px;
+        height: 10px;
       }
     }
 
@@ -139,8 +163,8 @@
       height: 12px;
 
       .navbar-icon-container {
-        width: 7px;
-        height: 7px;
+        width: 9px;
+        height: 9px;
       }
     }
 

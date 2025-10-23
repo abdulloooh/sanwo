@@ -7,7 +7,6 @@ import authService from "../services/authService";
 import { forgetPassword } from "../services/userService";
 import Container from "./common/Container";
 import Form from "./common/form";
-import Footer from './common/Footer';
 
 import styles from "./../styles/Container.module.scss";
 
@@ -57,10 +56,7 @@ class ForgetPassword extends Form {
           <h2>
             <Link to="/login">SANWO</Link>
           </h2>
-          <div>
-            <small>Manage Your debts with SANWO</small>
-            <h4>Recover your SANWO account!</h4>
-          </div>
+
 
           {this.renderInput("Username", "username", "enter username")}
 
@@ -69,8 +65,6 @@ class ForgetPassword extends Form {
           {this.renderButton("Submit")}
 
           <hr />
-
-          <Footer />
         </form>
       </Container>
     );

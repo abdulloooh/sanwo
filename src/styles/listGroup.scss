@@ -16,4 +16,17 @@
   &:hover {
     background-color: var(--bg-tertiary);
   }
+
+  &.active {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: white !important;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+    
+    &:hover {
+      background-color: var(--primary) !important;
+      color: white !important;
+    }
+  }
 }

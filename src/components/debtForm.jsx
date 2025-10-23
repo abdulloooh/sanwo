@@ -124,29 +124,72 @@ class DebtForm extends Form {
   }
 
   render() {
+    const isNewDebt = this.props.match.params.id === "new";
+    
     return (
       <Container className="mt-5">
-        <FormWrapper onSubmit={this.handleSubmit} style={{ display: "inline" }}>
-          {this.renderInput("Name", "name", "Name of Debtor/Creditor")}
-          {this.renderInput(
-            "Description",
-            "description",
-            "optional description"
-          )}
-          {this.renderInput("Amount", "amount", "Amount", "tel")}
-          <Row>
-            <Col lg>{this.renderDate("Date Incurred", "dateIncurred")}</Col>
-            <Col>{this.renderDate("Date Due", "dateDue")}</Col>
-          </Row>
+        <div className="debt-form-header">
+          <h2 className="debt-form-title">
+            {isNewDebt ? "Add New Debt" : "Edit Debt Record"}
+          </h2>
+          <p className="debt-form-description">
+            {isNewDebt 
+              ? "Record a new debt to track money owed to you or by you"
+              : "Update the details of this debt record"
+            }
+          </p>
+        </div>
+        
+        <div className="debt-form-container">
+          <FormWrapper onSubmit={this.handleSubmit} className="debt-form">
+            <div className="form-section">
+              <h5 className="form-section-title">Basic Information</h5>
+              {this.renderInput("Name", "name", "Name of Debtor/Creditor")}
+              {this.renderInput(
+                "Description",
+                "description",
+                "Optional description or notes"
+              )}
+            </div>
+            
+            <div className="form-section">
+              <h5 className="form-section-title">Amount & Dates</h5>
+              {this.renderInput("Amount", "amount", "Amount in your currency", "tel")}
+              <Row>
+                <Col lg>{this.renderDate("Date Incurred", "dateIncurred")}</Col>
+                <Col>{this.renderDate("Date Due", "dateDue")}</Col>
+              </Row>
+            </div>
 
-          {this.renderSelect("Owed by Who?", "status", this.owedByWho)}
+            <div className="form-section">
+              <h5 className="form-section-title">Debt Type</h5>
+              {this.renderSelect("Who owes whom?", "status", this.owedByWho)}
+              <div className="form-help">
+                <small>
+                  <strong>Owed to Me:</strong> Someone owes you money<br/>
+                  <strong>Owed by Me:</strong> You owe someone money
+                </small>
+              </div>
+            </div>
 
-          {this.renderButton("Submit")}
-        </FormWrapper>
-        <div className="deleteButton">
+            <div className="form-actions">
+              {this.renderButton(isNewDebt ? "Add Debt" : "Update Debt")}
+            </div>
+          </FormWrapper>
+          
           {this.props.match.params &&
-            this.props.match.params.id !== "new" &&
-            this.renderClickButton("Delete record")}
+            this.props.match.params.id !== "new" && (
+            <div className="delete-section">
+              <hr />
+              <div className="delete-button-container">
+                <h6 className="delete-section-title">Danger Zone</h6>
+                <p className="delete-section-description">
+                  Permanently delete this debt record. This action cannot be undone.
+                </p>
+                {this.renderClickButton("Delete Debt Record", "danger")}
+              </div>
+            </div>
+          )}
         </div>
       </Container>
     );

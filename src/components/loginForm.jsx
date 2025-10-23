@@ -5,7 +5,6 @@ import { trackPromise } from "react-promise-tracker";
 
 import Container from "./common/Container";
 import Form from "./common/form";
-import Footer from "./common/Footer";
 import authService from "../services/authService";
 
 import styles from "./../styles/Container.module.scss";
@@ -47,14 +46,10 @@ class LoginForm extends Form {
           <h2>
             <Link to="/login">SANWO</Link>
           </h2>
-          <div>
-            <small>Manage Your debts with SANWO</small>
-            <h4>Login to your SANWO account!</h4>
-          </div>
 
-          {this.renderInput("Username", "username", "enter username")}
+          {this.renderInput("Username", "username", "")}
 
-          {this.renderInput("Password", "password", "enter password", "password", "on")}
+          {this.renderInput("Password", "password", "", "password", "on")}
           <p>
             <Link to="/forgetpassword">Forgot Password?</Link>
           </p>
@@ -64,7 +59,6 @@ class LoginForm extends Form {
           <p>
             New user? <Link to="/register">Register</Link> <br />
           </p>
-          <Footer />
         </form>
       </Container>
     );

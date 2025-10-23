@@ -95,7 +95,6 @@ Distributed under the GPL-3.0 License. See `LICENSE` for more information.
 
 ## Contact
 
-- Twitter: [@abdulloooh](https://twitter.com/abdulloooh)
 - Email: abdullahakinwumi@gmail.com
 
 ## Project Link:

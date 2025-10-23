@@ -6,7 +6,6 @@ import { trackPromise } from "react-promise-tracker";
 
 import Container from "./common/Container";
 import Form from "./common/form";
-import Footer from './common/Footer';
 import authService from "../services/authService";
 import { resetPassword } from "../services/userService";
 
@@ -95,7 +94,6 @@ class PasswordReset extends Form {
             "password"
           )}
           {this.renderButton("Submit")}
-          <Footer />
         </form>
       </Container>
     );
