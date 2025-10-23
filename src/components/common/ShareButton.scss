@@ -1,24 +1,24 @@
 .share-button {
-  background: none;
-  border: none;
-  padding: 8px;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
   cursor: pointer;
   position: relative;
   outline: none;
   transition: all 0.3s ease;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 16px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 18px;
+  box-shadow: none !important;
 
   &:hover {
     transform: scale(1.1);
-    background: rgba(255, 255, 255, 0.1);
     color: #ffffff;
+    background: transparent !important;
   }
 
   &:active {
@@ -171,11 +171,11 @@
         }
       }
 
-      &.twitter {
+      &.email {
         &:hover {
-          background: #1da1f2;
+          background: #ea4335;
           color: white;
-          border-color: #1da1f2;
+          border-color: #ea4335;
         }
       }
 

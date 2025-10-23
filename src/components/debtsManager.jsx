@@ -8,10 +8,12 @@ import DebtsTable from "./debtsTable";
 import { sortAndOrder, sortByDate } from "../utils/sorting";
 import "../styles/body.scss";
 import Filter from "./common/sortDropDown";
-import { Row } from "react-bootstrap";
+import { Row, Button } from "react-bootstrap";
+import { FaPlus } from "react-icons/fa";
+import Loader from "react-loader-spinner";
 
 class DebtsManager extends Component {
-  state = { sortBy: "dateDue", orderBy: "asc" }; //default
+  state = { sortBy: "dateDue", orderBy: "asc", loading: true }; //default
   sort = [
     { label: "Date Due", value: "dateDue" },
     { label: "Date Incurred", value: "dateIncurred" },
@@ -45,9 +47,19 @@ class DebtsManager extends Component {
       let totalValue = individual.filter((i) => i.name === `${this.specialVars.individual}`);
       let totalColor = Number(totalValue[0].balance) < 0 ? "red" : "green";
 
-      this.setState({ debts, individual, category: "classified", totalColor });
-      this.sortAndUpdate(this.state.sortBy, this.state.orderBy, debts, individual);
+      this.setState({ debts, individual, category: "classified", totalColor, loading: false });
+      
+      // Notify parent component that data is loaded
+      if (this.props.onDataLoaded) {
+        this.props.onDataLoaded(debts, individual);
+      }
+      
+      // Only sort if there are debts to sort
+      if (debts && debts.length > 0) {
+        this.sortAndUpdate(this.state.sortBy, this.state.orderBy, debts, individual);
+      }
     } catch (ex) {
+      this.setState({ loading: false });
       if (
         ex.response &&
         (ex.response.status === 400 || ex.response.status === 401 || ex.response.status === 403)
@@ -99,13 +111,93 @@ class DebtsManager extends Component {
 
   render() {
     const { selectedGroup } = this.props;
-    const { sortBy, orderBy, totalColor } = this.state;
-    if (this.state.debts && this.state.debts.length === 0)
+    const { sortBy, orderBy, totalColor, loading } = this.state;
+    
+    // Show loading state first
+    if (loading) {
       return (
-        <p>
-          Nothing to see yet, <Link to="/debts/new">Add New</Link> Debt
-        </p>
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          minHeight: '300px',
+          width: '100%'
+        }}>
+          <Loader
+            type="ThreeDots"
+            color="var(--primary)"
+            height={80}
+            width={80}
+          />
+        </div>
       );
+    }
+    
+    // Show welcome screen when no actual debt records exist (excluding summary data)
+    const hasActualDebts = this.state.debts && this.state.debts.some(debt => debt.common !== "total");
+    
+    if (!hasActualDebts) {
+      return (
+        <div className="welcome-screen">
+          <div className="welcome-content">
+            <div className="welcome-header">
+              <div className="welcome-icon">
+                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                  <path d="M2 17l10 5 10-5"/>
+                  <path d="M2 12l10 5 10-5"/>
+                </svg>
+              </div>
+              <h1 className="welcome-title">Welcome to Sanwo!</h1>
+              <p className="welcome-subtitle">Your personal debt management assistant</p>
+            </div>
+            
+            <div className="welcome-description">
+              <p>
+                Sanwo helps you keep track of all your financial obligations in one place. 
+                Whether someone owes you money or you owe others, we've got you covered.
+              </p>
+            </div>
+            
+            <div className="welcome-features">
+              <div className="feature-card">
+                <div className="feature-icon">💰</div>
+                <h4>Track Debts</h4>
+                <p>Record money owed to you and by you</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-icon">📅</div>
+                <h4>Due Dates</h4>
+                <p>Never miss a payment deadline</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-icon">📊</div>
+                <h4>Summary</h4>
+                <p>See your financial overview at a glance</p>
+              </div>
+            </div>
+            
+            <div className="welcome-actions">
+              <Button 
+                as={Link} 
+                to="/debts/new" 
+                variant="primary" 
+                size="lg"
+                className="welcome-cta"
+              >
+                <FaPlus className="mr-2" />
+                Add Your First Debt
+              </Button>
+              <p className="welcome-note">
+                Start by adding a debt record to see how Sanwo works
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    
+    // Show normal interface when debts exist
     return (
       <>
         {localStorage.getItem("nextOfKins") !== "true" && (

@@ -2,77 +2,275 @@ $primary: rgb(0, 123, 255);
 
 .Container {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
-  background-color: var(--bg-primary);
-  transition: background-color 0.3s ease;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  transition: background 0.3s ease;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  position: relative;
 
-  div {
-    flex: 1;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 80%, rgba(0, 123, 255, 0.15) 0%, transparent 60%),
+                radial-gradient(circle at 80% 20%, rgba(32, 201, 151, 0.15) 0%, transparent 60%),
+                radial-gradient(circle at 50% 50%, rgba(255, 193, 7, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
 
-    &:nth-of-type(2){
-      flex: 1.1;
+  .formConatainer {
+    width: 100%;
+    max-width: 650px;
+    background: var(--bg-secondary);
+    border-radius: 24px;
+    padding: 4.5rem;
+    box-shadow: 0 20px 60px var(--shadow), 
+                0 8px 25px var(--shadow),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color);
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(20px);
+    transform: translateY(0);
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 70px var(--shadow-hover), 
+                  0 12px 30px var(--shadow),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.15);
     }
 
-    &.imageConatiner {
-      background-image: url("./../assets/manager1.jpg");
-      background-position: center;
-      background-size: cover;
-      background-color: rgba(50, 50, 50, 0.8);
-      background-blend-mode: multiply;
-
-      @media screen and (max-width: 768px) {
-        display: none;
-      }
-    }
-
-    &.formConatainer {
-      padding: 2em;
-      background-color: var(--bg-primary);
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.05) 0%, 
+        rgba(255, 255, 255, 0.02) 50%, 
+        rgba(0, 123, 255, 0.03) 100%);
+      border-radius: 24px;
+      pointer-events: none;
     }
   }
 }
 
 .Form {
-  width: 70%;
+  width: 100%;
 
   small{
-    color: var(--text-muted);
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.5;
+    font-weight: 500;
   }
 
   h2 {
-    font-size: 4em;
-    margin: 0 0 1.2em;
+    font-size: 4.5rem;
+    margin: 0 0 2.5rem;
     color: var(--text-primary);
+    text-align: center;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--primary) 0%, #20c997 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 4px 8px rgba(0, 123, 255, 0.1);
+    position: relative;
+    z-index: 2;
 
     a{
       color: var(--primary);
+      text-decoration: none;
+      transition: all 0.3s ease;
 
       &:active, &:hover{
-        color: var(--primary);
-      }
-
-      &:hover{
-        text-decoration: none;
+        color: #20c997;
+        transform: scale(1.05);
       }
     }
   }
 
   div {
-    margin-bottom: 1em;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    position: relative;
+    z-index: 2;
 
     h4 {
-      font-size: large;
+      font-size: 1.6rem;
       color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0, 123, 255, 0.1);
+    }
+
+    small {
+      display: block;
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      font-weight: 500;
     }
   }
 
-  @media screen and (max-width: 640px) {
-    width: 100%;
-    padding-bottom: 2em;
+  hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+    margin: 2.5rem 0;
+    position: relative;
+    z-index: 2;
+  }
 
-    h2{
-        margin-bottom: 1em;
+  p {
+    text-align: center;
+    margin: 1.5rem 0;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    position: relative;
+    z-index: 2;
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      display: inline-block;
+
+      &:hover {
+        background: rgba(0, 123, 255, 0.1);
+        transform: translateY(-1px);
+        text-decoration: none;
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .formConatainer {
+      max-width: 90%;
+      padding: 3rem 2.5rem;
+      margin: 1rem;
+    }
+
+    h2 {
+      font-size: 3.5rem;
+      margin-bottom: 2rem;
+    }
+
+    div h4 {
+      font-size: 1.5rem;
+    }
+
+    div small {
+      font-size: 1.2rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
+
+    p a {
+      font-size: 1.2rem;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .formConatainer {
+      max-width: 95%;
+      padding: 2.5rem 2rem;
+      margin: 0.5rem;
+    }
+
+    h2 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    div h4 {
+      font-size: 1.4rem;
+    }
+
+    div small {
+      font-size: 1.1rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+
+    p a {
+      font-size: 1.1rem;
+    }
+  }
+}
+
+// Dark mode specific improvements
+[data-theme="dark"] {
+  .Container {
+    .formConatainer {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 
+                  0 8px 25px rgba(0, 0, 0, 0.3),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+      &:hover {
+        box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5), 
+                    0 12px 30px rgba(0, 0, 0, 0.4),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      }
+
+      &::before {
+        background: linear-gradient(135deg, 
+          rgba(255, 255, 255, 0.03) 0%, 
+          rgba(255, 255, 255, 0.01) 50%, 
+          rgba(102, 126, 234, 0.05) 100%);
+      }
+    }
+
+    .Form {
+      h2 {
+        background: linear-gradient(135deg, var(--primary) 0%, #20c997 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 4px 8px rgba(102, 126, 234, 0.2);
+      }
+
+      div h4 {
+        color: var(--primary);
+        text-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
+      }
+
+      div small {
+        color: var(--text-secondary);
+      }
+
+      p {
+        color: var(--text-primary);
+
+        a {
+          color: var(--primary);
+
+          &:hover {
+            background: rgba(102, 126, 234, 0.15);
+          }
+        }
+      }
     }
   }
 }

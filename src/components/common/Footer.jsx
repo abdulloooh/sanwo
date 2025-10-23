@@ -9,12 +9,11 @@ const Container = () => {
         {" "}
           💟
         </span>
+        {" "}
         by 
         {" "}
         <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://twitter.com/abdulloooh"
+          href="mailto:abdullah@example.com?subject=Contact from Sanwo App&body=Hello Abdullah,"
         >
           Abdullah |
           {" "}
@@ -30,7 +29,7 @@ const Container = () => {
         <a
           target="_blank"
           rel="noopener noreferrer"
-          href="https://twitter.com/abdulloooh"
+          href="https://github.com/abdulloooh/sanwo/issues"
         >
           Feedback?
         </a>

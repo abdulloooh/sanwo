@@ -56,39 +56,45 @@ class NextOfKinForm extends Form {
   render() {
     return (
       <Container className="mt-5">
-        <div>
-          <h5>Why are we asking for backup details?</h5>
-          <p style={{ color: "rgb(0, 123, 255", textAlign: "justify" }}>
-            <hr />
-            If your account is inactive for 60 days{" "}
-            <span role="img" aria-label="emoji">
-              😢
-            </span>{" "}
-            Sanwo will send an email of your <strong>debt account</strong> to your backup emails so
-            they can take necessary steps to settle your debts{" "}
-            <span role="img" aria-label="emoji">
-              💰
-            </span>{" "}
-            or retrieve money{" "}
-            <span role="img" aria-label="emoji">
-              🤑
-            </span>{" "}
-            owed to you. No email will be sent if your debt account is clean
-            <span role="img" aria-label="emoji">
-              🙂
-            </span>{" "}
-            <hr />
-            We are asking for 3 emails to play it safe, hoping that at least one of the 3 that will
-            get Sanwo's email of your debt account will attend to your debts and also retrieve money
-            owed to you.
-          </p>
+        <div className="nextofkin-header">
+          <h2 className="nextofkin-title">Emergency Contacts</h2>
+          <p className="nextofkin-subtitle">Configure your emergency contact information for account safety</p>
         </div>
-        <FormWrapper onSubmit={this.handleSubmit}>
-          {this.renderInput("Next of Kin", "nextOfKin", "Enter Next of Kin Email here...", "email")}
-          {this.renderInput("Backup 1", "backup1", "Enter Backup 1 Email here...", "email")}
-          {this.renderInput("Backup 2", "backup2", "Enter Backup 2 Email here...", "email")}
-          {this.renderButton("Update")}
-        </FormWrapper>
+        
+        <div className="nextofkin-container">
+          <div className="nextofkin-section">
+            <div className="section-header">
+              <h4 className="section-title">Emergency Contact Setup</h4>
+              <p className="section-description">Provide trusted contacts who can be notified in case of account inactivity</p>
+            </div>
+            
+            <div className="info-box">
+              <div className="info-icon">⚠️</div>
+              <div className="info-content">
+                <h6>Emergency Notification System</h6>
+                <p>
+                  If your account is inactive for 60 days, Sanwo will send your debt summary to these contacts so they can settle your debts or recover money owed to you. <strong>No email is sent if your account is clean.</strong>
+                </p>
+                <p>
+                  We require three email addresses to ensure at least one contact receives the notification.
+                </p>
+              </div>
+            </div>
+            
+            <FormWrapper onSubmit={this.handleSubmit} className="nextofkin-form">
+              <div className="form-section">
+                <h5 className="form-section-title">Emergency Contacts</h5>
+                {this.renderInput("Next of Kin", "nextOfKin", "Enter Next of Kin Email here...", "email")}
+                {this.renderInput("Backup 1", "backup1", "Enter Backup 1 Email here...", "email")}
+                {this.renderInput("Backup 2", "backup2", "Enter Backup 2 Email here...", "email")}
+              </div>
+
+              <div className="form-actions">
+                {this.renderButton("Update Emergency Contacts")}
+              </div>
+            </FormWrapper>
+          </div>
+        </div>
       </Container>
     );
   }

@@ -150,35 +150,87 @@ class Settings extends Form {
   render() {
     return (
       <Container className="mt-5">
-        <h4>Profile</h4>
-        <hr />
-        <FormWrapper onSubmit={this.doSubmit}>
-          {this.renderInput("Username", "username", "enter new username...")}
-          {this.renderInput("Email", "email", "enter new email...", "email")}
-          <div>
-            <br />
-            <h5>Next of Kin / Backup Details</h5>
-            <hr />
-            <p style={{ color: "rgb(0, 123, 255", textAlign: "justify" }}>
-             If your account is inactive for 60 days, <strong>Sanwo</strong> will send an email of your <i>debt account</i> to your Next of Kin and Backup emails so
-            they can take necessary steps to settle your debts or retrieve money owed to you. <strong>No email will be sent if your debt account is clean.</strong>
-            </p>
+        <div className="settings-header">
+          <h2 className="settings-title">Account Settings</h2>
+          <p className="settings-subtitle">Manage your profile and account preferences</p>
+        </div>
+        
+        <div className="settings-container">
+          <div className="settings-section">
+            <div className="section-header">
+              <h4 className="section-title">Profile Information</h4>
+              <p className="section-description">Update your personal details</p>
+            </div>
+            
+            <FormWrapper onSubmit={this.doSubmit} className="settings-form">
+              <div className="form-section">
+                <h5 className="form-section-title">Basic Information</h5>
+                {this.renderInput("Username", "username", "Enter your username", "text")}
+                {this.renderInput("Email", "email", "Enter your email address", "email")}
+              </div>
+              
+              <div className="form-section">
+                <h5 className="form-section-title">Emergency Contacts</h5>
+                <div className="info-box">
+                  <div className="info-icon">⚠️</div>
+                  <div className="info-content">
+                    <h6>Important Notice</h6>
+                    <p>
+                      If your account is inactive for 60 days, <strong>Sanwo</strong> will send an email of your debt account to your Next of Kin and Backup emails so they can take necessary steps to settle your debts or retrieve money owed to you. <strong>No email will be sent if your debt account is clean.</strong>
+                    </p>
+                  </div>
+                </div>
+                {this.renderInput("Next of Kin", "nextOfKin", "Enter next of kin email", "email")}
+                {this.renderInput("Backup Contact 1", "backup1", "Enter first backup email", "email")}
+                {this.renderInput("Backup Contact 2", "backup2", "Enter second backup email", "email")}
+              </div>
+
+              <div className="form-actions">
+                {this.renderButton("Update Profile")}
+              </div>
+            </FormWrapper>
           </div>
-          {this.renderInput("Next of Kin", "nextOfKin", "enter next of kin email here...", "email")}
-          {this.renderInput("Backup 1", "backup1", "enter backup 1 email here...", "email")}
-          {this.renderInput("Backup 2", "backup2", "enter backup 2 email here...", "email")}
-          {this.renderButton("Update")}
-        </FormWrapper>
-        <div className="deleteButton">{this.renderClickButton("Delete Acccount")}</div>
-        <br /> <br />
-        <hr />
-        <h4>Change Password</h4>
-        <hr />
-        <FormWrapper onSubmit={this.changePassword}>
-          {this.renderInput("", "old_password", "old password", "password")}
-          {this.renderInput("", "new_password", "new password", "password")}
-          {this.renderButton("Update Password")}
-        </FormWrapper>
+
+          <div className="settings-section">
+            <div className="section-header">
+              <h4 className="section-title">Security</h4>
+              <p className="section-description">Change your password</p>
+            </div>
+            
+            <FormWrapper onSubmit={this.changePassword} className="settings-form">
+              <div className="form-section">
+                <h5 className="form-section-title">Password Change</h5>
+                {this.renderInput("Current Password", "old_password", "Enter your current password", "password")}
+                {this.renderInput("New Password", "new_password", "Enter your new password", "password")}
+              </div>
+
+              <div className="form-actions">
+                {this.renderButton("Update Password")}
+              </div>
+            </FormWrapper>
+          </div>
+
+          <div className="settings-section danger-section">
+            <div className="section-header">
+              <h4 className="section-title danger-title">Danger Zone</h4>
+              <p className="section-description">Irreversible and destructive actions</p>
+            </div>
+            
+            <div className="danger-content">
+              <div className="danger-warning">
+                <div className="warning-icon">🚨</div>
+                <div className="warning-content">
+                  <h6>Delete Account</h6>
+                  <p>Permanently delete your account and all associated debt records. This action cannot be undone.</p>
+                </div>
+              </div>
+              
+              <div className="danger-actions">
+                {this.renderClickButton("Delete Account", "danger")}
+              </div>
+            </div>
+          </div>
+        </div>
       </Container>
     );
   }
