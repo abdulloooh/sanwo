@@ -13,7 +13,7 @@ const Container = () => {
         by 
         {" "}
         <a
-          href="mailto:abdullah@example.com?subject=Contact from Sanwo App&body=Hello Abdullah,"
+          href="mailto:abdulllooohhh@gmail.com?subject=Contact from Sanwo App&body=Hello Abdullah,"
         >
           Abdullah |
           {" "}
