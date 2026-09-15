@@ -29,6 +29,7 @@ class DebtForm extends Form {
     dateIncurred: Joi.date().min(2000).label("Date Incurred"),
     dateDue: Joi.date().min(2020).label("Date Due"),
     status: Joi.string().min(2).max(2).required(),
+    partyEmail: Joi.string().email().allow("").optional().label("Party Email"),
   };
 
   componentDidMount = async () => {
@@ -145,6 +146,16 @@ class DebtForm extends Form {
             <div className="form-section">
               <h5 className="form-section-title">Basic Information</h5>
               {this.renderInput("Name", "name", "Name of Debtor/Creditor")}
+              {this.renderInput(
+                "Party Email (Optional)",
+                "partyEmail",
+                "Email for reminders (optional)"
+              )}
+              <div className="form-help" style={{ marginTop: '-10px', marginBottom: '15px' }}>
+                <small className="text-muted">
+                  The other party will receive due date reminders when this feature is available
+                </small>
+              </div>
               {this.renderInput(
                 "Description",
                 "description",
