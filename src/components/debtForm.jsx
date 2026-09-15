@@ -147,13 +147,13 @@ class DebtForm extends Form {
               <h5 className="form-section-title">Basic Information</h5>
               {this.renderInput("Name", "name", "Name of Debtor/Creditor")}
               {this.renderInput(
-                "Party Email (Optional)",
+                "Their email (optional)",
                 "partyEmail",
-                "Email for reminders (optional)"
+                "e.g. friend@email.com"
               )}
               <div className="form-help" style={{ marginTop: '-10px', marginBottom: '15px' }}>
                 <small className="text-muted">
-                  The other party will receive due date reminders when this feature is available
+                  If you add their email, Sanwo will remind them when the money is due. You will get a reminder too. Leave it empty if you don't want that.
                 </small>
               </div>
               {this.renderInput(
