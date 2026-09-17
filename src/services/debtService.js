@@ -25,3 +25,7 @@ export function updateDebt(debt) {
 export function deleteDebt(id) {
   return http.delete(debtUrl(id));
 }
+
+export function previewReminderEmail(debt) {
+  return http.post(`${apiEndpoint}/preview-reminder`, debt);
+}

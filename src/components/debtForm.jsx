@@ -8,11 +8,12 @@ import {
   saveDebt,
   updateDebt,
   deleteDebt,
+  previewReminderEmail,
 } from "../services/debtService";
 import { toast } from "react-toastify";
 
 class DebtForm extends Form {
-  state = { data: {}, errors: {} };
+  state = { data: {}, errors: {}, sendingPreview: false };
 
   owedByWho = [
     { _id: "cr", name: "Owed to Me" },
@@ -124,6 +125,35 @@ class DebtForm extends Form {
     }, 300);
   }
 
+  handlePreviewEmail = async () => {
+    this.setState({ sendingPreview: true });
+    
+    try {
+      const previewData = {
+        name: this.state.data.name,
+        description: this.state.data.description,
+        amount: this.state.data.amount ? `$${this.state.data.amount}` : "$0",
+        dateDue: this.state.data.dateDue,
+        status: this.state.data.status,
+        partyEmail: this.state.data.partyEmail || "",
+      };
+
+      const { data } = await trackPromise(previewReminderEmail(previewData));
+      
+      if (data.sent) {
+        toast.success(`Sample email sent to ${data.sentTo}`);
+      }
+    } catch (ex) {
+      if (ex.response && ex.response.data) {
+        toast.error(ex.response.data);
+      } else {
+        toast.error("Failed to send sample email. Please try again.");
+      }
+    } finally {
+      this.setState({ sendingPreview: false });
+    }
+  };
+
   render() {
     const isNewDebt = this.props.match.params.id === "new";
     
@@ -155,6 +185,20 @@ class DebtForm extends Form {
                 <small className="text-muted">
                   If you add their email, Sanwo will remind them when the money is due. You will get a reminder too. Leave it empty if you don't want that.
                 </small>
+                <div style={{ marginTop: '8px' }}>
+                  <button
+                    type="button"
+                    className="btn btn-link btn-sm"
+                    style={{ padding: '0', fontSize: '0.875rem' }}
+                    onClick={this.handlePreviewEmail}
+                    disabled={this.state.sendingPreview}
+                  >
+                    {this.state.sendingPreview ? "Sending..." : "Send me a sample reminder email"}
+                  </button>
+                  <small className="text-muted d-block" style={{ marginTop: '4px' }}>
+                    Test how the reminder will look. Goes to your email only.
+                  </small>
+                </div>
               </div>
               {this.renderInput(
                 "Description",
