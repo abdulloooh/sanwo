@@ -183,7 +183,7 @@ class DebtForm extends Form {
               )}
               <div className="form-help" style={{ marginTop: '-10px', marginBottom: '15px' }}>
                 <small className="text-muted">
-                  If you add their email, Sanwo will remind them when the money is due. You will get a reminder too. Leave it empty if you don't want that.
+                  Add their email and they'll also get reminders. Leave it empty and only you will get reminders.
                 </small>
                 <div style={{ marginTop: '8px' }}>
                   <button
@@ -196,7 +196,7 @@ class DebtForm extends Form {
                     {this.state.sendingPreview ? "Sending..." : "Send me a sample reminder email"}
                   </button>
                   <small className="text-muted d-block" style={{ marginTop: '4px' }}>
-                    Test how the reminder will look. Goes to your email only.
+                    Sends sample reminder emails to your email only. Even if their email is empty, you'll see what they would get.
                   </small>
                 </div>
               </div>
