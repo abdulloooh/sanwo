@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import TruncatedText from "./TruncatedText";
+import DescriptionCell from "./TruncatedText";
 
 //data
 //columns
@@ -10,9 +10,9 @@ class TableBody extends Component {
 
     if (column.content) return column.content(item);
 
-    // Special handling for description field - use TruncatedText component
+    // Special handling for description field - use DescriptionCell component
     if (column.path === "description") {
-      return <TruncatedText text={item[column.path]} maxLines={2} />;
+      return <DescriptionCell text={item[column.path]} />;
     }
 
     return specialCol && item.name === specialCol.totalSummaryAmount.name

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import TableBody from "./common/tableBody";
 import { Table } from "react-bootstrap";
+import "../styles/empty-state.scss";
 /*
 Interface
 ==>debts
@@ -47,7 +48,20 @@ class DebtsTable extends Component {
   ];
 
   render() {
-    const { debts, category, specialCol } = this.props;
+    const { debts, category, selectedGroupId, specialCol } = this.props;
+
+    // Show empty state for cleared tab if no cleared debts
+    if (selectedGroupId === "cleared" && (!debts || debts.length === 0)) {
+      return (
+        <div className="empty-state">
+          <div className="empty-state-icon">✓</div>
+          <h4 className="empty-state-title">No cleared debts yet</h4>
+          <p className="empty-state-text">
+            Debts you mark as paid or settled will appear here.
+          </p>
+        </div>
+      );
+    }
 
     return (
       <Table id="debtBody" hover responsive>

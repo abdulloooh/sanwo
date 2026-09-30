@@ -150,6 +150,16 @@
 
     tbody tr:hover {
       background-color: var(--bg-tertiary);
+      
+      // Ensure amount and key text stay readable on hover
+      td {
+        color: var(--text-primary);
+        
+        &:last-child {
+          color: var(--primary);
+          font-weight: 700;
+        }
+      }
     }
   }
 
