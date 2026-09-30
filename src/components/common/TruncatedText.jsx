@@ -20,40 +20,26 @@ class DescriptionCell extends Component {
 
     if (!text) return null;
 
-    // Simple approach: show full text if short, truncate if long
-    const isLong = text.length > 80; // ~2 lines worth
+    const isLong = text.length > 80;
 
-    if (!isLong) {
-      return text;
-    }
-
-    if (isExpanded) {
-      return (
-        <>
-          {text}{" "}
-          <button
-            type="button"
-            className="description-toggle"
-            onClick={this.toggleExpand}
-          >
-            less
-          </button>
-        </>
-      );
-    }
-
-    // Truncated view
     return (
-      <>
-        <span className="description-truncated">{text}</span>{" "}
-        <button
-          type="button"
-          className="description-toggle"
-          onClick={this.toggleExpand}
-        >
-          more
-        </button>
-      </>
+      <span className="description-content">
+        <span className={isExpanded || !isLong ? "description-full" : "description-clamped"}>
+          {text}
+        </span>
+        {isLong && (
+          <>
+            {" "}
+            <button
+              type="button"
+              className="description-more"
+              onClick={this.toggleExpand}
+            >
+              {isExpanded ? "less" : "more"}
+            </button>
+          </>
+        )}
+      </span>
     );
   }
 }

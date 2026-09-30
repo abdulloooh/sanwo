@@ -1,27 +1,49 @@
 .description {
   max-width: 100%;
+  overflow: hidden;
   word-wrap: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
   
-  .description-truncated {
+  .description-content {
+    display: block;
+    width: 100%;
+  }
+  
+  .description-clamped {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
     word-wrap: break-word;
+    overflow-wrap: anywhere;
     white-space: normal;
   }
   
-  .description-toggle {
+  .description-full {
+    display: inline;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+  
+  .description-more {
+    display: inline;
     color: var(--primary);
     text-decoration: none;
     font-size: inherit;
     font-weight: inherit;
+    line-height: inherit;
     padding: 0;
     margin: 0;
     background: none;
     border: none;
     cursor: pointer;
-    display: inline;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    min-width: 0;
+    min-height: 0;
+    vertical-align: baseline;
     
     &:hover {
       text-decoration: underline;
@@ -29,7 +51,11 @@
     
     &:focus {
       outline: 1px dotted var(--primary);
-      outline-offset: 2px;
+      outline-offset: 1px;
+    }
+    
+    &:active {
+      background: none;
     }
   }
 }
@@ -59,6 +85,8 @@
 // Mobile improvements for debt table
 #debtBody {
   font-size: 1rem;
+  table-layout: fixed;
+  width: 100%;
   
   tr {
     border-bottom: 1px solid var(--border-color);
@@ -71,10 +99,21 @@
   td {
     padding: 16px 12px;
     vertical-align: middle;
+    overflow: hidden;
+    
+    &:first-child {
+      width: 70%;
+    }
+    
+    &:last-child {
+      width: 30%;
+    }
     
     p {
       margin-bottom: 8px;
       line-height: 1.5;
+      overflow: hidden;
+      word-wrap: break-word;
       
       &:last-child {
         margin-bottom: 0;
