@@ -264,10 +264,11 @@ class DebtForm extends Form {
                   </small>
                 </div>
               </div>
-              {this.renderInput(
+              {this.renderTextarea(
                 "Description",
                 "description",
-                "Optional description or notes"
+                "Optional description or notes",
+                4
               )}
             </div>
             
