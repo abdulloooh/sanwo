@@ -24,23 +24,36 @@ class DescriptionCell extends Component {
     const isLong = text.length > 80; // ~2 lines worth
 
     if (!isLong) {
-      return <span>{text}</span>;
+      return text;
     }
 
+    if (isExpanded) {
+      return (
+        <>
+          {text}{" "}
+          <button
+            type="button"
+            className="description-toggle"
+            onClick={this.toggleExpand}
+          >
+            less
+          </button>
+        </>
+      );
+    }
+
+    // Truncated view
     return (
-      <span className="description-cell">
-        <span className={isExpanded ? "description-full" : "description-truncated"}>
-          {text}
-        </span>
-        {" "}
+      <>
+        <span className="description-truncated">{text}</span>{" "}
         <button
           type="button"
           className="description-toggle"
           onClick={this.toggleExpand}
         >
-          {isExpanded ? "less" : "more"}
+          more
         </button>
-      </span>
+      </>
     );
   }
 }
