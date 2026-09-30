@@ -7,6 +7,7 @@ import "../styles/body.scss";
 const items = [
   { _id: "cr", label: "Owed to Me" },
   { _id: "dr", label: "Owed by Me" },
+  { _id: "cleared", label: "Cleared" },
   { _id: "individual", label: "Summary" },
 ];
 class Body extends Component {

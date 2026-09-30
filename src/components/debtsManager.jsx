@@ -32,11 +32,20 @@ class DebtsManager extends Component {
   };
 
   getDebts = (group) => {
-    if (group._id !== "individual") {
-      return this.state.debts && this.state.debts.filter((d) => d.status === group._id);
+    if (group._id === "individual") {
+      return this.state.individual;
     }
-    //if not
-    return this.state.individual;
+    
+    if (group._id === "cleared") {
+      return this.state.debts && this.state.debts.filter((d) => 
+        d.lifecycleStatus === 'paid' || d.lifecycleStatus === 'settled'
+      );
+    }
+    
+    return this.state.debts && this.state.debts.filter((d) => 
+      d.status === group._id && 
+      (!d.lifecycleStatus || d.lifecycleStatus === 'open')
+    );
   };
 
   async componentDidMount() {
@@ -90,10 +99,16 @@ class DebtsManager extends Component {
       debts = this.state.debts;
       individual = this.state.individual;
     }
-    debts =
-      sortBy === "dateIncurred" || sortBy === "dateDue"
-        ? sortByDate(debts, sortBy, orderBy, "desc") // "desc" passed here is just label for desc, asc is default
-        : sortAndOrder(debts, sortBy, orderBy, "desc");
+    
+    // Apply overdue-first sorting for date-based sorts
+    if (sortBy === "dateDue") {
+      debts = this.sortByOverdueFirst(debts, orderBy);
+    } else if (sortBy === "dateIncurred") {
+      debts = sortByDate(debts, sortBy, orderBy, "desc");
+    } else {
+      debts = sortAndOrder(debts, sortBy, orderBy, "desc");
+    }
+    
     individual = sortAndOrder(individual, "balance", "asc", "desc");
 
     let removeD = debts.filter((i) => i.common === "total");
@@ -107,6 +122,54 @@ class DebtsManager extends Component {
     individual.unshift(removeI[0]);
 
     this.setState({ debts, individual });
+  };
+
+  sortByOverdueFirst = (debts, orderBy) => {
+    const now = Date.now();
+    const sevenDaysFromNow = now + (7 * 24 * 60 * 60 * 1000);
+    
+    const categorized = debts.reduce((acc, debt) => {
+      if (!debt.dateDue) {
+        acc.noDueDate.push(debt);
+        return acc;
+      }
+      
+      const dueDate = Date.parse(debt.dateDue);
+      const isCleared = debt.lifecycleStatus === 'paid' || debt.lifecycleStatus === 'settled';
+      
+      if (isCleared) {
+        acc.cleared.push(debt);
+      } else if (dueDate < now) {
+        acc.overdue.push(debt);
+      } else if (dueDate <= sevenDaysFromNow) {
+        acc.dueSoon.push(debt);
+      } else {
+        acc.later.push(debt);
+      }
+      
+      return acc;
+    }, { overdue: [], dueSoon: [], later: [], noDueDate: [], cleared: [] });
+    
+    // Sort each category by due date
+    const sortByDate = (a, b) => {
+      const dateA = Date.parse(a.dateDue);
+      const dateB = Date.parse(b.dateDue);
+      return orderBy === "desc" ? dateB - dateA : dateA - dateB;
+    };
+    
+    categorized.overdue.sort(sortByDate);
+    categorized.dueSoon.sort(sortByDate);
+    categorized.later.sort(sortByDate);
+    categorized.cleared.sort(sortByDate);
+    
+    // Combine: overdue first, then due soon, then later, then no due date, then cleared at the end
+    return [
+      ...categorized.overdue,
+      ...categorized.dueSoon,
+      ...categorized.later,
+      ...categorized.noDueDate,
+      ...categorized.cleared,
+    ];
   };
 
   render() {
