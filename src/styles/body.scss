@@ -30,3 +30,131 @@
   position: fixed;
   bottom: 0;
 }
+
+// Mobile improvements for debt table
+#debtBody {
+  font-size: 1rem;
+  
+  tr {
+    border-bottom: 1px solid var(--border-color);
+    
+    &:hover {
+      background-color: var(--bg-secondary);
+    }
+  }
+  
+  td {
+    padding: 16px 12px;
+    vertical-align: middle;
+    
+    p {
+      margin-bottom: 8px;
+      line-height: 1.5;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    
+    a {
+      font-weight: 600;
+      text-decoration: none;
+      
+      u {
+        text-decoration: none;
+        border-bottom: 1px solid currentColor;
+      }
+      
+      &:hover u {
+        border-bottom: 2px solid currentColor;
+      }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 0.95rem;
+    
+    td {
+      padding: 14px 10px;
+      
+      p {
+        margin-bottom: 6px;
+      }
+    }
+    
+    .description {
+      max-width: 150px !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+    
+    td {
+      padding: 12px 8px;
+      display: block;
+      width: 100%;
+      
+      &:first-child {
+        padding-bottom: 8px;
+      }
+      
+      &:last-child {
+        padding-top: 8px;
+        text-align: right;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+      
+      p {
+        margin-bottom: 4px;
+        font-size: 0.9rem;
+        
+        strong {
+          display: inline-block;
+          min-width: 70px;
+          color: var(--text-muted);
+          font-size: 0.85rem;
+        }
+      }
+    }
+    
+    .description {
+      max-width: 100% !important;
+      white-space: normal;
+      word-wrap: break-word;
+    }
+    
+    a {
+      display: inline-block;
+      padding: 4px 0;
+      min-height: 44px;
+      line-height: 1.4;
+      
+      u {
+        padding-bottom: 2px;
+      }
+    }
+  }
+}
+
+// Mobile improvements for filter/sort controls
+.filter {
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 400px;
+    margin: 10px auto;
+  }
+  
+  @media (max-width: 480px) {
+    width: 100%;
+    margin: 8px 0;
+    
+    button {
+      font-size: 0.9rem;
+      padding: 8px 16px;
+      min-height: 44px;
+    }
+  }
+}

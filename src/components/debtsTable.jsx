@@ -11,11 +11,24 @@ class DebtsTable extends Component {
     {
       path: "name",
       label: false,
-      content: (item) => (
-        <Link style={{ color: `${item.dateDue && Date.now() > Date.parse(item.dateDue)? "red": "rgb(0, 123, 150)"}` }} to={`/debts/${item._id}`}>
-          <u>{item.name}</u>
-        </Link>
-      ),
+      content: (item) => {
+        const isOverdue = item.dateDue && Date.now() > Date.parse(item.dateDue);
+        const isCleared = item.clearedAt != null;
+        const color = isCleared ? "gray" : (isOverdue ? "red" : "rgb(0, 123, 150)");
+        
+        return (
+          <Link 
+            style={{ 
+              color: color,
+              textDecoration: isCleared ? 'line-through' : 'none'
+            }} 
+            to={`/debts/${item._id}`}
+          >
+            <u>{item.name}</u>
+            {isCleared && <span style={{ marginLeft: '8px', fontSize: '0.85em' }}>✓</span>}
+          </Link>
+        );
+      },
     },
     { path: "amount", label: "Amount" },
     { path: "description", label: false },
