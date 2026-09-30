@@ -272,7 +272,7 @@ class DebtsManager extends Component {
             <hr />
           </div>
         )}
-        {selectedGroup._id !== "individual" && (
+        {selectedGroup._id !== "individual" && selectedGroup._id !== "cleared" && (
           <div className="filter" style={{ textAlign: "center" }}>
             <Row style={{ textAlign: "center" }}>
               <Filter data={this.sort} activeItem={sortBy} onClick={this.handleSort} />
