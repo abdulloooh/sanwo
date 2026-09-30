@@ -6,8 +6,9 @@ function debtUrl(id) {
   return `${apiEndpoint}/${id}`;
 }
 
-export function getDebts() {
-  return http.get(apiEndpoint);
+export function getDebts(includeCleared = false) {
+  const url = includeCleared ? `${apiEndpoint}?includeCleared=true` : apiEndpoint;
+  return http.get(url);
 }
 
 export function getDebt(id) {
@@ -28,4 +29,12 @@ export function deleteDebt(id) {
 
 export function previewReminderEmail(debt) {
   return http.post(`${apiEndpoint}/preview-reminder`, debt);
+}
+
+export function clearDebt(id) {
+  return http.patch(debtUrl(id) + "/clear");
+}
+
+export function reopenDebt(id) {
+  return http.patch(debtUrl(id) + "/reopen");
 }

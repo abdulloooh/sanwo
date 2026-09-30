@@ -13,7 +13,7 @@ class DebtsTable extends Component {
       label: false,
       content: (item) => {
         const isOverdue = item.dateDue && Date.now() > Date.parse(item.dateDue);
-        const isCleared = item.lifecycleStatus === 'paid' || item.lifecycleStatus === 'settled';
+        const isCleared = item.clearedAt != null;
         const color = isCleared ? "gray" : (isOverdue ? "red" : "rgb(0, 123, 150)");
         
         return (

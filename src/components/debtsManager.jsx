@@ -38,19 +38,19 @@ class DebtsManager extends Component {
     
     if (group._id === "cleared") {
       return this.state.debts && this.state.debts.filter((d) => 
-        d.lifecycleStatus === 'paid' || d.lifecycleStatus === 'settled'
+        d.clearedAt != null
       );
     }
     
     return this.state.debts && this.state.debts.filter((d) => 
       d.status === group._id && 
-      (!d.lifecycleStatus || d.lifecycleStatus === 'open')
+      d.clearedAt == null
     );
   };
 
   async componentDidMount() {
     try {
-      let { data: debts } = await trackPromise(getAllDebts());
+      let { data: debts } = await trackPromise(getAllDebts(true)); // Include cleared debts
       let { data: individual } = await trackPromise(getIndividualSummary());
       //set color for total
       let totalValue = individual.filter((i) => i.name === `${this.specialVars.individual}`);
@@ -135,7 +135,7 @@ class DebtsManager extends Component {
       }
       
       const dueDate = Date.parse(debt.dateDue);
-      const isCleared = debt.lifecycleStatus === 'paid' || debt.lifecycleStatus === 'settled';
+      const isCleared = debt.clearedAt != null;
       
       if (isCleared) {
         acc.cleared.push(debt);

@@ -55,7 +55,7 @@ class Body extends Component {
       return hasData;
     } else if (tabId === "cleared") {
       const hasData = debts && debts.some(debt => 
-        (debt.lifecycleStatus === 'paid' || debt.lifecycleStatus === 'settled') && 
+        debt.clearedAt != null && 
         debt.common !== "total"
       );
       console.log(`Checking cleared tab: ${hasData}`);
@@ -65,7 +65,7 @@ class Body extends Component {
       const hasData = debts && debts.some(debt => 
         debt.status === tabId && 
         debt.common !== "total" &&
-        (!debt.lifecycleStatus || debt.lifecycleStatus === 'open')
+        debt.clearedAt == null
       );
       console.log(`Checking ${tabId} tab: ${hasData}`, debts?.filter(debt => debt.status === tabId && debt.common !== "total"));
       return hasData;

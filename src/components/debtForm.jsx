@@ -9,6 +9,8 @@ import {
   updateDebt,
   deleteDebt,
   previewReminderEmail,
+  clearDebt,
+  reopenDebt,
 } from "../services/debtService";
 import { toast } from "react-toastify";
 
@@ -139,18 +141,18 @@ class DebtForm extends Form {
     this.setState({ markingAsPaid: true, showMarkPaidModal: false });
     
     try {
-      const updatedDebt = { 
-        ...this.state.data, 
-        lifecycleStatus: clearanceType 
-      };
-      
-      await trackPromise(updateDebt(updatedDebt));
-      
-      const message = clearanceType === 'paid' 
-        ? 'Debt marked as paid!' 
-        : 'Debt marked as settled!';
-      
-      toast.success(message);
+      if (clearanceType === 'open') {
+        // Reopen the debt
+        await trackPromise(reopenDebt(this.state.data._id));
+        toast.success('Debt reopened!');
+      } else {
+        // Clear the debt (clearanceType is 'paid' or 'settled', but backend doesn't differentiate)
+        await trackPromise(clearDebt(this.state.data._id));
+        const message = clearanceType === 'paid' 
+          ? 'Debt marked as paid!' 
+          : 'Debt marked as settled!';
+        toast.success(message);
+      }
       
       this.props.history.push(`/?tab=${this.state.data.status}`);
     } catch (ex) {
@@ -164,7 +166,7 @@ class DebtForm extends Form {
       ) {
         this.handleException(ex);
       } else {
-        toast.error("Could not update debt status. The API might not support this yet.");
+        toast.error("Could not update debt status. Please try again.");
       }
     }
   };
@@ -217,7 +219,7 @@ class DebtForm extends Form {
   render() {
     const isNewDebt = this.props.match.params.id === "new";
     const isOwedToMe = this.state.data.status === "cr";
-    const isCleared = this.state.data.lifecycleStatus === 'paid' || this.state.data.lifecycleStatus === 'settled';
+    const isCleared = this.state.data.clearedAt != null;
     
     return (
       <Container className="mt-5">
