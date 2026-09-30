@@ -283,6 +283,7 @@ class DebtsManager extends Component {
         <DebtsTable
           debts={this.getDebts(selectedGroup)}
           category={selectedGroup._id === "individual" ? "individual" : "classified"}
+          selectedGroupId={selectedGroup._id}
           specialCol={{
             totalSummaryAmount: {
               name: `${this.specialVars.individual}`,
