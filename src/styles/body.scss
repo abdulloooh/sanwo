@@ -1,43 +1,34 @@
 .description {
   max-width: 100%;
   word-wrap: break-word;
-}
-
-.description-cell {
-  display: inline;
-  word-wrap: break-word;
   
   .description-truncated {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
     overflow: hidden;
     word-wrap: break-word;
-    max-width: 100%;
-  }
-  
-  .description-full {
-    display: inline;
-    word-wrap: break-word;
+    white-space: normal;
   }
   
   .description-toggle {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: inherit;
+    font-weight: inherit;
+    padding: 0;
+    margin: 0;
     background: none;
     border: none;
-    color: var(--primary);
     cursor: pointer;
-    padding: 0;
-    font-size: 0.875em;
-    font-weight: 500;
-    text-decoration: underline;
-    margin-left: 4px;
+    display: inline;
     
     &:hover {
-      opacity: 0.8;
+      text-decoration: underline;
     }
     
     &:focus {
-      outline: 2px solid var(--primary);
+      outline: 1px dotted var(--primary);
       outline-offset: 2px;
     }
   }
