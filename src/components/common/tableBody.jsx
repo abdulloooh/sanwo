@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import TruncatedText from "./TruncatedText";
 
 //data
 //columns
@@ -8,6 +9,11 @@ class TableBody extends Component {
       return specialCol.totalsLabel.content(item[column.path]);
 
     if (column.content) return column.content(item);
+
+    // Special handling for description field - use TruncatedText component
+    if (column.path === "description") {
+      return <TruncatedText text={item[column.path]} maxLines={2} />;
+    }
 
     return specialCol && item.name === specialCol.totalSummaryAmount.name
       ? specialCol.totalSummaryAmount.content(item[column.path])
