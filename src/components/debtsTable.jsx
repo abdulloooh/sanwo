@@ -64,15 +64,17 @@ class DebtsTable extends Component {
     }
 
     return (
-      <Table id="debtBody" hover responsive>
-        <TableBody
-          data={debts}
-          columns={
-            category === "individual" ? this.individualColumns : this.columns
-          }
-          specialCol={specialCol}
-        />
-      </Table>
+      <div style={{ width: '100%', overflowX: 'hidden' }}>
+        <Table id="debtBody" hover responsive>
+          <TableBody
+            data={debts}
+            columns={
+              category === "individual" ? this.individualColumns : this.columns
+            }
+            specialCol={specialCol}
+          />
+        </Table>
+      </div>
     );
   }
 }
