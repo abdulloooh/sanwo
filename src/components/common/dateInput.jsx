@@ -25,6 +25,11 @@ const DateInput = ({
             selected={new Date(currentDate)}
             onChange={onDateChange}
             dateFormat={dateFormat}
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode="select"
+            yearDropdownItemNumber={15}
+            scrollableYearDropdown
           />
         </Col>
       </Row>

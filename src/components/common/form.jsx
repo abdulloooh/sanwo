@@ -101,6 +101,26 @@ class Form extends Component {
     );
   }
 
+  renderTextarea(label, path, placeholder, rows = 4) {
+    const { errors, data } = this.state;
+    return (
+      <div className="form-group">
+        <label htmlFor={path}>{label}</label>
+        <textarea
+          id={path}
+          name={path}
+          className={`form-control ${errors[path] ? "is-invalid" : ""}`}
+          value={_.get(data, path) || ""}
+          onChange={this.handleChange}
+          placeholder={placeholder}
+          rows={rows}
+          style={{ resize: 'vertical', minHeight: '100px' }}
+        />
+        {errors[path] && <div className="invalid-feedback">{errors[path]}</div>}
+      </div>
+    );
+  }
+
   renderSelect(label, path, options) {
     const { errors, data } = this.state;
     return (

@@ -7,6 +7,7 @@ import "../styles/body.scss";
 const items = [
   { _id: "cr", label: "Owed to Me" },
   { _id: "dr", label: "Owed by Me" },
+  { _id: "cleared", label: "Cleared" },
   { _id: "individual", label: "Summary" },
 ];
 class Body extends Component {
@@ -52,9 +53,20 @@ class Body extends Component {
       const hasData = individual && individual.length > 0;
       console.log(`Checking individual tab: ${hasData}`, individual);
       return hasData;
+    } else if (tabId === "cleared") {
+      const hasData = debts && debts.some(debt => 
+        debt.clearedAt != null && 
+        debt.common !== "total"
+      );
+      console.log(`Checking cleared tab: ${hasData}`);
+      return hasData;
     } else {
-      // Check for actual debt records (excluding summary data)
-      const hasData = debts && debts.some(debt => debt.status === tabId && debt.common !== "total");
+      // Check for actual debt records (excluding summary data and cleared debts)
+      const hasData = debts && debts.some(debt => 
+        debt.status === tabId && 
+        debt.common !== "total" &&
+        debt.clearedAt == null
+      );
       console.log(`Checking ${tabId} tab: ${hasData}`, debts?.filter(debt => debt.status === tabId && debt.common !== "total"));
       return hasData;
     }

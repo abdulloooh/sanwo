@@ -1,5 +1,5 @@
 import React from "react";
-import { Form as FormWrapper, Container, Row, Col } from "react-bootstrap";
+import { Form as FormWrapper, Container, Row, Col, Modal, Button } from "react-bootstrap";
 import { trackPromise } from "react-promise-tracker";
 import Joi from "joi-browser";
 import Form from "./common/form";
@@ -9,11 +9,20 @@ import {
   updateDebt,
   deleteDebt,
   previewReminderEmail,
+  clearDebt,
+  reopenDebt,
 } from "../services/debtService";
 import { toast } from "react-toastify";
 
 class DebtForm extends Form {
-  state = { data: {}, errors: {}, sendingPreview: false };
+  state = { 
+    data: {}, 
+    errors: {}, 
+    sendingPreview: false,
+    showDeleteModal: false,
+    showMarkPaidModal: false,
+    markingAsPaid: false,
+  };
 
   owedByWho = [
     { _id: "cr", name: "Owed to Me" },
@@ -95,8 +104,11 @@ class DebtForm extends Form {
   };
 
   deleteConcern = async () => {
+    this.setState({ showDeleteModal: false });
+    
     try {
       await trackPromise(deleteDebt(this.state.data._id));
+      toast.success("Debt record deleted");
     } catch (ex) {
       if (
         ex.response &&
@@ -107,6 +119,56 @@ class DebtForm extends Form {
         this.handleException(ex);
     }
     this.props.history.replace("/");
+  };
+
+  showDeleteConfirmation = () => {
+    this.setState({ showDeleteModal: true });
+  };
+
+  hideDeleteModal = () => {
+    this.setState({ showDeleteModal: false });
+  };
+
+  showMarkPaidModal = () => {
+    this.setState({ showMarkPaidModal: true });
+  };
+
+  hideMarkPaidModal = () => {
+    this.setState({ showMarkPaidModal: false });
+  };
+
+  markAsPaid = async (clearanceType) => {
+    this.setState({ markingAsPaid: true, showMarkPaidModal: false });
+    
+    try {
+      if (clearanceType === 'open') {
+        // Reopen the debt
+        await trackPromise(reopenDebt(this.state.data._id));
+        toast.success('Debt reopened!');
+      } else {
+        // Clear the debt (clearanceType is 'paid' or 'settled', but backend doesn't differentiate)
+        await trackPromise(clearDebt(this.state.data._id));
+        const message = clearanceType === 'paid' 
+          ? 'Debt marked as paid!' 
+          : 'Debt marked as settled!';
+        toast.success(message);
+      }
+      
+      this.props.history.push(`/?tab=${this.state.data.status}`);
+    } catch (ex) {
+      this.setState({ markingAsPaid: false });
+      
+      if (
+        ex.response &&
+        (ex.response.status === 400 ||
+          ex.response.status === 401 ||
+          ex.response.status === 403)
+      ) {
+        this.handleException(ex);
+      } else {
+        toast.error("Could not update debt status. Please try again.");
+      }
+    }
   };
 
   handleException(err) {
@@ -156,6 +218,8 @@ class DebtForm extends Form {
 
   render() {
     const isNewDebt = this.props.match.params.id === "new";
+    const isOwedToMe = this.state.data.status === "cr";
+    const isCleared = this.state.data.clearedAt != null;
     
     return (
       <Container className="mt-5">
@@ -200,10 +264,11 @@ class DebtForm extends Form {
                   </small>
                 </div>
               </div>
-              {this.renderInput(
+              {this.renderTextarea(
                 "Description",
                 "description",
-                "Optional description or notes"
+                "Optional description or notes",
+                4
               )}
             </div>
             
@@ -234,18 +299,104 @@ class DebtForm extends Form {
           
           {this.props.match.params &&
             this.props.match.params.id !== "new" && (
-            <div className="delete-section">
-              <hr />
-              <div className="delete-button-container">
-                <h6 className="delete-section-title">Danger Zone</h6>
-                <p className="delete-section-description">
-                  Permanently delete this debt record. This action cannot be undone.
-                </p>
-                {this.renderClickButton("Delete Debt Record", "danger")}
+            <>
+              <div className="mark-paid-section">
+                <hr />
+                <div className="mark-paid-container">
+                  <h6 className="mark-paid-title">Mark as Cleared</h6>
+                  <p className="mark-paid-description">
+                    {isCleared 
+                      ? "This debt has been cleared. You can restore it to open or delete it permanently."
+                      : isOwedToMe
+                        ? "Mark this as paid once you've received the money. The record stays for your reference."
+                        : "Mark this as settled once you've paid what you owe. The record stays for your reference."
+                    }
+                  </p>
+                  {!isCleared ? (
+                    <Button 
+                      variant="success" 
+                      onClick={this.showMarkPaidModal}
+                      disabled={this.state.markingAsPaid}
+                      className="mark-paid-btn"
+                    >
+                      {this.state.markingAsPaid ? "Updating..." : isOwedToMe ? "Mark as Paid" : "Mark as Settled"}
+                    </Button>
+                  ) : (
+                    <Button 
+                      variant="warning" 
+                      onClick={() => this.markAsPaid('open')}
+                      disabled={this.state.markingAsPaid}
+                      className="mark-paid-btn"
+                    >
+                      {this.state.markingAsPaid ? "Updating..." : "Restore to Open"}
+                    </Button>
+                  )}
+                </div>
               </div>
-            </div>
+              
+              <div className="delete-section">
+                <hr />
+                <div className="delete-button-container">
+                  <h6 className="delete-section-title">Danger Zone</h6>
+                  <p className="delete-section-description">
+                    Permanently delete this debt record. This action cannot be undone.
+                  </p>
+                  <Button variant="danger" onClick={this.showDeleteConfirmation}>
+                    Delete Debt Record
+                  </Button>
+                </div>
+              </div>
+            </>
           )}
         </div>
+
+        {/* Delete Confirmation Modal */}
+        <Modal show={this.state.showDeleteModal} onHide={this.hideDeleteModal} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Delete Debt Record?</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>Are you sure you want to permanently delete this debt record for <strong>{this.state.data.name}</strong>?</p>
+            <p className="text-danger mb-0">This action cannot be undone.</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.hideDeleteModal}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={this.deleteConcern}>
+              Yes, Delete Permanently
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        {/* Mark as Paid/Settled Modal */}
+        <Modal show={this.state.showMarkPaidModal} onHide={this.hideMarkPaidModal} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Mark as Cleared?</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>
+              {isOwedToMe 
+                ? `Did ${this.state.data.name} pay you back?` 
+                : `Did you settle what you owe ${this.state.data.name}?`
+              }
+            </p>
+            <p className="text-muted mb-0" style={{ fontSize: '0.9rem' }}>
+              The record will move to "Cleared" but won't be deleted. You can view it later or restore it if needed.
+            </p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.hideMarkPaidModal}>
+              Cancel
+            </Button>
+            <Button 
+              variant="success" 
+              onClick={() => this.markAsPaid(isOwedToMe ? 'paid' : 'settled')}
+            >
+              {isOwedToMe ? "Yes, Mark as Paid" : "Yes, Mark as Settled"}
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Container>
     );
   }
