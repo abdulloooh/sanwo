@@ -20,26 +20,58 @@ class DescriptionCell extends Component {
 
     if (!text) return null;
 
-    const isLong = text.length > 80;
+    const maxLength = 100;
+    const isLong = text.length > maxLength;
+
+    if (!isLong) {
+      return text;
+    }
+
+    if (isExpanded) {
+      return (
+        <>
+          {text}{" "}
+          <span
+            role="button"
+            tabIndex={0}
+            className="description-link"
+            onClick={this.toggleExpand}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                this.toggleExpand(e);
+              }
+            }}
+          >
+            less
+          </span>
+        </>
+      );
+    }
+
+    // Truncated: find a good break point
+    let truncated = text.substring(0, maxLength);
+    const lastSpace = truncated.lastIndexOf(' ');
+    if (lastSpace > maxLength - 20) {
+      truncated = truncated.substring(0, lastSpace);
+    }
 
     return (
-      <span className="description-content">
-        <span className={isExpanded || !isLong ? "description-full" : "description-clamped"}>
-          {text}
+      <>
+        {truncated}...{" "}
+        <span
+          role="button"
+          tabIndex={0}
+          className="description-link"
+          onClick={this.toggleExpand}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              this.toggleExpand(e);
+            }
+          }}
+        >
+          more
         </span>
-        {isLong && (
-          <>
-            {" "}
-            <button
-              type="button"
-              className="description-more"
-              onClick={this.toggleExpand}
-            >
-              {isExpanded ? "less" : "more"}
-            </button>
-          </>
-        )}
-      </span>
+      </>
     );
   }
 }
